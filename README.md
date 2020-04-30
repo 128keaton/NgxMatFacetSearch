@@ -1,4 +1,4 @@
-# NgxMaterialFacetSearch
+# NgxMaterialFacetSearch [![npm version](https://badge.fury.io/js/ngx-mat-facet-search.svg)](https://badge.fury.io/js/ngx-mat-facet-search)
 An Angular 9/Ivy port of [ng-material2-facet-search](https://github.com/fdeniz/ng-material2-facet-search).
 
 ## Usage
