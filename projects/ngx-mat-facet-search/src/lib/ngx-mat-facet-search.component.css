@@ -13,9 +13,11 @@
 .filterInput {
   border: none!important;
   background: none!important;
-  width: 75px;
+  width: 85px;
   font-size: 14px!important;
   font-weight: normal;
+  flex: 0;
+  text-align: right;
 }
 
 ::placeholder {
