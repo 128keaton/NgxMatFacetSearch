@@ -39,7 +39,7 @@
 
         <mat-form-field fxFlex="70">
           <input matInput #typeAheadInput autocomplete="off" [(ngModel)]="typeaheadText"
-                 placeholder="{{data.labelText}} typeahead..." autofocus/>
+                 placeholder="{{data.typeahead.placeholder || ''}}" autofocus/>
         </mat-form-field>
 
         <mat-selection-list *ngIf="data.options; else loading">

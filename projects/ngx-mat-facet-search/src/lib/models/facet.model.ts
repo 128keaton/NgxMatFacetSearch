@@ -11,7 +11,8 @@ export interface Facet {
   options?: Observable<FacetOption[]>;
   typeahead?: {
     function?: (txt: string) => Observable<FacetOption[]>,
-    debounce?: number
+    debounce?: number,
+    placeholder?: string
   };
   values?: FacetOption[];
   fixedFilterType?: FacetFilterType;
