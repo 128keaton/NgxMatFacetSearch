@@ -1,0 +1,44 @@
+* {
+  outline: 0;
+}
+
+.filterInputContainer {
+  background-color: transparent!important;
+  border: 1px dashed rgba(0, 0, 0, 0.56);
+  opacity: 0.8!important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+
+.filterInput {
+  border: none!important;
+  background: none!important;
+  width: 75px;
+  font-size: 14px!important;
+  font-weight: normal;
+}
+
+::placeholder {
+  color: rgba(0, 0, 0, 0.86);
+  opacity: 1;
+}
+
+.transparentBackdrop {
+  background-color: transparent!important;
+}
+
+.inlineChipIcon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  margin-right: 7px;
+  margin-left: 0;
+}
+
+:host-context .mat-checkbox-inner-container {
+  transform: scale(.7);
+}
+
+:host-context(.inlineChipCheckbox) label.mat-checkbox-layout div.mat-checkbox-inner-container {
+  transform: scale(.7);
+}

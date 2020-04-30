@@ -17,7 +17,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-mat-facet-search": [
+        "dist/ngx-mat-facet-search/ngx-mat-facet-search",
+        "dist/ngx-mat-facet-search"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
