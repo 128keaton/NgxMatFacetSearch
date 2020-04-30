@@ -21,6 +21,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
   @Input() dateFormat = 'M/d/yyyy';
 
 
+  @Input() displayFilterIcon = true;
   @Input() facetWidth = '400px';
   @Input() facetHasBackdrop = true;
   @Input() confirmOnRemove = true;
