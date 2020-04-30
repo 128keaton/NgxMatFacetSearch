@@ -1,16 +1,18 @@
-import { Observable } from 'rxjs';
-import { FacetDataType, FacetOption, FacetFilterType } from '.';
+import {Observable} from 'rxjs';
+import {FacetDataType, FacetOption, FacetFilterType} from '.';
 
 export interface Facet {
   name?: string;
-  text?: string;
+  labelText?: string;
   description?: string;
   readonly?: boolean;
   type?: FacetDataType;
   dataType?: 'boolean' | 'number' | 'string' | 'date';
   options?: Observable<FacetOption[]>;
-  typeahead?: (txt: string) => Observable<FacetOption[]>;
-  typeahedDebounce?: number;
+  typeahead?: {
+    function?: (txt: string) => Observable<FacetOption[]>,
+    debounce?: number
+  };
   values?: FacetOption[];
   fixedFilterType?: FacetFilterType;
   icon?: string;

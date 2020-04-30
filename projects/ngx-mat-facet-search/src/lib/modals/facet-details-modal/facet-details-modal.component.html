@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start" class="mat-typography">
 
   <mat-toolbar fxLayout="row" fxLayoutAlign="space-between none" color="primary" class="modal-header">
-    <h2 mat-dialog-title>{{data.text}}</h2>
+    <h2 mat-dialog-title>{{data.labelText}}</h2>
     <button mat-icon-button (click)="onCancel()">
       <mat-icon>clear</mat-icon>
     </button>
@@ -38,12 +38,8 @@
            fxLayout="column" fxLayoutGap="20px">
 
         <mat-form-field fxFlex="70">
-          <input matInput #typeAheadInput autocomplete="off" cdkFocusInitial [(ngModel)]="typeaheadText"
-                 placeholder="{{data.text}} typeahead..." autofocus=/>
-          <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"
-                  (click)="data.values = undefined">
-            <mat-icon>close</mat-icon>
-          </button>
+          <input matInput #typeAheadInput autocomplete="off" [(ngModel)]="typeaheadText"
+                 placeholder="{{data.labelText}} typeahead..." autofocus/>
         </mat-form-field>
 
         <mat-selection-list *ngIf="data.options; else loading">
@@ -108,7 +104,7 @@
 
         <mat-form-field fxFlex="70">
           <input matInput autocomplete="off" cdkFocusInitial [(ngModel)]="data.values[0].value"
-                 placeholder="{{data.text + ' ' +  data.values[0].type  }}..." autofocus/>
+                 placeholder="{{data.labelText + ' ' +  data.values[0].type  }}..." autofocus/>
           <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"
                   (click)="data.values = undefined">
             <mat-icon>close</mat-icon>
@@ -117,7 +113,7 @@
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Boolean" fxLayout="row" fxLayoutGap="30px">
-        <mat-checkbox [(ngModel)]="data.values[0].value">{{data.text}}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="data.values[0].value">{{data.labelText}}</mat-checkbox>
       </div>
     </ng-container>
 

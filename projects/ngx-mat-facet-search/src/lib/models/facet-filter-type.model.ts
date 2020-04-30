@@ -4,7 +4,7 @@ export enum FacetFilterType {
   endsWith = 'endsWith',
   equal = 'equal',
   and = 'and',
-  betweeen = 'betweeen',
+  between = 'between',
   greaterThan = 'greaterThan',
   lessThan = 'lessThan',
   greaterThanOrEqual = 'greaterThanOrEqual',

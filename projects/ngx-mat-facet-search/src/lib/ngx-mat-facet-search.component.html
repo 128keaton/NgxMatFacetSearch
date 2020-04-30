@@ -10,11 +10,11 @@
       <mat-chip *ngFor="let facet of selectedFacets" [color]="facet.readonly ? 'accent' : undefined"
                 (selectionChange)="chipSelected($event, facet)" (click)="selectedFacet = facet"
                 [selected]="facet === selectedFacet" fxFlex="initial"
-                matTooltip="{{facet.text + (facet.description ? ': ' + facet.description : '')}}"
+                matTooltip="{{facet.labelText + (facet.description ? ': ' + facet.description : '')}}"
                 matTooltipShowDelay="1000">
         <mat-icon *ngIf="facet.icon" class="inlineChipIcon">{{facet.icon}}</mat-icon>
 
-        <span *ngIf="chipLabelsEnabled" fxHide.xs>{{ facet.text + ': &nbsp;'}}</span>
+        <span *ngIf="chipLabelsEnabled" fxHide.xs>{{ facet.labelText + ': &nbsp;'}}</span>
 
         <ng-container [ngSwitch]="facet.type">
 
@@ -43,7 +43,7 @@
 
           <div *ngSwitchCase="FacetDataType.Boolean" fxLayout="row" fxLayoutGap="15px">
             <mat-checkbox [disabled]="true" class="inlineChipCheckbox" [(ngModel)]="facet.values[0].value">
-              {{facet.text}}
+              {{facet.labelText}}
             </mat-checkbox>
           </div>
 
@@ -80,7 +80,7 @@
                           [displayWith]="displayFn" panelWidth="250px">
           <mat-option *ngFor="let facet of availableFacets" [value]="facet">
             <mat-icon *ngIf="facet.icon">{{facet.icon}}</mat-icon>
-            <span>{{ facet.text }}</span>
+            <span>{{ facet.labelText }}</span>
           </mat-option>
         </mat-autocomplete>
 

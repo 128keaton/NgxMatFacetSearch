@@ -9,40 +9,38 @@ import {Facet, FacetDataType} from 'ngx-mat-facet-search';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  // Facet Definitions
-  // You can either define and configure your facets as static object array,
-  // or you can generate dynamically based on your data from back end.
+
   public facets: Array<Facet> = [
     {
       name: 'userName',
-      text: 'User Name',
+      labelText: 'User Name',
       type: FacetDataType.Text,
       description: 'Please enter your user name (simple text input example)',
       icon: 'person_outline'
     }, {
       name: 'birthday',
-      text: 'Birthday',
+      labelText: 'Birthday',
       icon: 'date_range',
       description: 'Please select your birthday (date select example)',
       type: FacetDataType.Date,
     },
     {
       name: 'eventDays',
-      text: 'Event Days',
+      labelText: 'Event Days',
       icon: 'event_available',
       description: 'Please select start and end dates (date range select example)',
       type: FacetDataType.DateRange,
     },
     {
       name: 'isParticipant',
-      text: 'Is a Participant?',
+      labelText: 'Is a Participant?',
       icon: 'live_help',
       description: 'This is a test field, you can test boolean data type.',
       type: FacetDataType.Boolean,
     },
     {
       name: 'state',
-      text: 'State',
+      labelText: 'State',
       description: 'Please select something (single select, http example)',
       type: FacetDataType.CategorySingle,
       icon: 'folder_open',
@@ -54,7 +52,7 @@ export class AppComponent {
     },
     {
       name: 'license',
-      text: 'License(s)',
+      labelText: 'License(s)',
       description: 'Please select your licenses (multi select, http example)',
       type: FacetDataType.Category,
       icon: 'drive_eta',
@@ -64,6 +62,22 @@ export class AppComponent {
         {value: 'b', text: 'Class B'},
         {value: 'c', text: 'Class C'}
       ]).pipe(delay(1200))
+    },
+    {
+      name: 'city',
+      labelText: 'Cities',
+      description: 'Please select from cities.',
+      type: FacetDataType.Typeahead,
+      icon: 'location_city',
+      typeahead: {
+       function: (txt) => {
+         return  of([
+           {value: txt + '-a', text: txt + ' A'},
+           {value: txt + '-b', text: txt + ' B'},
+           {value: txt + '-c', text: txt + ' C'}
+         ]).pipe(delay(1200));
+       },
+      }
     }
   ];
 
@@ -75,9 +89,9 @@ export class AppComponent {
   public confirmOnRemove = true;
 
 
-  // you can use an event method like this to trigger your filtering logic.
-  filterUpdated = (facetFilters: Facet[]): void => {
+  // You can use an event method like this to trigger your filtering logic.
+  filterUpdated(facetFilters: Facet[]): void {
     this.selectedFacets = facetFilters;
     console.log('filter', facetFilters);
-  };
+  }
 }

@@ -40,11 +40,10 @@ export class NgxMatFacetSearchComponent implements OnInit {
   ngOnInit() {
     this.updateAvailableFacets();
     this.selectedFacets = [];
-    _.each(_.filter(this.source, (facet) => facet && facet.values && _.isArray(facet.values)), (facet) => {
-      this.selectedFacets.push(facet);
-    });
+    this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
+      .forEach(facet => this.selectedFacets.push(facet));
 
-    if (this.selectedFacets && _.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
+    if (this.selectedFacets && Array.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
       this.emitSelectedEvent();
     }
   }
@@ -61,7 +60,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
     }
   }
 
-  autoCompleteSelected = (event: MatAutocompleteSelectedEvent): void => {
+  autoCompleteSelected(event: MatAutocompleteSelectedEvent): void {
     const selectedFacet: Facet = event.option.value;
     const elementRef = event.option._getHostElement().parentElement.getBoundingClientRect();
     const top = elementRef.top;
@@ -74,11 +73,11 @@ export class NgxMatFacetSearchComponent implements OnInit {
 
   }
 
-  facetSelected = (facet: Facet, position: DialogPosition, isUpdate: boolean): void => {
+  facetSelected(facet: Facet, position: DialogPosition, isUpdate: boolean): void {
     this.promptFacet(_.cloneDeep(facet), position, isUpdate);
   }
 
-  promptFacet = (facet: Facet, position: DialogPosition, isUpdate: boolean): void => {
+  promptFacet(facet: Facet, position: DialogPosition, isUpdate: boolean): void {
     setTimeout(() => {
 
       const facetDetailsModal = this.dialog.open(FacetDetailsModalComponent, {
@@ -107,7 +106,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
     }, 1);
   }
 
-  addOrUpdateFacet = (facet: Facet): void => {
+  addOrUpdateFacet(facet: Facet): void {
     const index = _.findIndex(this.selectedFacets, {name: facet.name});
     if (index > -1) {
       this.selectedFacets[index] = facet;
@@ -117,9 +116,8 @@ export class NgxMatFacetSearchComponent implements OnInit {
     this.emitSelectedEvent();
   }
 
-  removeFacet = (facet: Facet): boolean => {
-
-    if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.text + '" filter?'))) {
+  removeFacet(facet: Facet): boolean {
+    if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.labelText + '" filter?'))) {
       _.remove(this.selectedFacets, {name: facet.name});
       this.emitSelectedEvent();
       return true;
@@ -127,7 +125,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
     return false;
   }
 
-  updateAvailableFacets = (): void => {
+  updateAvailableFacets(): void {
     const sourceClone = _.cloneDeep(this.source);
     _.remove(sourceClone, (a) => {
       return _.some(this.selectedFacets, {name: a.name});
@@ -135,28 +133,30 @@ export class NgxMatFacetSearchComponent implements OnInit {
     this.availableFacets = sourceClone;
   }
 
-  reset = (): void => {
-    this.selectedFacets = _.filter(this.source, (f) => f.readonly === true);
+  reset(): void {
+    this.selectedFacets = this.source.filter(facet => facet.readonly === true);
     this.emitSelectedEvent();
   }
 
   emitSelectedEvent(): void {
     this.updateAvailableFacets();
-    this.searchUpdated.next(_.map(this.selectedFacets, (facet) => (
-      {
+    this.searchUpdated.next(this.selectedFacets.map(facet => ({
         name: facet.name,
-        text: facet.text,
+        labelText: facet.labelText,
         type: facet.type,
-        values: _.map(facet.values, (val) => ({
+        values: facet.values.map(val => ({
           value: val.value,
-          text: val.text,
+          labelText: val.text,
           type: val.type
-        }))
-      }
-    )));
+        })
+        )
+      })
+      )
+    );
   }
 
-  displayFn(facet?: Facet): string | undefined {
+  displayFn(...args: any): string | undefined {
     return undefined;
   }
+
 }

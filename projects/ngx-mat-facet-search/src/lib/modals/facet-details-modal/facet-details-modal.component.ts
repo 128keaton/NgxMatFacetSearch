@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 const MAX_TEXT_LENGTH = 60;
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-details-modal',
   templateUrl: './facet-details-modal.component.html',
   styleUrls: ['./facet-details-modal.component.css']
@@ -41,7 +42,9 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.Typeahead:
       case FacetDataType.TypeaheadSingle:
         // Go ahead and run query by default
-        this.data.options = this.data.typeahead('');
+        if (this.data.typeahead && this.data.typeahead.function) {
+          this.data.options = this.data.typeahead.function('');
+        }
         break;
 
       case FacetDataType.Date:
@@ -76,10 +79,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     this.typeAheadInputs.changes.subscribe((inputs: QueryList<ElementRef>) => {
       if (inputs.first) {
         fromEvent(inputs.first.nativeElement, 'keyup')
-          .pipe(debounceTime(this.data.typeahedDebounce || 300))
+          .pipe(debounceTime(this.data.typeahead.debounce || 300))
           .subscribe((event: any) => {
             const txt = event.target.value;
-            this.data.options = this.data.typeahead(txt);
+            this.data.options = this.data.typeahead.function(txt);
           });
       }
     });
@@ -112,7 +115,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
-  }
+  };
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 
@@ -136,7 +139,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
           break;
       }
     }
-  }
+  };
 
   isUpdateButtonDisabled = () => {
     switch (this.data.type) {
@@ -156,7 +159,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.Boolean:
         return false; // !(this.data.values[0].value);
     }
-  }
+  };
 
   emptyFunction() {
 
