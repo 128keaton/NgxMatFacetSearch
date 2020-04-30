@@ -90,3 +90,20 @@ import {NgxMatFacetSearchModule} from 'ngx-mat-facet-search';
     }
   ];
 ```
+
+## Demo
+A demo application is provided in the source code. 
+First, clone a local copy of the repository:
+```bash
+$ git clone https://github.com/128keaton/NgxMatFacetSearch
+```
+
+Then, install the dependencies:
+```bash
+$ npm i
+```
+
+Finally, serve the demo project:
+```bash
+$ ng serve demo-application
+```
