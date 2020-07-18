@@ -20,6 +20,7 @@ import {CSVPipe, FilterPipe, KeysPipe} from './pipes';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTooltipModule,
     MatAutocompleteModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [
     CSVPipe,

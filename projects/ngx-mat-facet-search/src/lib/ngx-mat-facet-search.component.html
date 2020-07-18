@@ -1,8 +1,10 @@
 <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between none">
 
   <div fxFlex="initial" *ngIf="displayFilterIcon">
-    <mat-icon class="filter-list-icon">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip != null" [matTooltip]="tooltip">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip == null">filter_list</mat-icon>
   </div>
+
   <div fxFlex="grow">
 
     <mat-chip-list #chipList [multiple]="false">

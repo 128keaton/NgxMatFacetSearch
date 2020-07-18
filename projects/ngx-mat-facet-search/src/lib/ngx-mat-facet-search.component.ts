@@ -20,7 +20,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
   @Input() clearButtonEnabled = true;
   @Input() dateFormat = 'M/d/yyyy';
 
-
+  @Input() tooltip: string | null = null;
   @Input() displayFilterIcon = true;
   @Input() facetWidth = '400px';
   @Input() facetHasBackdrop = true;

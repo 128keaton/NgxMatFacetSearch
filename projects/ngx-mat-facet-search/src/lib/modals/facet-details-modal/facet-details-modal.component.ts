@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {debounceTime} from 'rxjs/operators';
+import {debounceTime, tap} from 'rxjs/operators';
 import {Facet, FacetDataType, FacetFilterType, FacetOption} from '../../models';
 import {fromEvent} from 'rxjs';
 import * as _ from 'lodash';
@@ -23,6 +23,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
+
 
   @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
 
@@ -79,7 +80,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     this.typeAheadInputs.changes.subscribe((inputs: QueryList<ElementRef>) => {
       if (inputs.first) {
         fromEvent(inputs.first.nativeElement, 'keyup')
-          .pipe(debounceTime(this.data.typeahead.debounce || 300))
+          .pipe(
+            tap(() => this.data.options = undefined),
+            debounceTime(this.data.typeahead.debounce || 300),
+          )
           .subscribe((event: any) => {
             const txt = event.target.value;
             this.data.options = this.data.typeahead.function(txt);
@@ -115,7 +119,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
-  };
+  }
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 
@@ -139,7 +143,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
           break;
       }
     }
-  };
+  }
 
   isUpdateButtonDisabled = () => {
     switch (this.data.type) {
@@ -159,7 +163,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.Boolean:
         return false; // !(this.data.values[0].value);
     }
-  };
+  }
 
   emptyFunction() {
 

@@ -12,7 +12,7 @@
     <p *ngIf="data.description">{{data.description}}</p>
 
     <ng-template #loading>
-      <mat-progress-bar mode="buffer"></mat-progress-bar>
+      <mat-progress-spinner></mat-progress-spinner>
     </ng-template>
 
     <ng-container [ngSwitch]="true">
