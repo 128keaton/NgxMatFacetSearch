@@ -4,3 +4,7 @@
   margin-bottom: 23px !important;
   width: unset !important;
 }
+
+mat-spinner {
+  margin: 1em auto;
+}

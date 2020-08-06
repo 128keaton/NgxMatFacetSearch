@@ -12,7 +12,7 @@
     <p *ngIf="data.description">{{data.description}}</p>
 
     <ng-template #loading>
-      <mat-progress-spinner></mat-progress-spinner>
+      <mat-spinner diameter="50"></mat-spinner>
     </ng-template>
 
     <ng-container [ngSwitch]="true">
@@ -42,7 +42,7 @@
                  placeholder="{{data.typeahead.placeholder || ''}}" autofocus/>
         </mat-form-field>
 
-        <mat-selection-list *ngIf="data.options; else loading">
+        <mat-selection-list *ngIf="data.options && (data.options|async); else loading">
           <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value"
                            [selected]="isItemSelected(item)"
                            (click)="addOptionToSelected(data, item) ">

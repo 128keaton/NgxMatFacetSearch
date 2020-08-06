@@ -119,7 +119,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
-  }
+  };
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 
@@ -161,7 +161,11 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
         return !_.some(this.data.values, (val) => val.value);
 
       case FacetDataType.Boolean:
-        return false; // !(this.data.values[0].value);
+        return !(this.data.values[0].value);
+
+      case FacetDataType.Typeahead:
+      case FacetDataType.TypeaheadSingle:
+        return !_.some(this.data.values, (val) => val.value);
     }
   }
 
