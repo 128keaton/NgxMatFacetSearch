@@ -78,7 +78,7 @@
         <input [matChipInputFor]="chipList" class="filterInput" [placeholder]="placeholder"
                [matChipInputAddOnBlur]="false" [matAutocomplete]="auto">
 
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="autoCompleteSelected($event)"
+        <mat-autocomplete #auto="matAutocomplete" class="mat-facet-autocomplete" (optionSelected)="autoCompleteSelected($event)"
                           [displayWith]="displayFn" panelWidth="250px">
           <mat-option *ngFor="let facet of availableFacets" [value]="facet">
             <mat-icon *ngIf="facet.icon">{{facet.icon}}</mat-icon>

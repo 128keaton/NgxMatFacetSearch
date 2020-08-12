@@ -86,6 +86,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
         hasBackdrop: this.facetHasBackdrop,
         position,
         backdropClass: 'transparentBackdrop',
+        panelClass: 'mat-facet-search-dialog',
         data: facet,
         disableClose: true,
         closeOnNavigation: false
