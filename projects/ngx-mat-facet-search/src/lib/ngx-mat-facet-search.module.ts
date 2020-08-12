@@ -21,9 +21,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {A11yModule} from '@angular/cdk/a11y';
 
 @NgModule({
   imports: [
+    A11yModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

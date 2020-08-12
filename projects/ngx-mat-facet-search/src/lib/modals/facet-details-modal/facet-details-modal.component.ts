@@ -2,8 +2,9 @@ import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChi
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {debounceTime, tap} from 'rxjs/operators';
 import {Facet, FacetDataType, FacetFilterType, FacetOption} from '../../models';
-import {fromEvent} from 'rxjs';
+import {fromEvent, of} from 'rxjs';
 import * as _ from 'lodash';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 const MAX_TEXT_LENGTH = 60;
 
@@ -11,19 +12,30 @@ const MAX_TEXT_LENGTH = 60;
   // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-details-modal',
   templateUrl: './facet-details-modal.component.html',
-  styleUrls: ['./facet-details-modal.component.css']
+  styleUrls: ['./facet-details-modal.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: '0', height: 0 }),
+        animate('.2s ease-out', style({ opacity: '1', height: '*' })),
+      ]),
+    ]),
+    trigger('fadeOut', [
+      transition(':leave', [
+         animate('.2s ease-out', style({ opacity: '0', height: '0' })),
+      ]),
+    ])
+  ],
 })
 export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   public isUpdate: boolean;
-  public close: () => void;
   public removeFacet: (facet: Facet) => void;
   public finished: (data: Facet) => void;
   public typeaheadText: string;
 
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
-
 
   @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
 
@@ -44,7 +56,11 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.TypeaheadSingle:
         // Go ahead and run query by default
         if (this.data.typeahead && this.data.typeahead.function) {
-          this.data.options = this.data.typeahead.function('');
+          this.data.typeahead.function('').subscribe(options => {
+            if (options.length) {
+              this.data.options = of(options);
+            }
+          });
         }
         break;
 
@@ -70,7 +86,6 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
   }
 
   /**
@@ -81,12 +96,19 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       if (inputs.first) {
         fromEvent(inputs.first.nativeElement, 'keyup')
           .pipe(
-            tap(() => this.data.options = undefined),
+            tap(() => {
+              this.data.options = undefined;
+            }),
             debounceTime(this.data.typeahead.debounce || 300),
           )
           .subscribe((event: any) => {
             const txt = event.target.value;
-            this.data.options = this.data.typeahead.function(txt);
+            this.data.typeahead.function(txt).subscribe(options => {
+                if (options.length) {
+                  this.data.options = of(options);
+                }
+              }
+            );
           });
       }
     });
@@ -119,7 +141,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
-  };
+  }
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 

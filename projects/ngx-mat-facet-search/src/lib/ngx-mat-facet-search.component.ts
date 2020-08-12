@@ -149,7 +149,8 @@ export class NgxMatFacetSearchComponent implements OnInit {
         values: facet.values.map(val => ({
           value: val.value,
           labelText: val.text,
-          type: val.type
+          type: val.type,
+          active: true
         })
         )
       })
