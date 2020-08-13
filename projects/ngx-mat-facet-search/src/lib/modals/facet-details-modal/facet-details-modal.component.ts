@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {debounceTime, tap} from 'rxjs/operators';
+import {debounceTime, filter, tap} from 'rxjs/operators';
 import {Facet, FacetDataType, FacetFilterType, FacetOption} from '../../models';
-import {fromEvent, of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import * as _ from 'lodash';
 import {animate, style, transition, trigger} from '@angular/animations';
 
@@ -12,19 +12,17 @@ const MAX_TEXT_LENGTH = 60;
   // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-details-modal',
   templateUrl: './facet-details-modal.component.html',
-  styleUrls: ['./facet-details-modal.component.css'],
+  styleUrls: ['./facet-details-modal.component.scss'],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
-        style({ opacity: '0', height: 0 }),
-        animate('.2s ease-out', style({ opacity: '1', height: '*' })),
+        style({opacity: '0', height: 0}),
+        animate('.2s ease-out', style({opacity: '1', height: '*'})),
+      ]),
+      transition(':leave', [
+        animate('.2s ease-out', style({opacity: '0', height: '0'})),
       ]),
     ]),
-    trigger('fadeOut', [
-      transition(':leave', [
-         animate('.2s ease-out', style({ opacity: '0', height: '0' })),
-      ]),
-    ])
   ],
 })
 export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
@@ -33,11 +31,14 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   public removeFacet: (facet: Facet) => void;
   public finished: (data: Facet) => void;
   public typeaheadText: string;
+  public clearButtonDisabled = true;
 
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
 
   @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
+
+  private typeAheadInputChanged = new BehaviorSubject<string>('');
 
   constructor(
     public dialogRef: MatDialogRef<FacetDetailsModalComponent>,
@@ -45,11 +46,9 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
     switch (this.data.type) {
       case FacetDataType.Category:
-        // this.data.values = this.data.values || [{ type: FacetFilterType.Contains }];
         break;
 
       case FacetDataType.CategorySingle:
-        // this.data.values = this.data.values || [{ type: FacetFilterType.Equals }];
         break;
 
       case FacetDataType.Typeahead:
@@ -92,28 +91,39 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
    * Setup debounce on the TypeAhead search
    */
   ngAfterViewInit() {
-    this.typeAheadInputs.changes.subscribe((inputs: QueryList<ElementRef>) => {
-      if (inputs.first) {
-        fromEvent(inputs.first.nativeElement, 'keyup')
-          .pipe(
-            tap(() => {
-              this.data.options = undefined;
-            }),
-            debounceTime(this.data.typeahead.debounce || 300),
-          )
-          .subscribe((event: any) => {
-            const txt = event.target.value;
-            this.data.typeahead.function(txt).subscribe(options => {
-                if (options.length) {
-                  this.data.options = of(options);
-                }
-              }
-            );
-          });
-      }
-    });
+    if (this.typeAheadInputs.length > 0) {
+      this.typeAheadInputChanged.pipe(
+        filter(val => !!val),
+        tap(() => {
+          this.data.options = undefined;
+        }),
+        debounceTime(this.data.typeahead.debounce || 300),
+      ).subscribe(txt => {
+        let search = txt;
+
+        if (!!!search) {
+          search = '';
+        }
+
+        this.data.typeahead.function(search).subscribe(options => {
+            if (options.length) {
+              this.data.options = of(options);
+            }
+          }
+        );
+      });
+    }
   }
 
+  typeaheadValueChanged(event) {
+    if (!!event) {
+      this.typeAheadInputChanged.next(event);
+    } else {
+      this.typeAheadInputChanged.next(' ');
+    }
+
+    this.clearButtonDisabled = (!!!event || event.length === 0);
+  }
 
   truncateText(txt: string): string {
     if (txt && txt.length) {
@@ -141,7 +151,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
-  }
+  };
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 
@@ -165,7 +175,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
           break;
       }
     }
-  }
+  };
 
   isUpdateButtonDisabled = () => {
     switch (this.data.type) {
@@ -189,9 +199,14 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.TypeaheadSingle:
         return !_.some(this.data.values, (val) => val.value);
     }
-  }
+  };
 
   emptyFunction() {
 
+  }
+
+  clearInput() {
+    this.typeaheadText = '';
+    this.typeaheadValueChanged('');
   }
 }

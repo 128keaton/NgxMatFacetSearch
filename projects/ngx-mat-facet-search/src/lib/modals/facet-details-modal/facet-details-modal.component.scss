@@ -1,0 +1,48 @@
+.modal-header {
+  padding: 15px 10px 0 20px;
+  margin: -24px !important;
+  margin-bottom: 23px !important;
+  width: unset !important;
+}
+
+mat-spinner {
+  margin: 1em auto;
+}
+
+.dialog-content {
+  min-height: 150px;
+}
+
+.typeahead-form-field {
+  button {
+    box-shadow: none;
+    width: 30px;
+    height: 30px;
+  }
+
+  ::ng-deep {
+    mat-icon {
+      font-size: 18px;
+    }
+
+    .mat-mini-fab {
+      background-color: gray;
+      transition: background-color 300ms ease-in-out;
+    }
+
+    .mat-mini-fab[disabled] {
+      background-color: rgba(128, 128, 128, 0.44);
+      color: white!important;
+    }
+
+    .mat-mini-fab .mat-button-wrapper {
+      padding: 0;
+    }
+
+    .mat-form-field-infix {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
