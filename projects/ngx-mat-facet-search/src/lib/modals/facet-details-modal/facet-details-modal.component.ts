@@ -19,9 +19,6 @@ const MAX_TEXT_LENGTH = 60;
         style({opacity: '0', height: 0}),
         animate('.2s ease-out', style({opacity: '1', height: '*'})),
       ]),
-      transition(':leave', [
-        animate('.2s ease-out', style({opacity: '0', height: '0'})),
-      ]),
     ]),
   ],
 })
@@ -56,8 +53,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
         // Go ahead and run query by default
         if (this.data.typeahead && this.data.typeahead.function) {
           this.data.typeahead.function('').subscribe(options => {
-            if (options.length) {
+            if (!!options) {
               this.data.options = of(options);
+            } else {
+              this.data.options = of([]);
             }
           });
         }
@@ -106,8 +105,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
         }
 
         this.data.typeahead.function(search).subscribe(options => {
-            if (options.length) {
+            if (!!options) {
               this.data.options = of(options);
+            } else {
+              this.data.options = of([]);
             }
           }
         );

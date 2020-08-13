@@ -13,6 +13,13 @@ mat-spinner {
   min-height: 150px;
 }
 
+span.no-results {
+  text-align: center;
+  color: gray;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .typeahead-form-field {
   button {
     box-shadow: none;
@@ -32,7 +39,7 @@ mat-spinner {
 
     .mat-mini-fab[disabled] {
       background-color: rgba(128, 128, 128, 0.44);
-      color: white!important;
+      color: white !important;
     }
 
     .mat-mini-fab .mat-button-wrapper {

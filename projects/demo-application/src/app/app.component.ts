@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {delay} from 'rxjs/operators';
+import {delay, map, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {Facet, FacetDataType} from 'ngx-mat-facet-search';
+import {Facet, FacetDataType, FacetOption} from 'ngx-mat-facet-search';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,26 @@ import {Facet, FacetDataType} from 'ngx-mat-facet-search';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  testEmptyFilterTypeahead = (text: string) => {
+    return of([
+      {value: '-a', text: ' A'},
+      {value: '-b', text: ' B'},
+      {value: '-c', text: ' C'}
+    ] as FacetOption[]).pipe(
+      map(values => {
+        const filtered = values.filter(value => value.text.includes(text));
+
+        if (filtered.length === 0){
+          return null;
+        }
+
+        return  filtered;
+      }),
+      delay(300),
+      tap(values => console.log('Test empty:', values))
+    );
+  }
 
   public facets: Array<Facet> = [
     {
@@ -70,13 +90,24 @@ export class AppComponent {
       type: FacetDataType.Typeahead,
       icon: 'location_city',
       typeahead: {
-       function: (txt) => {
-         return  of([
-           {value: txt + '-a', text: txt + ' A'},
-           {value: txt + '-b', text: txt + ' B'},
-           {value: txt + '-c', text: txt + ' C'}
-         ]).pipe(delay(1200));
-       },
+        function: (txt) => {
+          return of([
+            {value: txt + '-a', text: txt + ' A'},
+            {value: txt + '-b', text: txt + ' B'},
+            {value: txt + '-c', text: txt + ' C'}
+          ]).pipe(delay(1200));
+        },
+      }
+    },
+    {
+      name: 'empty',
+      labelText: 'Empty Test',
+      description: 'Please select from options.',
+      type: FacetDataType.Typeahead,
+      icon: 'clear',
+      typeahead: {
+        function: this.testEmptyFilterTypeahead,
+        placeholder: 'Empty'
       }
     }
   ];

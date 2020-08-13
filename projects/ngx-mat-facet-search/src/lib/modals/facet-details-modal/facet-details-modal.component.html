@@ -15,15 +15,20 @@
       <mat-spinner diameter="50"></mat-spinner>
     </ng-template>
 
+    <ng-template #noResults>
+      <span class="no-results" @fadeIn>No Results</span>
+    </ng-template>
+
     <ng-container [ngSwitch]="true">
 
       <div *ngSwitchCase="data.type === FacetDataType.Category || data.type === FacetDataType.CategorySingle"
            fxLayout="column" fxLayoutGap="20px">
 
-        <mat-selection-list *ngIf="(data.options | async) as options; else loading">
-          <mat-list-option *ngFor="let item of options" [value]="item.value" [selected]="isItemSelected(item)"
-                           @fadeIn
-                           (click)="addOptionToSelected(data, item) ">
+        <ng-container *ngIf="!!(data.options | async); else loading">
+          <mat-selection-list *ngIf="(data.options | async).length > 0; else noResults">
+            <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value" [selected]="isItemSelected(item)"
+                             @fadeIn
+                             (click)="addOptionToSelected(data, item) ">
 						<span>
 							{{ item.text ? truncateText(item.text) : "- empty -" }}
               <small *ngIf="item.count">
@@ -31,8 +36,9 @@
 							</small>
 						</span>
 
-          </mat-list-option>
-        </mat-selection-list>
+            </mat-list-option>
+          </mat-selection-list>
+        </ng-container>
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Typeahead || data.type === FacetDataType.TypeaheadSingle"
@@ -51,11 +57,12 @@
           </button>
         </mat-form-field>
 
-        <mat-selection-list *ngIf="data.options && (data.options|async); else loading">
-          <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value"
-                           @fadeIn
-                           [selected]="isItemSelected(item)"
-                           (click)="addOptionToSelected(data, item) ">
+        <ng-container *ngIf="!!data.options && !!(data.options | async); else loading">
+          <mat-selection-list *ngIf="(data.options | async).length > 0; else noResults">
+            <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value"
+                             @fadeIn
+                             [selected]="isItemSelected(item)"
+                             (click)="addOptionToSelected(data, item) ">
 						<span>
 							{{ item.text ? truncateText(item.text) : "- empty -" }}
               <small *ngIf="item.count">
@@ -63,8 +70,9 @@
 							</small>
 						</span>
 
-          </mat-list-option>
-        </mat-selection-list>
+            </mat-list-option>
+          </mat-selection-list>
+        </ng-container>
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Date" fxLayout="column" fxLayoutGap="20px">
