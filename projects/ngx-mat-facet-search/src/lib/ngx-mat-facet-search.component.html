@@ -73,9 +73,9 @@
 
       <mat-chip class="filterInputContainer" disableRipple disabled>
 
-        <mat-icon>add</mat-icon>
+        <mat-icon (click)="focus($event)">add</mat-icon>
 
-        <input [matChipInputFor]="chipList" class="filterInput" [placeholder]="placeholder"
+        <input #filterInput [matChipInputFor]="chipList" class="filterInput" [placeholder]="placeholder"
                [matChipInputAddOnBlur]="false" [matAutocomplete]="auto">
 
         <mat-autocomplete #auto="matAutocomplete" class="mat-facet-autocomplete" (optionSelected)="autoCompleteSelected($event)"
@@ -93,7 +93,7 @@
   </div>
 
 
-  <button *ngIf="clearButtonEnabled && selectedFacets.length > 0" fxHide.xs mat-button (click)="reset()"
+  <button *ngIf="clearButtonEnabled && selectedFacets.length > 0" fxHide.xs mat-button (click)="reset()" color="accent"
           fxFlex="none">
     {{clearButtonText}}
   </button>

@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {Facet, FacetDataType, FacetFilterType} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
 import {MediaObserver} from '@angular/flex-layout';
 import * as _ from 'lodash';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,6 +28,9 @@ export class NgxMatFacetSearchComponent implements OnInit {
   @Input() confirmOnRemove = true;
   @Input() chipLabelsEnabled = true;
   @Output() searchUpdated: EventEmitter<Facet[]>;
+
+  @ViewChild('filterInput') filterInput: ElementRef;
+  @ViewChild(MatAutocompleteTrigger, {read: MatAutocompleteTrigger}) inputAutoComplete: MatAutocompleteTrigger;
 
   public selectedFacet: Facet;
   public selectedFacets: Facet[] = [];
@@ -160,6 +164,12 @@ export class NgxMatFacetSearchComponent implements OnInit {
 
   displayFn(...args: any): string | undefined {
     return undefined;
+  }
+
+  focus(event) {
+    event.stopPropagation();
+ //   this.inputAutoComplete._onChange('Test');
+    this.inputAutoComplete.openPanel();
   }
 
 }
