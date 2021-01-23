@@ -20,4 +20,5 @@ export interface Facet {
   iconClass?: string;
   cssClass?: string;
   data?: any;
+  placeholder?: string;
 }
