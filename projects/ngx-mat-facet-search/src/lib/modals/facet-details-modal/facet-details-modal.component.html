@@ -122,7 +122,7 @@
 
         <mat-form-field fxFlex="70">
           <input matInput autocomplete="off" cdkFocusInitial [(ngModel)]="data.values[0].value"
-                 placeholder="{{data.placeholder || data.labelText }}..." autofocus/>
+                 placeholder="{{data.placeholder || data.labelText }}" autofocus/>
           <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"
                   (click)="data.values = undefined">
             <mat-icon>close</mat-icon>
