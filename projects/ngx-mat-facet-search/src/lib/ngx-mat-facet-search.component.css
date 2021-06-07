@@ -52,3 +52,8 @@
 .main-facet-wrapper {
   min-height: 36px;
 }
+
+::ng-deep .mat-autocomplete-panel.mat-autocomplete-visible {
+  left: -40px !important;
+  top: 15px !important;
+}

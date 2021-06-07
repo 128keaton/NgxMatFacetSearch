@@ -10,6 +10,7 @@
     <mat-chip-list #chipList [multiple]="false">
 
       <mat-chip *ngFor="let facet of selectedFacets" [color]="facet.readonly ? 'accent' : undefined"
+                class="facet-chip"
                 (selectionChange)="chipSelected($event, facet)" (click)="selectedFacet = facet"
                 [selected]="facet === selectedFacet" fxFlex="initial"
                 matTooltip="{{facet.labelText + (facet.description ? ': ' + facet.description : '')}}"

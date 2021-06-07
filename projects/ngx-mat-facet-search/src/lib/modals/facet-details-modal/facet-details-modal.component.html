@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="start" class="mat-typography">
 
   <mat-toolbar fxLayout="row" fxLayoutAlign="space-between none" color="primary" class="modal-header">
-    <h2 mat-dialog-title>{{data.labelText}}</h2>
-    <button mat-icon-button (click)="onCancel()">
+    <h2 class="modal-title" mat-dialog-title>{{data.labelText}}</h2>
+    <button class="modal-close" mat-icon-button (click)="onCancel()">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-toolbar>
