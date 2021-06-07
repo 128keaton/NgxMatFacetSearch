@@ -150,6 +150,12 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     this.dialogRef.close();
   }
 
+  validateAndSubmit() {
+    if (!this.isUpdateButtonDisabled()) {
+      this.onOk();
+    }
+  }
+
   isItemSelected = (option: FacetOption): boolean => {
     return _.some(this.data.values, option);
   };

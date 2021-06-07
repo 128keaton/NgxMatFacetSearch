@@ -3,7 +3,7 @@
   <mat-card>
     <mat-card-content>
 
-      <ngx-mat-facet-search [source]="facets" (searchUpdated)="filterUpdated($event)" [chipLabelsEnabled]="chipLabelsEnabled"
+      <ngx-mat-facet-search identifier="test-facet" [source]="facets" (searchUpdated)="filterUpdated($event)" [chipLabelsEnabled]="chipLabelsEnabled"
                             [confirmOnRemove]="confirmOnRemove" [clearButtonEnabled]="clearButtonEnabled" placeholder="Add a filter..." clearButtonText="CLEAR FILTERS">
       </ngx-mat-facet-search>
 

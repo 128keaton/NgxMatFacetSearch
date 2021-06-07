@@ -1,6 +1,6 @@
-<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between none">
+<div fxLayout="row" class="main-facet-wrapper" fxLayoutGap="20px" fxLayoutAlign="space-between center">
 
-  <div fxFlex="initial" *ngIf="displayFilterIcon">
+  <div fxFlex="initial" *ngIf="displayFilterIcon" fxLayout="row" fxLayoutAlign="center center">
     <mat-icon class="filter-list-icon" *ngIf="tooltip != null" [matTooltip]="tooltip">filter_list</mat-icon>
     <mat-icon class="filter-list-icon" *ngIf="tooltip == null">filter_list</mat-icon>
   </div>
@@ -73,7 +73,7 @@
 
       <mat-chip class="filterInputContainer" disableRipple disabled>
 
-        <mat-icon (click)="focus($event)">add</mat-icon>
+        <mat-icon class="add-icon" (click)="focus($event)">add</mat-icon>
 
         <input #filterInput [matChipInputFor]="chipList" class="filterInput" [placeholder]="placeholder"
                [matChipInputAddOnBlur]="false" [matAutocomplete]="auto">

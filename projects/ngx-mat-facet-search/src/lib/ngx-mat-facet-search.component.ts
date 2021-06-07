@@ -6,9 +6,9 @@ import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
 import {MediaObserver} from '@angular/flex-layout';
 import * as _ from 'lodash';
-import {MatInput} from '@angular/material/input';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -29,6 +29,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   @Input() facetHasBackdrop = true;
   @Input() confirmOnRemove = true;
   @Input() chipLabelsEnabled = true;
+  @Input() identifier = null;
+  @Input() expiresOn = 1;
   @Output() searchUpdated: EventEmitter<Facet[]>;
 
   @ViewChild('filterInput') filterInput: ElementRef;
@@ -41,13 +43,14 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
 
-  constructor(public dialog: MatDialog, public media: MediaObserver) {
+
+  constructor(public dialog: MatDialog, public media: MediaObserver, private cookieService: CookieService) {
     this.searchUpdated = new EventEmitter<Facet[]>();
   }
 
   ngOnInit() {
     this.updateAvailableFacets();
-    this.selectedFacets = [];
+    this.selectedFacets = this.loadFromCookies();
     this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
       .forEach(facet => this.selectedFacets.push(facet));
 
@@ -141,12 +144,14 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       this.selectedFacets.push(facet);
     }
     this.emitSelectedEvent();
+    this.updateCookies();
   }
 
   removeFacet(facet: Facet): boolean {
     if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.labelText + '" filter?'))) {
       _.remove(this.selectedFacets, {name: facet.name});
       this.emitSelectedEvent();
+      this.updateCookies();
       return true;
     }
     return false;
@@ -164,6 +169,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   reset(): void {
     this.selectedFacets = this.source.filter(facet => facet.readonly === true);
     this.emitSelectedEvent();
+    this.clearCookies();
   }
 
   emitSelectedEvent(): void {
@@ -194,4 +200,38 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.inputAutoComplete.openPanel();
   }
 
+  identify(identifier: string) {
+    this.identifier = identifier;
+  }
+
+  clearCookies() {
+    if (!this.identifier) {
+      return;
+    }
+
+    this.cookieService.delete(this.identifier);
+  }
+
+  private updateCookies() {
+    if (!this.identifier) {
+      return;
+    }
+
+    if (this.selectedFacets.length === 0) {
+      this.clearCookies();
+      return;
+    }
+
+    this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.expiresOn);
+  }
+
+  private loadFromCookies(): Facet[] {
+    let cookieFacets = [];
+
+    if (!!this.identifier && this.cookieService.check(this.identifier)) {
+      cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+    }
+
+    return cookieFacets;
+  }
 }

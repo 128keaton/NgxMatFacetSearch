@@ -44,3 +44,11 @@
 :host-context(.inlineChipCheckbox) label.mat-checkbox-layout div.mat-checkbox-inner-container {
   transform: scale(.7);
 }
+
+.add-icon:hover, .filterInputContainer:hover {
+  cursor: pointer;
+}
+
+.main-facet-wrapper {
+  min-height: 36px;
+}
