@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {Facet, FacetDataType, FacetFilterType} from './models';
@@ -7,6 +7,8 @@ import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-det
 import {MediaObserver} from '@angular/flex-layout';
 import * as _ from 'lodash';
 import {MatInput} from '@angular/material/input';
+import {fromEvent} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,7 +16,7 @@ import {MatInput} from '@angular/material/input';
   templateUrl: 'ngx-mat-facet-search.component.html',
   styleUrls: ['./ngx-mat-facet-search.component.css'],
 })
-export class NgxMatFacetSearchComponent implements OnInit {
+export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   @Input() source: Facet[];
   @Input() placeholder = 'Filter Table...';
   @Input() clearButtonText = 'Clear Filters';
@@ -35,6 +37,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
   public selectedFacet: Facet;
   public selectedFacets: Facet[] = [];
   public availableFacets: Facet[] = [];
+  public filteredFacets: Facet[] = [];
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
 
@@ -51,6 +54,22 @@ export class NgxMatFacetSearchComponent implements OnInit {
     if (this.selectedFacets && Array.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
       this.emitSelectedEvent();
     }
+  }
+
+  ngAfterViewInit() {
+    fromEvent(this.filterInput.nativeElement, 'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(150),
+        distinctUntilChanged(),
+        map(() => this.filterInput.nativeElement.value)
+      ).subscribe((filterText) => {
+      if (!!filterText && filterText.length > 0) {
+        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText))
+      } else {
+        this.filteredFacets = this.availableFacets;
+      }
+    });
   }
 
   chipSelected(event: MatChipSelectionChange, facet: Facet): void {
@@ -83,6 +102,8 @@ export class NgxMatFacetSearchComponent implements OnInit {
   }
 
   promptFacet(facet: Facet, position: DialogPosition, isUpdate: boolean): void {
+    this.filteredFacets = this.availableFacets;
+
     setTimeout(() => {
 
       const facetDetailsModal = this.dialog.open(FacetDetailsModalComponent, {
@@ -137,6 +158,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
       return _.some(this.selectedFacets, {name: a.name});
     });
     this.availableFacets = sourceClone;
+    this.filteredFacets = this.availableFacets;
   }
 
   reset(): void {
@@ -151,11 +173,11 @@ export class NgxMatFacetSearchComponent implements OnInit {
         labelText: facet.labelText,
         type: facet.type,
         values: facet.values.map(val => ({
-          value: val.value,
-          labelText: val.text,
-          type: val.type,
-          active: true
-        })
+            value: val.value,
+            labelText: val.text,
+            type: val.type,
+            active: true
+          })
         )
       })
       )
@@ -168,7 +190,7 @@ export class NgxMatFacetSearchComponent implements OnInit {
 
   focus(event) {
     event.stopPropagation();
- //   this.inputAutoComplete._onChange('Test');
+    //   this.inputAutoComplete._onChange('Test');
     this.inputAutoComplete.openPanel();
   }
 

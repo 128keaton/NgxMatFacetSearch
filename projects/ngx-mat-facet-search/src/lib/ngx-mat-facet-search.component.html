@@ -80,7 +80,7 @@
 
         <mat-autocomplete #auto="matAutocomplete" class="mat-facet-autocomplete" (optionSelected)="autoCompleteSelected($event)"
                           [displayWith]="displayFn" panelWidth="250px">
-          <mat-option *ngFor="let facet of availableFacets" [value]="facet">
+          <mat-option *ngFor="let facet of filteredFacets" [value]="facet">
             <mat-icon *ngIf="facet.icon">{{facet.icon}}</mat-icon>
             <span>{{ facet.labelText }}</span>
           </mat-option>

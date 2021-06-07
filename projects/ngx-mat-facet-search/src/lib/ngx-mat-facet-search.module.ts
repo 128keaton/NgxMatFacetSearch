@@ -56,7 +56,7 @@ import {A11yModule} from '@angular/cdk/a11y';
     FacetDetailsModalComponent,
   ],
   exports: [NgxMatFacetSearchComponent],
-  entryComponents: [FacetDetailsModalComponent]
+  entryComponents: [FacetDetailsModalComponent],
 })
 export class NgxMatFacetSearchModule {
 }
