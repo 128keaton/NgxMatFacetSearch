@@ -94,7 +94,9 @@ import {NgxMatFacetSearchModule} from 'ngx-mat-facet-search';
 ```
 
 ### Using cookies to store facet data
-To use cookies to store facets in the browser locally, you must identify the facet component like so:
+To use cookies to store facets in the browser locally, you can either identify the facet component like so:
 ```html
  <ngx-mat-facet-search identifier="test-facet" ....></ngx-mat-facet-search>
 ```
+
+By default, the facet will try to use the current route to save cookies.
