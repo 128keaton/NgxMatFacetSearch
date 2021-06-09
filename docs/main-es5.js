@@ -2434,7 +2434,7 @@
         }], [{
           key: "getFixedURL",
           value: function getFixedURL() {
-            return window.location.pathname.toString().replace(/\s+/g, '-').replace(/\//g, '-').replace(/^-/g, '');
+            return window.location.pathname.toString().replace(/\s+/g, '-').replace(/\//g, '-').replace(/^-/g, '').replace(/--/g, '');
           }
         }]);
 
@@ -3108,7 +3108,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "span");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Angular Material Facet Search: v0.3.3.");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Angular Material Facet Search: v0.3.4");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -3140,7 +3140,7 @@
           if (rf & 2) {
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Facet ID ", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](6, 3, ctx.currentIdentifier), "");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Facet ID: ", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpipeBind1"](6, 3, ctx.currentIdentifier), "");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
 
