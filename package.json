@@ -24,7 +24,9 @@
     "@angular/platform-browser-dynamic": "~12.0.3",
     "@angular/router": "~12.0.3",
     "lodash": "^4.17.20",
+    "ng-packagr": "^12.0.4",
     "ngx-cookie-service": "^12.0.0",
+    "ngx-mat-facet-search": "file:dist/ngx-mat-facet-search",
     "rxjs": "~6.6.6",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
@@ -46,7 +48,6 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.4",
-    "ng-packagr": "^12.0.3",
     "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.3",

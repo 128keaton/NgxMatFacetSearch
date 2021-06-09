@@ -1,14 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {of} from 'rxjs';
-import {Facet, FacetDataType, FacetOption} from 'ngx-mat-facet-search';
+import {Facet, FacetDataType, FacetOption, NgxMatFacetSearchComponent} from 'ngx-mat-facet-search';
 import {delay, map, tap} from 'rxjs/operators';
+import {DemoService} from '../../demo.service';
 
 @Component({
   selector: 'app-page-one',
   templateUrl: './page-one.component.html',
   styleUrls: ['./page-one.component.scss']
 })
-export class PageOneComponent {
+export class PageOneComponent implements AfterViewInit {
+  @ViewChild(NgxMatFacetSearchComponent)
+  facetSearch: NgxMatFacetSearchComponent;
 
   public selectedFacets: Facet[] = [];
 
@@ -119,10 +122,16 @@ export class PageOneComponent {
     }
   ];
 
+  constructor(private demoService: DemoService) {
+  }
 
   // You can use an event method like this to trigger your filtering logic.
   filterUpdated(facetFilters: Facet[]): void {
     this.selectedFacets = facetFilters;
     console.log('filter', facetFilters);
+  }
+
+  ngAfterViewInit() {
+    this.demoService.updateIdentifier(this.facetSearch.identifier);
   }
 }

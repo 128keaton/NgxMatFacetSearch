@@ -1,34 +1,14 @@
-<div fxLayout="column" fxLayoutGap="20px">
+<mat-toolbar>
+  <span>Angular Material Facet Search{{currentIdentifier|async}}</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="" *ngIf="showPageOne">
+    Page One
+  </button>
+  <button mat-button routerLink="/two" *ngIf="showPageTwo">
+    Page Two
+  </button>
+</mat-toolbar>
 
-  <mat-card>
-    <mat-card-content>
-
-      <ngx-mat-facet-search identifier="test-facet" [source]="facets" (searchUpdated)="filterUpdated($event)" [chipLabelsEnabled]="chipLabelsEnabled"
-                            [confirmOnRemove]="confirmOnRemove" [clearButtonEnabled]="clearButtonEnabled" placeholder="Add a filter..." clearButtonText="CLEAR FILTERS">
-      </ngx-mat-facet-search>
-
-    </mat-card-content>
-  </mat-card>
-
-  <mat-divider></mat-divider>
-
-  <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="15px">
-
-    <mat-card fxFlex="none">
-      <mat-card-title>Settings</mat-card-title>
-      <mat-card-content fxLayout="column">
-        <mat-checkbox [(ngModel)]="chipLabelsEnabled">Chip labels</mat-checkbox>
-        <mat-checkbox [(ngModel)]="clearButtonEnabled">"Clear" Button</mat-checkbox>
-        <mat-checkbox [(ngModel)]="confirmOnRemove">Confirmation on remove</mat-checkbox>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxFlex>
-      <mat-card-title>Output</mat-card-title>
-      <mat-card-content>
-        <pre style="font-family:monospace; font-size:small">{{selectedFacets | json }}</pre>
-      </mat-card-content>
-    </mat-card>
-
-  </div>
+<div fxLayout="column">
+  <router-outlet></router-outlet>
 </div>

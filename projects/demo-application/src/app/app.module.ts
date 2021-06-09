@@ -7,12 +7,18 @@ import {MatCardModule} from '@angular/material/card';
 import {FlexModule} from '@angular/flex-layout';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {NgxMatFacetSearchModule} from 'ngx-mat-facet-search';
+import {PageOneComponent} from './pages/page-one/page-one.component';
+import {PageTwoComponent} from './pages/page-two/page-two.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageOneComponent,
+    PageTwoComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +29,8 @@ import {NgxMatFacetSearchModule} from 'ngx-mat-facet-search';
     FlexModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatToolbarModule,
+    MatButtonModule,
     FormsModule,
   ],
   providers: [],

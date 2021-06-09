@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -44,11 +45,18 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public FacetFilterType = FacetFilterType;
 
 
-  constructor(public dialog: MatDialog, public media: MediaObserver, private cookieService: CookieService) {
+  constructor(public dialog: MatDialog,
+              public media: MediaObserver,
+              private cookieService: CookieService,
+              private route: ActivatedRoute) {
     this.searchUpdated = new EventEmitter<Facet[]>();
   }
 
   ngOnInit() {
+    if (!this.identifier) {
+      this.identify(this.getFixedURL());
+    }
+
     this.updateAvailableFacets();
     this.selectedFacets = this.loadFromCookies();
     this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
@@ -201,7 +209,11 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   }
 
   identify(identifier: string) {
-    this.identifier = identifier;
+    if (identifier.length === 0) {
+      this.identifier = 'default-facet';
+    } else {
+      this.identifier = `${identifier}-facet`;
+    }
   }
 
   clearCookies() {
@@ -233,5 +245,15 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
 
     return cookieFacets;
+  }
+
+  private getFixedURL(): string {
+    const partialRegex = /Route\(url:'/g;
+    const endRegex = /,.*\)/g;
+
+    return this.route.toString().replace(partialRegex, '')
+      .replace(endRegex, '')
+      .replace('\'','')
+      .replace(' ', '-');
   }
 }

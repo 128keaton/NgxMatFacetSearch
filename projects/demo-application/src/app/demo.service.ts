@@ -8,10 +8,7 @@ export class DemoService {
 
   currentIdentifier: BehaviorSubject<string> = new BehaviorSubject<string>('default-facet');
 
-  constructor() {
-  }
-
   updateIdentifier(identifier: string) {
-
+    this.currentIdentifier.next(identifier);
   }
 }

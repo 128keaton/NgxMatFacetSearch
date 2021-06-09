@@ -1,0 +1,10 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+::ng-deep {
+  .mat-card {
+    box-shadow: none!important;
+  }
+}
