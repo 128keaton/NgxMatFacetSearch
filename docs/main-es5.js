@@ -2181,10 +2181,6 @@
             }).forEach(function (facet) {
               return _this3.selectedFacets.push(facet);
             });
-
-            if (this.selectedFacets && Array.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
-              this.emitSelectedEvent();
-            }
           }
         }, {
           key: "ngAfterViewInit",
@@ -2196,7 +2192,7 @@
             })).subscribe(function (filterText) {
               if (!!filterText && filterText.length > 0) {
                 _this4.filteredFacets = _this4.availableFacets.filter(function (f) {
-                  return f.name.toLowerCase().includes(filterText);
+                  return f.name.toLowerCase().includes(filterText.toLowerCase());
                 });
               } else {
                 _this4.filteredFacets = _this4.availableFacets;
@@ -2419,10 +2415,18 @@
         }, {
           key: "loadFromCookies",
           value: function loadFromCookies() {
+            var _this8 = this;
+
             var cookieFacets = [];
 
             if (!!this.identifier && this.cookieService.check(this.identifier)) {
               cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+            }
+
+            if (cookieFacets.length > 0) {
+              setTimeout(function () {
+                _this8.emitSelectedEvent();
+              }, 500);
             }
 
             return cookieFacets;
@@ -3075,19 +3079,19 @@
         _createClass(_AppComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this8 = this;
+            var _this9 = this;
 
             this.router.events.subscribe(function (event) {
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_3__.NavigationEnd) {
                 var currentURL = event.url;
 
                 if (currentURL.includes('two')) {
-                  _this8.showPageTwo = false;
-                  _this8.showPageOne = true;
+                  _this9.showPageTwo = false;
+                  _this9.showPageOne = true;
                   console.log('Page Two');
                 } else {
-                  _this8.showPageOne = false;
-                  _this8.showPageTwo = true;
+                  _this9.showPageOne = false;
+                  _this9.showPageTwo = true;
                   console.log('Page One');
                 }
               }

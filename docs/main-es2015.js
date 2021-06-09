@@ -1020,15 +1020,12 @@ class NgxMatFacetSearchComponent {
         this.selectedFacets = this.loadFromCookies();
         this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
             .forEach(facet => this.selectedFacets.push(facet));
-        if (this.selectedFacets && Array.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
-            this.emitSelectedEvent();
-        }
     }
     ngAfterViewInit() {
         (0,rxjs__WEBPACK_IMPORTED_MODULE_24__.fromEvent)(this.filterInput.nativeElement, 'keyup')
             .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.filter)(Boolean), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.debounceTime)(150), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_25__.distinctUntilChanged)(), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_26__.map)(() => this.filterInput.nativeElement.value)).subscribe((filterText) => {
             if (!!filterText && filterText.length > 0) {
-                this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText));
+                this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText.toLowerCase()));
             }
             else {
                 this.filteredFacets = this.availableFacets;
@@ -1187,6 +1184,11 @@ class NgxMatFacetSearchComponent {
         let cookieFacets = [];
         if (!!this.identifier && this.cookieService.check(this.identifier)) {
             cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+        }
+        if (cookieFacets.length > 0) {
+            setTimeout(() => {
+                this.emitSelectedEvent();
+            }, 500);
         }
         return cookieFacets;
     }

@@ -76,10 +76,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.selectedFacets = this.loadFromCookies();
     this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
       .forEach(facet => this.selectedFacets.push(facet));
-
-    if (this.selectedFacets && Array.isArray(this.selectedFacets) && this.selectedFacets.length > 0) {
-      this.emitSelectedEvent();
-    }
   }
 
   ngAfterViewInit() {
@@ -91,7 +87,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
         map(() => this.filterInput.nativeElement.value)
       ).subscribe((filterText) => {
       if (!!filterText && filterText.length > 0) {
-        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText));
+        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText.toLowerCase()));
       } else {
         this.filteredFacets = this.availableFacets;
       }
@@ -279,6 +275,12 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
     if (!!this.identifier && this.cookieService.check(this.identifier)) {
       cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+    }
+
+    if (cookieFacets.length > 0) {
+      setTimeout(() => {
+        this.emitSelectedEvent();
+      }, 500);
     }
 
     return cookieFacets;
