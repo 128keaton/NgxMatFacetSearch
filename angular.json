@@ -16,6 +16,9 @@
             "project": "projects/ngx-mat-facet-search/ng-package.json"
           },
           "configurations": {
+            "development": {
+              "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.json"
+            },
             "production": {
               "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.prod.json"
             }
@@ -62,7 +65,6 @@
             "main": "projects/demo-application/src/main.ts",
             "polyfills": "projects/demo-application/src/polyfills.ts",
             "tsConfig": "projects/demo-application/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/demo-application/src/favicon.ico",
               "projects/demo-application/src/assets"
@@ -71,7 +73,13 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/demo-application/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -100,8 +108,18 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "buildOptimizer": true
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -111,6 +129,9 @@
           "configurations": {
             "production": {
               "browserTarget": "demo-application:build:production"
+            },
+            "development": {
+              "browserTarget": "demo-application:build"
             }
           }
         },

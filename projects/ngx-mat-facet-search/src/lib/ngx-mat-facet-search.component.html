@@ -1,8 +1,8 @@
 <div fxLayout="row" class="main-facet-wrapper" fxLayoutGap="20px" fxLayoutAlign="space-between center">
 
   <div fxFlex="initial" *ngIf="displayFilterIcon" fxLayout="row" fxLayoutAlign="center center">
-    <mat-icon class="filter-list-icon" *ngIf="tooltip != null" [matTooltip]="tooltip">filter_list</mat-icon>
-    <mat-icon class="filter-list-icon" *ngIf="tooltip == null">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip != null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()" [matTooltip]="tooltip">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip == null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()">filter_list</mat-icon>
   </div>
 
   <div fxFlex="grow">

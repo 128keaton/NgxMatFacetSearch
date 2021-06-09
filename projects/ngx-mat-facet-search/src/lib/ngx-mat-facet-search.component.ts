@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, InjectionToken, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {Facet, FacetDataType, FacetFilterType} from './models';
+import {Facet, FacetDataType, FacetFilterType, FacetConfig} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
 import {MediaObserver} from '@angular/flex-layout';
@@ -9,7 +9,9 @@ import * as _ from 'lodash';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
+import {FACET_CONFIG} from './ngx-mat-facet.config';
 
+// @dynamic
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-search',
@@ -18,10 +20,16 @@ import {CookieService} from 'ngx-cookie-service';
 })
 export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
-  constructor(public dialog: MatDialog,
+  constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
+              public dialog: MatDialog,
               public media: MediaObserver,
               private cookieService: CookieService) {
+
     this.searchUpdated = new EventEmitter<Facet[]>();
+
+    this.identifier = configuration.identifier;
+    this.allowDebugClick = configuration.allowDebugClick;
+    this.cookieExpiresOn = configuration.cookieExpiresOn;
   }
 
   @Input() source: Facet[];
@@ -37,7 +45,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   @Input() confirmOnRemove = true;
   @Input() chipLabelsEnabled = true;
   @Input() identifier = null;
-  @Input() expiresOn = 1;
   @Output() searchUpdated: EventEmitter<Facet[]>;
 
   @ViewChild('filterInput') filterInput: ElementRef;
@@ -49,8 +56,10 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public filteredFacets: Facet[] = [];
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
+  public allowDebugClick = false;
+  public cookieExpiresOn = 1;
 
-  private timeoutHandler: number;
+  private timeoutHandler: any;
 
   private static getFixedURL(): string {
     return window.location.pathname.toString()
@@ -214,7 +223,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   }
 
   identify(identifier: string) {
-    if (identifier.length === 0) {
+    if (identifier.length === 0 || identifier === '-') {
       this.identifier = 'default-facet';
     } else {
       this.identifier = `${identifier}-facet`;
@@ -235,10 +244,14 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   // Debug
   clickStarted() {
+    if (!this.allowDebugClick) {
+      return;
+    }
+
     this.timeoutHandler = setTimeout(() => {
       this.printIdentity();
       this.timeoutHandler = null;
-    }, 500);
+    }, 1000);
   }
 
   clickEnded() {
@@ -258,7 +271,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.expiresOn);
+    this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
   }
 
   private loadFromCookies(): Facet[] {
