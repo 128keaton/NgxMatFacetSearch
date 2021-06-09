@@ -3,7 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {PageOneComponent} from './pages/page-one/page-one.component';
 import {PageTwoComponent} from './pages/page-two/page-two.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -16,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
