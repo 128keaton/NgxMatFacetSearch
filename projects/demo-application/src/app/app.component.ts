@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {DemoService} from './demo.service';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +16,7 @@ export class AppComponent implements OnInit {
   currentIdentifier: Observable<string>;
 
   constructor(private router: Router, private demoService: DemoService) {
-    this.currentIdentifier = demoService.currentIdentifier.pipe(
-      map(id => ` - ${id}`)
-    );
+    this.currentIdentifier = demoService.currentIdentifier;
   }
 
   ngOnInit() {

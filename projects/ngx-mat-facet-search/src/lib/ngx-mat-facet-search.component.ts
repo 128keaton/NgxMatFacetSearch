@@ -64,7 +64,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   private static getFixedURL(): string {
     return window.location.pathname.toString()
       .replace(/\s+/g, '-')
-      .replace(/\//g, '-');
+      .replace(/\//g, '-')
+      .replace(/^-/g, '');
   }
 
   ngOnInit() {
