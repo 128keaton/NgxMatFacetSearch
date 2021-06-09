@@ -9,7 +9,6 @@ import * as _ from 'lodash';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,6 +17,13 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./ngx-mat-facet-search.component.css'],
 })
 export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
+
+  constructor(public dialog: MatDialog,
+              public media: MediaObserver,
+              private cookieService: CookieService) {
+    this.searchUpdated = new EventEmitter<Facet[]>();
+  }
+
   @Input() source: Facet[];
   @Input() placeholder = 'Filter Table...';
   @Input() clearButtonText = 'Clear Filters';
@@ -44,17 +50,17 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
 
+  private timeoutHandler: number;
 
-  constructor(public dialog: MatDialog,
-              public media: MediaObserver,
-              private cookieService: CookieService,
-              private route: ActivatedRoute) {
-    this.searchUpdated = new EventEmitter<Facet[]>();
+  private static getFixedURL(): string {
+    return window.location.pathname.toString()
+      .replace(/\s+/g, '-')
+      .replace(/\//g, '-');
   }
 
   ngOnInit() {
     if (!this.identifier) {
-      this.identify(this.getFixedURL());
+      this.identify(NgxMatFacetSearchComponent.getFixedURL());
     }
 
     this.updateAvailableFacets();
@@ -76,7 +82,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
         map(() => this.filterInput.nativeElement.value)
       ).subscribe((filterText) => {
       if (!!filterText && filterText.length > 0) {
-        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText))
+        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText));
       } else {
         this.filteredFacets = this.availableFacets;
       }
@@ -204,7 +210,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   focus(event) {
     event.stopPropagation();
-    //   this.inputAutoComplete._onChange('Test');
     this.inputAutoComplete.openPanel();
   }
 
@@ -222,6 +227,25 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
 
     this.cookieService.delete(this.identifier);
+  }
+
+  printIdentity() {
+    console.log(this.identifier);
+  }
+
+  // Debug
+  clickStarted() {
+    this.timeoutHandler = setTimeout(() => {
+      this.printIdentity();
+      this.timeoutHandler = null;
+    }, 500);
+  }
+
+  clickEnded() {
+    if (this.timeoutHandler) {
+      clearTimeout(this.timeoutHandler);
+      this.timeoutHandler = null;
+    }
   }
 
   private updateCookies() {
@@ -245,15 +269,5 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
 
     return cookieFacets;
-  }
-
-  private getFixedURL(): string {
-    const partialRegex = /Route\(url:'/g;
-    const endRegex = /,.*\)/g;
-
-    return this.route.toString().replace(partialRegex, '')
-      .replace(endRegex, '')
-      .replace('\'','')
-      .replace(' ', '-');
   }
 }
