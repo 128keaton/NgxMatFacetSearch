@@ -1052,6 +1052,9 @@ class NgxMatFacetSearchComponent {
         this.injectorRef = new VCRefInjector(this.vcRef.injector);
         this.searchUpdated = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
         this.reconfigure(configuration);
+        this.searchUpdated.subscribe(facets => {
+            this.loggingCallback('Facet(s) updated', facets);
+        });
     }
     static getFixedURL() {
         return window.location.pathname.toString()
@@ -1297,12 +1300,15 @@ class NgxMatFacetSearchComponent {
      */
     updateCookies() {
         if (!this.identifier) {
+            this.loggingCallback('Cannot update cookies, no ID set');
             return;
         }
         if (this.selectedFacets.length === 0) {
             this.clearCookies();
+            this.loggingCallback('Clearing cookies for component with ID', this.identifier);
             return;
         }
+        this.loggingCallback('Saving facets in cookies for component with ID', this.identifier);
         this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
     }
     /**
@@ -1313,6 +1319,13 @@ class NgxMatFacetSearchComponent {
         let cookieFacets = [];
         if (!!this.identifier && this.cookieService.check(this.identifier)) {
             cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+            this.loggingCallback('Loaded facets for component with ID', this.identifier);
+        }
+        else if (!this.identifier) {
+            this.loggingCallback('No identifier set on this component');
+        }
+        else if (!this.cookieService.check(this.identifier)) {
+            this.loggingCallback('No cookies set for component with ID', this.identifier);
         }
         setTimeout(() => {
             this.emitSelectedEvent();
@@ -2478,7 +2491,7 @@ module.exports = webpackEmptyAsyncContext;
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.6","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
+module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.7","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
 
 /***/ })
 

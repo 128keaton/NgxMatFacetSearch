@@ -2211,6 +2211,8 @@
 
       var _NgxMatFacetSearchComponent = /*#__PURE__*/function () {
         function _NgxMatFacetSearchComponent(configuration, dialog, media, cookieService, vcRef) {
+          var _this3 = this;
+
           _classCallCheck(this, _NgxMatFacetSearchComponent);
 
           this.dialog = dialog;
@@ -2241,12 +2243,15 @@
           this.injectorRef = new VCRefInjector(this.vcRef.injector);
           this.searchUpdated = new _angular_core__WEBPACK_IMPORTED_MODULE_1__.EventEmitter();
           this.reconfigure(configuration);
+          this.searchUpdated.subscribe(function (facets) {
+            _this3.loggingCallback('Facet(s) updated', facets);
+          });
         }
 
         _createClass(_NgxMatFacetSearchComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this3 = this;
+            var _this4 = this;
 
             if (!this.identifier) {
               this.generateIdentity();
@@ -2257,23 +2262,23 @@
             this.source.filter(function (facet) {
               return facet && facet.values && Array.isArray(facet.values);
             }).forEach(function (facet) {
-              return _this3.selectedFacets.push(facet);
+              return _this4.selectedFacets.push(facet);
             });
           }
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this4 = this;
+            var _this5 = this;
 
             (0, rxjs__WEBPACK_IMPORTED_MODULE_24__.fromEvent)(this.filterInput.nativeElement, 'keyup').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_4__.filter)(Boolean), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.debounceTime)(150), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_25__.distinctUntilChanged)(), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_26__.map)(function () {
-              return _this4.filterInput.nativeElement.value;
+              return _this5.filterInput.nativeElement.value;
             })).subscribe(function (filterText) {
               if (!!filterText && filterText.length > 0) {
-                _this4.filteredFacets = _this4.availableFacets.filter(function (f) {
+                _this5.filteredFacets = _this5.availableFacets.filter(function (f) {
                   return f.name.toLowerCase().includes(filterText.toLowerCase());
                 });
               } else {
-                _this4.filteredFacets = _this4.availableFacets;
+                _this5.filteredFacets = _this5.availableFacets;
               }
             });
           }
@@ -2311,13 +2316,13 @@
         }, {
           key: "promptFacet",
           value: function promptFacet(facet, position, isUpdate) {
-            var _this5 = this;
+            var _this6 = this;
 
             this.filteredFacets = this.availableFacets;
             setTimeout(function () {
-              var facetDetailsModal = _this5.dialog.open(FacetDetailsModalComponent, {
-                width: _this5.facetWidth,
-                hasBackdrop: _this5.facetHasBackdrop,
+              var facetDetailsModal = _this6.dialog.open(FacetDetailsModalComponent, {
+                width: _this6.facetWidth,
+                hasBackdrop: _this6.facetHasBackdrop,
                 position: position,
                 backdropClass: 'transparentBackdrop',
                 panelClass: 'mat-facet-search-dialog',
@@ -2327,7 +2332,7 @@
               });
 
               facetDetailsModal.componentInstance.removeFacet = function (f) {
-                if (_this5.removeFacet(f)) {
+                if (_this6.removeFacet(f)) {
                   facetDetailsModal.close();
                 }
               };
@@ -2335,13 +2340,13 @@
               facetDetailsModal.componentInstance.isUpdate = isUpdate;
 
               facetDetailsModal.componentInstance.finished = function (updatedFacet) {
-                _this5.addOrUpdateFacet(updatedFacet);
+                _this6.addOrUpdateFacet(updatedFacet);
 
                 facetDetailsModal.close();
               };
 
               facetDetailsModal.beforeClosed().subscribe(function () {
-                _this5.selectedFacet = undefined;
+                _this6.selectedFacet = undefined;
               });
             }, 1);
           }
@@ -2378,11 +2383,11 @@
         }, {
           key: "updateAvailableFacets",
           value: function updateAvailableFacets() {
-            var _this6 = this;
+            var _this7 = this;
 
             var sourceClone = lodash__WEBPACK_IMPORTED_MODULE_0__.cloneDeep(this.source);
             lodash__WEBPACK_IMPORTED_MODULE_0__.remove(sourceClone, function (a) {
-              return lodash__WEBPACK_IMPORTED_MODULE_0__.some(_this6.selectedFacets, {
+              return lodash__WEBPACK_IMPORTED_MODULE_0__.some(_this7.selectedFacets, {
                 name: a.name
               });
             });
@@ -2482,16 +2487,16 @@
         }, {
           key: "clickStarted",
           value: function clickStarted() {
-            var _this7 = this;
+            var _this8 = this;
 
             if (!this.allowDebugClick) {
               return;
             }
 
             this.timeoutHandler = setTimeout(function () {
-              _this7.printIdentity();
+              _this8.printIdentity();
 
-              _this7.timeoutHandler = null;
+              _this8.timeoutHandler = null;
             }, 1000);
           }
         }, {
@@ -2582,14 +2587,17 @@
           key: "updateCookies",
           value: function updateCookies() {
             if (!this.identifier) {
+              this.loggingCallback('Cannot update cookies, no ID set');
               return;
             }
 
             if (this.selectedFacets.length === 0) {
               this.clearCookies();
+              this.loggingCallback('Clearing cookies for component with ID', this.identifier);
               return;
             }
 
+            this.loggingCallback('Saving facets in cookies for component with ID', this.identifier);
             this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
           }
           /**
@@ -2600,16 +2608,21 @@
         }, {
           key: "loadFromCookies",
           value: function loadFromCookies() {
-            var _this8 = this;
+            var _this9 = this;
 
             var cookieFacets = [];
 
             if (!!this.identifier && this.cookieService.check(this.identifier)) {
               cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+              this.loggingCallback('Loaded facets for component with ID', this.identifier);
+            } else if (!this.identifier) {
+              this.loggingCallback('No identifier set on this component');
+            } else if (!this.cookieService.check(this.identifier)) {
+              this.loggingCallback('No cookies set for component with ID', this.identifier);
             }
 
             setTimeout(function () {
-              _this8.emitSelectedEvent();
+              _this9.emitSelectedEvent();
             }, 500);
             return cookieFacets;
           }
@@ -3235,19 +3248,19 @@
         _createClass(_AppComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            var _this10 = this;
 
             this.router.events.subscribe(function (event) {
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__.NavigationEnd) {
                 var currentURL = event.url;
 
                 if (currentURL.includes('two')) {
-                  _this9.showPageTwo = false;
-                  _this9.showPageOne = true;
+                  _this10.showPageTwo = false;
+                  _this10.showPageOne = true;
                   console.log('Page Two');
                 } else {
-                  _this9.showPageOne = false;
-                  _this9.showPageTwo = true;
+                  _this10.showPageOne = false;
+                  _this10.showPageTwo = true;
                   console.log('Page One');
                 }
               }
@@ -4793,7 +4806,7 @@
     function _(module) {
       "use strict";
 
-      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.6","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
+      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.7","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
       /***/
     }
   },

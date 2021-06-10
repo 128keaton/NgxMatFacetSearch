@@ -44,6 +44,10 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.injectorRef = new VCRefInjector(this.vcRef.injector);
     this.searchUpdated = new EventEmitter<Facet[]>();
     this.reconfigure(configuration);
+
+    this.searchUpdated.subscribe(facets => {
+      this.loggingCallback('Facet(s) updated', facets);
+    })
   }
 
   @Input() source: Facet[];
@@ -369,14 +373,17 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    */
   private updateCookies() {
     if (!this.identifier) {
+      this.loggingCallback('Cannot update cookies, no ID set');
       return;
     }
 
     if (this.selectedFacets.length === 0) {
       this.clearCookies();
+      this.loggingCallback('Clearing cookies for component with ID', this.identifier);
       return;
     }
 
+    this.loggingCallback('Saving facets in cookies for component with ID', this.identifier);
     this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
   }
 
@@ -389,6 +396,11 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
     if (!!this.identifier && this.cookieService.check(this.identifier)) {
       cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
+      this.loggingCallback('Loaded facets for component with ID', this.identifier);
+    } else if (!this.identifier) {
+      this.loggingCallback('No identifier set on this component');
+    } else if (!this.cookieService.check(this.identifier)) {
+      this.loggingCallback('No cookies set for component with ID', this.identifier);
     }
 
     setTimeout(() => {

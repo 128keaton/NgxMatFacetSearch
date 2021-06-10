@@ -9,7 +9,7 @@ export class FacetConfig {
   allowDebugClick = true;
   cookieExpiresOn = 1;
   identifierStrategy: FacetIdentifierStrategy = FacetIdentifierStrategy.ParentID;
-  loggingCallback: () => void = () => {}
+  loggingCallback: (...args) => void = () => {}
 
   constructor(configuration?: Partial<FacetConfig>) {
     if (configuration) {
