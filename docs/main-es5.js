@@ -1705,7 +1705,7 @@
         FacetIdentifierStrategy["Manual"] = "manual";
       })(_FacetIdentifierStrategy || (_FacetIdentifierStrategy = {}));
 
-      var _FacetConfig = function _FacetConfig(config) {
+      var _FacetConfig = function _FacetConfig(configuration) {
         _classCallCheck(this, _FacetConfig);
 
         this.allowDebugClick = true;
@@ -1714,8 +1714,22 @@
 
         this.loggingCallback = function () {};
 
-        if (!!config) {
-          Object.assign(this, config);
+        if (configuration) {
+          if (configuration.hasOwnProperty('allowDebugClick')) {
+            this.allowDebugClick = configuration.allowDebugClick;
+          }
+
+          if (configuration.hasOwnProperty('cookieExpiresOn')) {
+            this.cookieExpiresOn = configuration.cookieExpiresOn;
+          }
+
+          if (configuration.hasOwnProperty('identifierStrategy')) {
+            this.identifierStrategy = configuration.identifierStrategy;
+          }
+
+          if (configuration.hasOwnProperty('loggingCallback')) {
+            this.loggingCallback = configuration.loggingCallback;
+          }
         }
       };
 
@@ -4779,7 +4793,7 @@
     function _(module) {
       "use strict";
 
-      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.5","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
+      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.3.6","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"~12.0.3","@angular/core":"~12.0.3","lodash":"^4.17.20","@types/lodash":"^4.14.168","@angular/flex-layout":"^12.0.0-beta.34","@angular/forms":"~12.0.3","@angular/material":"^12.0.3","ngx-cookie-service":"~12.0.0","uuid":"~8.3.2"}}');
       /***/
     }
   },

@@ -11,9 +11,23 @@ export class FacetConfig {
   identifierStrategy: FacetIdentifierStrategy = FacetIdentifierStrategy.ParentID;
   loggingCallback: () => void = () => {}
 
-  constructor(config?: Partial<FacetConfig>) {
-    if (!!config) {
-      Object.assign(this, config);
+  constructor(configuration?: Partial<FacetConfig>) {
+    if (configuration) {
+      if (configuration.hasOwnProperty('allowDebugClick')) {
+        this.allowDebugClick = configuration.allowDebugClick;
+      }
+
+      if (configuration.hasOwnProperty('cookieExpiresOn')) {
+        this.cookieExpiresOn = configuration.cookieExpiresOn;
+      }
+
+      if (configuration.hasOwnProperty('identifierStrategy')) {
+        this.identifierStrategy = configuration.identifierStrategy;
+      }
+
+      if (configuration.hasOwnProperty('loggingCallback')) {
+        this.loggingCallback = configuration.loggingCallback;
+      }
     }
   }
 }

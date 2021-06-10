@@ -305,7 +305,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    * @param configuration - Partial FacetConfig
    * @param identity - Optional identity parameter if you want to override or provide a manual value
    */
-  reconfigure(configuration: Partial<FacetConfig>, identity?: string) {
+  reconfigure(configuration: Partial<FacetConfig> | FacetConfig, identity?: string) {
     if (configuration) {
       if (configuration.hasOwnProperty('allowDebugClick')) {
         this.allowDebugClick = configuration.allowDebugClick;
