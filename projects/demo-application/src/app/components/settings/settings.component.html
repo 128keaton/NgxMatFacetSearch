@@ -1,0 +1,24 @@
+<mat-card fxFlex="1 1 auto">
+  <mat-card-title>Settings</mat-card-title>
+  <mat-card-content fxLayout="column">
+    <mat-checkbox [(ngModel)]="chipLabelsEnabled">Chip labels</mat-checkbox>
+    <mat-checkbox [(ngModel)]="clearButtonEnabled">"Clear" Button</mat-checkbox>
+    <mat-checkbox [(ngModel)]="confirmOnRemove">Confirmation on remove</mat-checkbox>
+    <mat-form-field appearance="outline">
+      <mat-label>ID Generation Strategy</mat-label>
+      <mat-select [(value)]="currentStrategy" (selectionChange)="strategyUpdated.emit($event.value)">
+        <mat-option *ngFor="let strategy of allStrategies" [value]="getRawStrategy(strategy)">
+          {{displayStrategy(strategy)}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <pre matTooltip="Current Identifier">{{currentIdentifier}}</pre>
+
+    <mat-form-field class="manual-input" *ngIf="showManualInput|async" appearance="outline">
+      <mat-label>Manual Identifier</mat-label>
+      <input #manualInput matInput placeholder="cool-beans" [(ngModel)]="manualIdentifier"
+             (change)="manualIdentifierUpdated.next(manualInput.value)">
+    </mat-form-field>
+
+  </mat-card-content>
+</mat-card>

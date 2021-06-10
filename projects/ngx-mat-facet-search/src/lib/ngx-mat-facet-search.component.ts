@@ -1,7 +1,18 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Inject, InjectionToken, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {DialogPosition, MatDialog} from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {Facet, FacetDataType, FacetFilterType, FacetConfig} from './models';
+import {Facet, FacetConfig, FacetDataType, FacetFilterType, FacetIdentifierStrategy} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
 import {MediaObserver} from '@angular/flex-layout';
@@ -10,6 +21,8 @@ import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
 import {FACET_CONFIG} from './ngx-mat-facet.config';
+import {VCRefInjector} from './misc/parent.helper';
+import {v4 as uuidv4} from 'uuid';
 
 // @dynamic
 @Component({
@@ -20,16 +33,17 @@ import {FACET_CONFIG} from './ngx-mat-facet.config';
 })
 export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
+  private injectorRef: VCRefInjector;
+
   constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
               public dialog: MatDialog,
               public media: MediaObserver,
-              private cookieService: CookieService) {
+              private cookieService: CookieService,
+              private vcRef: ViewContainerRef) {
 
+    this.injectorRef = new VCRefInjector(this.vcRef.injector);
     this.searchUpdated = new EventEmitter<Facet[]>();
-
-    this.identifier = configuration.identifier;
-    this.allowDebugClick = configuration.allowDebugClick;
-    this.cookieExpiresOn = configuration.cookieExpiresOn;
+    this.reconfigure(configuration);
   }
 
   @Input() source: Facet[];
@@ -45,6 +59,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   @Input() confirmOnRemove = true;
   @Input() chipLabelsEnabled = true;
   @Input() identifier = null;
+
   @Output() searchUpdated: EventEmitter<Facet[]>;
 
   @ViewChild('filterInput') filterInput: ElementRef;
@@ -60,18 +75,22 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public cookieExpiresOn = 1;
 
   private timeoutHandler: any;
+  private identifierStrategy: FacetIdentifierStrategy;
 
   private static getFixedURL(): string {
     return window.location.pathname.toString()
       .replace(/\s+/g, '-')
       .replace(/\//g, '-')
       .replace(/^-/g, '')
-      .replace(/--/g, '');
+      .replace(/--/g, '-');
   }
+
+  private loggingCallback: (...args) => void = () => {
+  };
 
   ngOnInit() {
     if (!this.identifier) {
-      this.identify(NgxMatFacetSearchComponent.getFixedURL());
+      this.generateIdentity();
     }
 
     this.updateAvailableFacets();
@@ -220,14 +239,31 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.inputAutoComplete.openPanel();
   }
 
+  /**
+   * Update the identity of this Facet Search Component
+   * This function does NOT reload/re-fetch previously saved facets from cookies
+   *
+   * @param identifier - new identifier for the component
+   */
   identify(identifier: string) {
-    if (identifier.length === 0 || identifier === '-') {
+    this.loggingCallback(`Identifying facet with ID: ${identifier}`);
+    if (!!!identifier || identifier.length === 0 || identifier === '-') {
       this.identifier = 'default-facet';
     } else {
       this.identifier = `${identifier}-facet`;
     }
   }
 
+  /**
+   * Returns the FacetIdentifierStrategy currently being used for identity generation
+   */
+  getIdentifierStrategy(): FacetIdentifierStrategy {
+    return this.identifierStrategy;
+  }
+
+  /**
+   * Clears previously saved facets for this specific component
+   */
   clearCookies() {
     if (!this.identifier) {
       return;
@@ -236,11 +272,14 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.cookieService.delete(this.identifier);
   }
 
+  /**
+   * Prints this component's identity to console
+   */
   printIdentity() {
     console.log(this.identifier);
   }
 
-  // Debug
+  /// DEBUG - Long Click Filter Icon
   clickStarted() {
     if (!this.allowDebugClick) {
       return;
@@ -259,6 +298,75 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Reconfigure this Facet Search Component
+   * This function will reload the previously saved facets from cookies if they exist
+   *
+   * @param configuration - Partial FacetConfig
+   * @param identity - Optional identity parameter if you want to override or provide a manual value
+   */
+  reconfigure(configuration: Partial<FacetConfig>, identity?: string) {
+    if (configuration) {
+      if (configuration.hasOwnProperty('allowDebugClick')) {
+        this.allowDebugClick = configuration.allowDebugClick;
+      }
+
+      if (configuration.hasOwnProperty('cookieExpiresOn')) {
+        this.cookieExpiresOn = configuration.cookieExpiresOn;
+      }
+
+      if (configuration.hasOwnProperty('identifierStrategy')) {
+        this.identifierStrategy = configuration.identifierStrategy;
+      }
+
+      if (configuration.hasOwnProperty('loggingCallback')) {
+        this.loggingCallback = configuration.loggingCallback;
+      }
+    }
+
+    const previousIdentity = `${this.identifier}`;
+    this.generateIdentity(identity);
+
+    if (previousIdentity !== this.identifier) {
+      this.loggingCallback('Loading facets from cookies for', this.identifier);
+      this.selectedFacets = this.loadFromCookies();
+    }
+
+    this.loggingCallback('Reconfigured', this.identifier);
+  }
+
+  /**
+   * Generates an identity for a Facet Search Component
+   * @param manual - manually set the identifier
+   * @private
+   */
+  private generateIdentity(manual?: string) {
+    let identity;
+
+    this.loggingCallback('Generating ID with strategy', this.identifierStrategy);
+
+    switch (this.identifierStrategy) {
+      case FacetIdentifierStrategy.WindowURL:
+        identity = NgxMatFacetSearchComponent.getFixedURL();
+        break;
+      case FacetIdentifierStrategy.ParentID:
+        identity = this.injectorRef.parentIdentifier;
+        break;
+      case FacetIdentifierStrategy.Random:
+        identity = uuidv4();
+        break;
+      default:
+        identity = manual;
+        break;
+    }
+
+    this.identify(identity);
+  }
+
+  /**
+   * Saves the selected facets to cookies for our current identifier
+   * @private
+   */
   private updateCookies() {
     if (!this.identifier) {
       return;
@@ -272,6 +380,10 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
   }
 
+  /**
+   * Loads facets from cookies for our current identifier
+   * @private
+   */
   private loadFromCookies(): Facet[] {
     let cookieFacets = [];
 
@@ -279,11 +391,9 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
     }
 
-    if (cookieFacets.length > 0) {
-      setTimeout(() => {
-        this.emitSelectedEvent();
-      }, 500);
-    }
+    setTimeout(() => {
+      this.emitSelectedEvent();
+    }, 500);
 
     return cookieFacets;
   }

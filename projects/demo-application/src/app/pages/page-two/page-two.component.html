@@ -1,8 +1,8 @@
 <mat-card>
   <mat-card-content>
 
-    <ngx-mat-facet-search [source]="facets" (searchUpdated)="filterUpdated($event)" [chipLabelsEnabled]="chipLabelsEnabled"
-                          [confirmOnRemove]="confirmOnRemove" [clearButtonEnabled]="clearButtonEnabled" placeholder="Add a filter..." clearButtonText="CLEAR FILTERS">
+    <ngx-mat-facet-search #search [source]="facets" (searchUpdated)="output.filterUpdated($event)" [chipLabelsEnabled]="settings.chipLabelsEnabled"
+                          [confirmOnRemove]="settings.confirmOnRemove" [clearButtonEnabled]="settings.clearButtonEnabled" placeholder="Add a filter..." clearButtonText="CLEAR FILTERS">
     </ngx-mat-facet-search>
 
   </mat-card-content>
@@ -10,22 +10,10 @@
 
 <mat-divider></mat-divider>
 
-<div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="15px">
+<div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="15px" class="content">
 
-  <mat-card fxFlex="none">
-    <mat-card-title>Settings</mat-card-title>
-    <mat-card-content fxLayout="column">
-      <mat-checkbox [(ngModel)]="chipLabelsEnabled">Chip labels</mat-checkbox>
-      <mat-checkbox [(ngModel)]="clearButtonEnabled">"Clear" Button</mat-checkbox>
-      <mat-checkbox [(ngModel)]="confirmOnRemove">Confirmation on remove</mat-checkbox>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card fxFlex>
-    <mat-card-title>Output</mat-card-title>
-    <mat-card-content>
-      <pre style="font-family:monospace; font-size:small">{{selectedFacets | json }}</pre>
-    </mat-card-content>
-  </mat-card>
+  <app-settings #settings [currentIdentifier]="search.identifier" [strategy]="search.getIdentifierStrategy()" (strategyUpdated)="strategyUpdated($event)" (manualIdentifierUpdated)="manualIdentifierUpdated($event)"></app-settings>
+  <mat-divider [vertical]="true"></mat-divider>
+  <app-output #output></app-output>
 
 </div>

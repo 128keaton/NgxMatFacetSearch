@@ -29,7 +29,8 @@
     "ngx-mat-facet-search": "file:dist/ngx-mat-facet-search",
     "rxjs": "~6.6.6",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "uuid": "~8.3.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.0.3",

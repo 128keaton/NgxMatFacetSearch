@@ -1,0 +1,23 @@
+:host {
+  flex: 1;
+}
+
+.mat-form-field {
+  margin-top: 1em;
+}
+
+.mat-card-title {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+
+pre {
+  text-align: center;
+  color: white;
+  background: black;
+  border-radius: 5px;
+  font-family:monospace;
+  font-size:small;
+  padding: 1rem;
+  margin-top: -1em;
+}

@@ -1,16 +1,16 @@
 <mat-toolbar>
-  <span>Angular Material Facet Search: v0.3.4</span>
+  <span>Angular Material Facet Search: v{{version}}</span>
   <span class="spacer"></span>
-  <span>Facet ID: {{currentIdentifier|async}}</span>
-  <span class="spacer"></span>
-  <button mat-button routerLink="" *ngIf="showPageOne">
+  <a mat-button routerLink="" [color]="showPageTwo ? 'primary' : ''">
     Page One
-  </button>
-  <button mat-button routerLink="/two" *ngIf="showPageTwo">
+  </a>
+  <a mat-button routerLink="/two" [color]="showPageOne ? 'primary' : ''">
     Page Two
-  </button>
+  </a>
+  <span class="spacer"></span>
+  <a [href]="repo" target="_blank" mat-stroked-button>View on GitHub</a>
 </mat-toolbar>
 
-<div fxLayout="column">
+<div fxLayout="column" class="container">
   <router-outlet></router-outlet>
 </div>

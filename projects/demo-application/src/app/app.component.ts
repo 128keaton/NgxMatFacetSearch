@@ -1,22 +1,34 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {DemoService} from './demo.service';
+import {FACET_CONFIG, FacetConfig, FacetIdentifierStrategy} from 'ngx-mat-facet-search';
+import packageData from '../../../ngx-mat-facet-search/package.json';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: FACET_CONFIG, useFactory: () => {
+        return new FacetConfig({
+          loggingCallback: (...args) => {
+            console.log(...args);
+          },
+          identifierStrategy: FacetIdentifierStrategy.ParentID
+        });
+      }
+    }
+  ]
 })
 export class AppComponent implements OnInit {
 
   showPageOne = true;
   showPageTwo = true;
+  version = packageData.version;
+  repo = packageData.repository;
 
-  currentIdentifier: Observable<string>;
-
-  constructor(private router: Router, private demoService: DemoService) {
-    this.currentIdentifier = demoService.currentIdentifier;
+  constructor(private router: Router) {
   }
 
   ngOnInit() {

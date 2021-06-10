@@ -13,12 +13,20 @@ import {FormsModule} from '@angular/forms';
 import {NgxMatFacetSearchModule} from 'ngx-mat-facet-search';
 import {PageOneComponent} from './pages/page-one/page-one.component';
 import {PageTwoComponent} from './pages/page-two/page-two.component';
+import {SettingsComponent} from './components/settings/settings.component';
+import {OutputComponent} from './components/output/output.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageOneComponent,
-    PageTwoComponent
+    PageTwoComponent,
+    SettingsComponent,
+    OutputComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +39,12 @@ import {PageTwoComponent} from './pages/page-two/page-two.component';
     MatDividerModule,
     MatToolbarModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatTooltipModule,
     FormsModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
