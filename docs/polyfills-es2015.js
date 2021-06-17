@@ -1,6 +1,6 @@
 (self["webpackChunkngx_material_facet_search"] = self["webpackChunkngx_material_facet_search"] || []).push([["polyfills"],{
 
-/***/ 2273:
+/***/ 7277:
 /*!***********************************************!*\
   !*** ./node_modules/zone.js/fesm2015/zone.js ***!
   \***********************************************/
@@ -2967,7 +2967,7 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
 
 /***/ }),
 
-/***/ 7272:
+/***/ 8514:
 /*!****************************************************!*\
   !*** ./projects/demo-application/src/polyfills.ts ***!
   \****************************************************/
@@ -2975,7 +2975,7 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 2273);
+/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js */ 7277);
 /* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(zone_js__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
@@ -3042,7 +3042,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
-/******/ var __webpack_exports__ = (__webpack_exec__(7272));
+/******/ var __webpack_exports__ = (__webpack_exec__(8514));
 /******/ }
 ]);
 //# sourceMappingURL=polyfills-es2015.js.map

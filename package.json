@@ -26,7 +26,6 @@
     "lodash": "^4.17.20",
     "ng-packagr": "^12.0.4",
     "ngx-cookie-service": "^12.0.0",
-    "ngx-mat-facet-search": "file:dist/ngx-mat-facet-search",
     "rxjs": "~6.6.6",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4",
