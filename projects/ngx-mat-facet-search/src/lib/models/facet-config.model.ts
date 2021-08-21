@@ -7,7 +7,6 @@ export enum FacetIdentifierStrategy {
 
 export class FacetConfig {
   allowDebugClick = true;
-  cookieExpiresOn = 1;
   identifierStrategy: FacetIdentifierStrategy = FacetIdentifierStrategy.ParentID;
   loggingCallback: (...args) => void = () => {}
 
@@ -15,10 +14,6 @@ export class FacetConfig {
     if (configuration) {
       if (configuration.hasOwnProperty('allowDebugClick')) {
         this.allowDebugClick = configuration.allowDebugClick;
-      }
-
-      if (configuration.hasOwnProperty('cookieExpiresOn')) {
-        this.cookieExpiresOn = configuration.cookieExpiresOn;
       }
 
       if (configuration.hasOwnProperty('identifierStrategy')) {

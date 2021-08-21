@@ -8,11 +8,15 @@
       "root": "projects/ngx-mat-facet-search",
       "sourceRoot": "projects/ngx-mat-facet-search/src",
       "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.json",
             "project": "projects/ngx-mat-facet-search/ng-package.json"
           },
           "configurations": {
@@ -21,8 +25,12 @@
             },
             "production": {
               "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.prod.json"
+            },
+            "ivy": {
+              "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.ivy.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -70,7 +78,6 @@
               "projects/demo-application/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/demo-application/src/styles.scss"
             ],
             "scripts": [],

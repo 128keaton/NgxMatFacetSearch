@@ -1,0 +1,62 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+
+@mixin _palette-styles($palette) {
+  background: mat.get-color-from-palette($palette);
+  color: mat.get-color-from-palette($palette, default-contrast);
+}
+
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+
+  $is-dark-theme: map.get($color-config, 'is-dark');
+
+  // Get the primary color palette from the color-config.
+  $primary-palette: map.get($color-config, primary);
+  $accent-palette: map.get($color-config, accent);
+  $warn-palette: map.get($color-config, warn);
+
+  $foreground: map.get($theme, foreground);
+  $background: map.get($theme, background);
+  $text-secondary: map.get($foreground, secondary-text);
+
+  .arrow {
+    @include _palette-styles($primary-palette);
+
+    &.mat-primary {
+      @include _palette-styles($primary-palette);
+    }
+
+    &.mat-accent {
+      @include _palette-styles($primary-palette);
+    }
+
+    &.mat-warn {
+      @include _palette-styles($warn-palette);
+    }
+
+  }
+
+  .facet-modal-component {
+    background: mat.get-color-from-palette($background, card)!important;
+    color: mat.get-color-from-palette($foreground, text) !important;
+  }
+}
+
+@mixin typography($theme) {
+  // Get the typography config from the theme.
+  $typography-config: mat.get-typography-config($theme);
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+
+  $typography-config: mat.get-typography-config($theme);
+  @if $typography-config != null {
+    @include typography($theme);
+  }
+}

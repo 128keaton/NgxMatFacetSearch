@@ -1,6 +1,8 @@
 <mat-card>
   <mat-card-content>
 
+    <button mat-button (click)="toggleSet()">Use {{isUsingSetB ? 'Set A' : 'Set B'}}</button>
+
     <ngx-mat-facet-search #search [source]="facets" (searchUpdated)="output.filterUpdated($event)" [chipLabelsEnabled]="settings.chipLabelsEnabled"
                           [confirmOnRemove]="settings.confirmOnRemove" [clearButtonEnabled]="settings.clearButtonEnabled" placeholder="Add a filter..." clearButtonText="CLEAR FILTERS">
     </ngx-mat-facet-search>

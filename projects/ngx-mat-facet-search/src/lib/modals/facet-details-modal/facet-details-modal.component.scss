@@ -1,16 +1,18 @@
-.modal-header {
-  padding: 15px 10px 0 20px;
-  margin: -24px !important;
-  margin-bottom: 23px !important;
-  width: unset !important;
-}
-
 mat-spinner {
   margin: 1em auto;
 }
 
 .dialog-content {
-  min-height: 150px;
+  min-height: 120px;
+  padding-top: 22px;
+  padding-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+
+  *:last-child {
+    flex: 1;
+  }
 }
 
 span.facet-no-results {
@@ -20,45 +22,48 @@ span.facet-no-results {
   margin-bottom: 1em;
 }
 
-.typeahead-form-field {
-  button {
-    box-shadow: none;
-    width: 30px;
-    height: 30px;
-  }
+.mat-selection-list {
+  margin-top: 0;
+  padding-top: 0;
+}
 
-  ::ng-deep {
-    mat-icon {
-      font-size: 18px;
-    }
+.mat-form-field {
+  margin: 0!important;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: unset!important;
+  min-width: unset!important;
+}
 
-    .mat-mini-fab {
-      background-color: gray;
-      transition: background-color 300ms ease-in-out;
-    }
+.mat-dialog-actions {
+  padding: 0 15px 15px;
+}
 
-    .mat-mini-fab[disabled] {
-      background-color: rgba(128, 128, 128, 0.44);
-      color: white !important;
-    }
+.modal-header {
+  align-items: center!important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 
-    .mat-mini-fab .mat-button-wrapper {
-      padding: 0;
-    }
-
-    .mat-form-field-infix {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .modal-title {
+    height: 40px!important;
+    margin: 0!important;
+    line-height: 45px;
   }
 }
 
-
-.modal-title, .modal-close {
-  margin-bottom: 15px!important;
+p.description {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 0;
+  color: gray;
+  flex: 1;
 }
 
-.modal-close {
-  margin-top: -5px;
+.date-range-wrapper, .category-wrapper {
+  margin-top: 1em;
+}
+
+.boolean-wrapper {
+  padding-left: 15px;
+  padding-right: 15px;
 }

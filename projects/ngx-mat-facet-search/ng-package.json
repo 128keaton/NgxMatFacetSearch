@@ -7,5 +7,8 @@
       "lodash": "lodash",
       "ngx-cookie-service": "ngxCookieService"
     }
-  }
+  },
+  "assets": [
+    "_facet-search-theme.scss"
+  ]
 }

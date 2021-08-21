@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import * as _ from 'lodash';
 
 @Pipe({
   name: 'filter',
@@ -7,8 +6,6 @@ import * as _ from 'lodash';
 })
 export class FilterPipe implements PipeTransform {
   transform(objectArray: Array<object>, fieldName: string, fieldValue: any): any {
-    return _.filter(objectArray, (obj) => {
-      return obj[fieldName] === fieldValue;
-    });
+    return objectArray.filter(obj => obj[fieldName] === fieldValue);
   }
 }

@@ -22,7 +22,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {A11yModule} from '@angular/cdk/a11y';
-import {CookieService} from 'ngx-cookie-service';
+import {FacetModalComponent} from './modals/facet-modal/facet-modal.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {PortalModule} from '@angular/cdk/portal';
 
 @NgModule({
   imports: [
@@ -48,6 +50,8 @@ import {CookieService} from 'ngx-cookie-service';
     MatAutocompleteModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    OverlayModule,
+    PortalModule
   ],
   declarations: [
     CSVPipe,
@@ -55,10 +59,10 @@ import {CookieService} from 'ngx-cookie-service';
     KeysPipe,
     NgxMatFacetSearchComponent,
     FacetDetailsModalComponent,
+    FacetModalComponent,
   ],
   exports: [NgxMatFacetSearchComponent],
   entryComponents: [FacetDetailsModalComponent],
-  providers: [CookieService]
 })
 export class NgxMatFacetSearchModule {
 }

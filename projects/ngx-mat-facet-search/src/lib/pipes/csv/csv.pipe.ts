@@ -1,5 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import * as _ from 'lodash';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'csv',
@@ -8,9 +7,7 @@ import * as _ from 'lodash';
 export class CSVPipe implements PipeTransform {
 
   transform(value: Array<object>, objectKeyName: string, separator: string): any {
-    return _.map(value,  (element) => {
-      return objectKeyName ? element[objectKeyName] : element;
-    }).join(separator || ',');
+    return value.map(e => objectKeyName ? e[objectKeyName] : e).join(separator || ',');
   }
 
 }

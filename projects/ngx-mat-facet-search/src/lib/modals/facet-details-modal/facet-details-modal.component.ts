@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {debounceTime, filter, tap} from 'rxjs/operators';
 import {Facet, FacetDataType, FacetFilterType, FacetOption} from '../../models';
 import {BehaviorSubject, of} from 'rxjs';
-import * as _ from 'lodash';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {FacetModalRef} from '../facet-modal.ref';
+import {FacetResultType} from '../../models';
+import {FACET_MODAL_DATA} from '../facet-modal.data';
 
 const MAX_TEXT_LENGTH = 60;
 
@@ -25,8 +26,6 @@ const MAX_TEXT_LENGTH = 60;
 export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   public isUpdate: boolean;
-  public removeFacet: (facet: Facet) => void;
-  public finished: (data: Facet) => void;
   public typeaheadText: string;
   public clearButtonDisabled = true;
 
@@ -37,9 +36,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
   private typeAheadInputChanged = new BehaviorSubject<string>('');
 
-  constructor(
-    public dialogRef: MatDialogRef<FacetDetailsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Facet) {
+  constructor(@Inject(FACET_MODAL_DATA) public data: Facet,
+              public modalRef: FacetModalRef) {
+
+    this.isUpdate = modalRef.config.isUpdate;
 
     switch (this.data.type) {
       case FacetDataType.Category:
@@ -53,8 +53,8 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
         // Go ahead and run query by default
         if (this.data.typeahead && this.data.typeahead.function) {
           this.data.typeahead.function('').subscribe(options => {
-            if (!!options) {
-              this.data.options = of(options);
+            if (!!options && Array.isArray(options)) {
+              this.data.options = of(options || []);
             } else {
               this.data.options = of([]);
             }
@@ -139,15 +139,27 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   }
 
   onOk(): void {
-    this.finished(this.data);
+    this.modalRef.close({
+      type: FacetResultType.ADD,
+      data: this.data
+    });
+  }
+
+  onRemove(): void {
+    this.modalRef.close({
+      type: FacetResultType.REMOVE,
+      data: this.data
+    });
   }
 
   onCancel(): void {
-    this.onClose();
+    this.modalRef.close({
+      type: FacetResultType.CANCEL,
+    });
   }
 
   onClose(): void {
-    this.dialogRef.close();
+    this.modalRef.close();
   }
 
   validateAndSubmit() {
@@ -157,19 +169,19 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   }
 
   isItemSelected = (option: FacetOption): boolean => {
-    return _.some(this.data.values, option);
+    return (this.data.values || []).some(o => o.value === option.value);
   };
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
 
-    if (_.some(facet.values, {value: option.value})) {
-      _.remove(facet.values, {value: option.value});
+    if ((facet.values || []).some(f => f.value === option.value)) {
+      facet.values = facet.values.filter(f => f.value !== option.value);
     } else {
       option.selected = true;
       switch (facet.type) {
         case FacetDataType.Category:
         case FacetDataType.Typeahead:
-          if (_.isNil(facet.values)) {
+          if (facet.values === null || facet.values === undefined) {
             facet.values = [];
           }
           option.type = FacetFilterType.contains;
@@ -188,23 +200,15 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     switch (this.data.type) {
       case FacetDataType.Category:
       case FacetDataType.CategorySingle:
-        return !_.some(this.data.values, (val) => val.value);
-
       case FacetDataType.Date:
-        return !_.some(this.data.values, (val) => val.value);
-
-      case FacetDataType.DateRange:
-        return !(this.data.values[0].value) || !(this.data.values[1].value);
-
       case FacetDataType.Text:
-        return !_.some(this.data.values, (val) => val.value);
-
-      case FacetDataType.Boolean:
-        return !(this.data.values[0].value);
-
       case FacetDataType.Typeahead:
       case FacetDataType.TypeaheadSingle:
-        return !_.some(this.data.values, (val) => val.value);
+        return !(this.data.values || []).some(v => v.value);
+      case FacetDataType.DateRange:
+        return !(this.data.values[0].value) || !(this.data.values[1].value);
+      case FacetDataType.Boolean:
+        return !(this.data.values[0].value);
     }
   };
 

@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start" class="mat-typography">
 
   <mat-toolbar fxLayout="row" fxLayoutAlign="space-between none" color="primary" class="modal-header">
-    <h2 class="modal-title" mat-dialog-title>{{data.labelText}}</h2>
+    <h2 class="modal-title">{{data.labelText}}</h2>
     <button class="modal-close" mat-icon-button (click)="onCancel()">
       <mat-icon>clear</mat-icon>
     </button>
@@ -9,10 +9,10 @@
 
   <mat-dialog-content class="dialog-content">
 
-    <p *ngIf="data.description">{{data.description}}</p>
+    <p *ngIf="data.description" class="description">{{data.description}}</p>
 
     <ng-template #loading>
-      <mat-spinner diameter="50"></mat-spinner>
+      <mat-spinner diameter="20"></mat-spinner>
     </ng-template>
 
     <ng-template #noResults>
@@ -22,11 +22,12 @@
     <ng-container [ngSwitch]="true">
 
       <div *ngSwitchCase="data.type === FacetDataType.Category || data.type === FacetDataType.CategorySingle"
-           fxLayout="column" fxLayoutGap="20px">
+           fxLayout="column" fxLayoutGap="20px" class="category-wrapper">
 
-        <ng-container *ngIf="!!(data.options | async); else loading">
-          <mat-selection-list *ngIf="(data.options | async).length > 0; else noResults">
-            <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value" [selected]="isItemSelected(item)"
+        <ng-container *ngIf="(data.options | async) as options; else loading">
+          <mat-selection-list *ngIf="options?.length > 0; else noResults">
+            <mat-divider></mat-divider>
+            <mat-list-option *ngFor="let item of options" [value]="item.value" [selected]="isItemSelected(item)"
                              @fadeIn
                              (click)="addOptionToSelected(data, item) ">
 						<span>
@@ -37,28 +38,30 @@
 						</span>
 
             </mat-list-option>
+            <mat-divider></mat-divider>
           </mat-selection-list>
         </ng-container>
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Typeahead || data.type === FacetDataType.TypeaheadSingle"
-           fxLayout="column" fxLayoutGap="20px">
+           fxLayout="column" fxLayoutGap="20px" class="typeahead-wrapper">
 
-        <mat-form-field fxFlex="70" class="typeahead-form-field">
+        <mat-form-field fxFlex="70" class="typeahead-form-field" appearance="outline" floatLabel="never">
           <input matInput #typeAheadInput
                  autocomplete="off"
                  [(ngModel)]="typeaheadText"
                  placeholder="{{data.typeahead.placeholder || ''}}"
                  (ngModelChange)="typeaheadValueChanged($event)"
-                 autofocus cdkFocusInitial/>
+                 autofocus cdkTrapFocus/>
 
-          <button mat-mini-fab [disabled]="clearButtonDisabled" (click)="clearInput()">
+          <button matSuffix mat-icon-button aria-label="Clear" *ngIf="!clearButtonDisabled" (click)="clearInput()">
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
 
         <ng-container *ngIf="!!data.options && !!(data.options | async); else loading">
           <mat-selection-list *ngIf="(data.options | async).length > 0; else noResults">
+            <mat-divider></mat-divider>
             <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value"
                              @fadeIn
                              [selected]="isItemSelected(item)"
@@ -71,13 +74,15 @@
 						</span>
 
             </mat-list-option>
+            <mat-divider></mat-divider>
           </mat-selection-list>
         </ng-container>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.Date" fxLayout="column" fxLayoutGap="20px">
+      <div *ngSwitchCase="data.type === FacetDataType.Date" fxLayout="column" fxLayoutGap="20px" class="date-wrapper">
 
-        <mat-form-field fxFill>
+        <mat-form-field fxFill appearance="outline" floatLabel="always">
+          <mat-label>{{data.labelText}}</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="picker" [(ngModel)]="data.values[0].value"
                  placeholder="Choose a date" (focus)="isUpdate ? emptyFunction() : picker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -85,17 +90,19 @@
         <mat-datepicker #picker></mat-datepicker>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.DateRange" fxLayout="column">
+      <div *ngSwitchCase="data.type === FacetDataType.DateRange" fxLayout="column" class="date-range-wrapper">
 
-        <mat-form-field fxFill>
+        <mat-form-field fxFill appearance="outline" floatLabel="always">
+          <mat-label>{{data.labelText}} - Start</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="startDatePicker"
-                 [(ngModel)]="data.values[0].value" placeholder="Choose a start date"
+                 [(ngModel)]="data.values[0].value" placeholder="Choose a starting date"
                  (focus)="isUpdate ? emptyFunction() : startDatePicker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         </mat-form-field>
         <mat-datepicker #startDatePicker></mat-datepicker>
 
-        <mat-form-field fxFill>
+        <mat-form-field fxFill appearance="outline" floatLabel="always">
+          <mat-label>{{data.labelText}} - End</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="endDatePicker"
                  [(ngModel)]="data.values[1].value" placeholder="Choose an end date"/>
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
@@ -121,7 +128,8 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="70">
-          <input matInput (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkFocusInitial [(ngModel)]="data.values[0].value"
+          <input matInput (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkTrapFocus
+                 [(ngModel)]="data.values[0].value"
                  placeholder="{{data.placeholder || data.labelText }}" autofocus/>
           <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"
                   (click)="data.values = undefined">
@@ -130,7 +138,8 @@
         </mat-form-field>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.Boolean" fxLayout="row" fxLayoutGap="30px">
+      <div *ngSwitchCase="data.type === FacetDataType.Boolean" fxLayout="row" fxLayoutGap="30px"
+           class="boolean-wrapper">
         <mat-checkbox [(ngModel)]="data.values[0].value">{{data.placeholder || data.labelText}}</mat-checkbox>
       </div>
     </ng-container>
@@ -139,10 +148,10 @@
 
   <mat-dialog-actions dir="rtl">
 
-    <button mat-button [color]="isUpdate ? 'accent' : 'primary'" (click)="onOk()"
-            [disabled]="isUpdateButtonDisabled()">{{isUpdate ? 'Update' : 'Add Filter'}}</button>
+    <button mat-flat-button [color]="isUpdate ? 'accent' : 'primary'" (click)="onOk()"
+            [disabled]="isUpdateButtonDisabled()">{{isUpdate ? 'Update' : 'Add'}}</button>
 
-    <button mat-button *ngIf="isUpdate" color="warn" (click)="removeFacet(this.data)">Remove</button>
+    <button mat-button *ngIf="isUpdate" color="warn" (click)="onRemove()">Remove</button>
 
   </mat-dialog-actions>
 </div>

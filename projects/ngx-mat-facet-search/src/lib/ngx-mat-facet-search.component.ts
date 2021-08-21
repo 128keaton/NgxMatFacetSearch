@@ -10,19 +10,18 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {DialogPosition, MatDialog} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {Facet, FacetConfig, FacetDataType, FacetFilterType, FacetIdentifierStrategy} from './models';
+import {Facet, FacetConfig, FacetDataType, FacetFilterType, FacetIdentifierStrategy, FacetResultType} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
 import {MediaObserver} from '@angular/flex-layout';
-import * as _ from 'lodash';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {CookieService} from 'ngx-cookie-service';
 import {FACET_CONFIG} from './ngx-mat-facet.config';
 import {VCRefInjector} from './misc/parent.helper';
 import {v4 as uuidv4} from 'uuid';
+import {FacetModalService} from './modals/facet-modal.service';
 
 // @dynamic
 @Component({
@@ -37,8 +36,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
               public dialog: MatDialog,
+              public modal: FacetModalService,
               public media: MediaObserver,
-              private cookieService: CookieService,
               private vcRef: ViewContainerRef) {
 
     this.injectorRef = new VCRefInjector(this.vcRef.injector);
@@ -47,10 +46,17 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
     this.searchUpdated.subscribe(facets => {
       this.loggingCallback('Facet(s) updated', facets);
-    })
+    });
   }
 
-  @Input() source: Facet[];
+  @Input() set source(facets: Facet[]) {
+    this.sourceFacets = facets;
+
+    this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
+    this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
+    this.filteredFacets = this.availableFacets;
+  }
+
   @Input() placeholder = 'Filter Table...';
   @Input() clearButtonText = 'Clear Filters';
   @Input() clearButtonEnabled = true;
@@ -76,8 +82,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
   public allowDebugClick = false;
-  public cookieExpiresOn = 1;
 
+  private sourceFacets: Facet[] = [];
   private timeoutHandler: any;
   private identifierStrategy: FacetIdentifierStrategy;
 
@@ -98,8 +104,9 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
 
     this.updateAvailableFacets();
-    this.selectedFacets = this.loadFromCookies();
-    this.source.filter(facet => facet && facet.values && Array.isArray(facet.values))
+    this.selectedFacets = this.loadFromSessionStorage();
+    this.updateSessionStorage();
+    this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
       .forEach(facet => this.selectedFacets.push(facet));
   }
 
@@ -122,12 +129,12 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   chipSelected(event: MatChipSelectionChange, facet: Facet): void {
     if (event.selected && !facet.readonly) {
       const elementRef = event.source._elementRef.nativeElement;
-      const bound = elementRef.getBoundingClientRect();
-      this.facetSelected(facet, {
-        top: bound.top + bound.height + 'px',
-        left: (!this.media.isActive('xs') ? bound.left + 'px' : undefined)
+      const bound = elementRef.parentElement.getBoundingClientRect();
 
-      }, true);
+      this.facetSelected(facet, {
+        top: bound.height - 5,
+        left: elementRef.offsetLeft - (bound.x + 4),
+      }, true, elementRef.parentElement);
     }
   }
 
@@ -138,98 +145,114 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     const left = elementRef.left;
 
     this.facetSelected(selectedFacet, {
-      top: top + 'px',
-      left: (!this.media.isActive('xs') ? left + 'px' : undefined)
-    }, false);
+      top,
+      left: (!this.media.isActive('xs') ? left : undefined)
+    }, false, event.option._getHostElement());
 
   }
 
-  facetSelected(facet: Facet, position: DialogPosition, isUpdate: boolean): void {
-    this.promptFacet(_.cloneDeep(facet), position, isUpdate);
+  facetSelected(facet: Facet, position: { top: number, left: number | undefined }, isUpdate: boolean, target): void {
+    this.promptFacet(Object.assign({}, facet), position, isUpdate, target);
   }
 
-  promptFacet(facet: Facet, position: DialogPosition, isUpdate: boolean): void {
+  promptFacet(facet: Facet, position: { top: number, left: number | undefined }, isUpdate: boolean, target): void {
     this.filteredFacets = this.availableFacets;
 
-    setTimeout(() => {
 
-      const facetDetailsModal = this.dialog.open(FacetDetailsModalComponent, {
-        width: this.facetWidth,
-        hasBackdrop: this.facetHasBackdrop,
-        position,
-        backdropClass: 'transparentBackdrop',
-        panelClass: 'mat-facet-search-dialog',
-        data: facet,
-        disableClose: true,
-        closeOnNavigation: false
-      });
-      facetDetailsModal.componentInstance.removeFacet = (f: Facet) => {
-        if (this.removeFacet(f)) {
-          facetDetailsModal.close();
-        }
-      };
-      facetDetailsModal.componentInstance.isUpdate = isUpdate;
-      facetDetailsModal.componentInstance.finished = (updatedFacet: Facet) => {
-        this.addOrUpdateFacet(updatedFacet);
-        facetDetailsModal.close();
-      };
-      facetDetailsModal.beforeClosed().subscribe(() => {
-        this.selectedFacet = undefined;
-      });
+    const facetDetailsModal = this.modal.open(FacetDetailsModalComponent, target, {
+      data: facet,
+      offsetY: position.top,
+      offsetX: Math.abs(position.left),
+      isUpdate
+    });
 
-    }, 1);
+
+    facetDetailsModal.beforeClosed().subscribe(() => {
+      this.selectedFacet = undefined;
+    });
+
+    facetDetailsModal.afterClosed().subscribe(result => {
+      if (result.type === FacetResultType.REMOVE) {
+        this.removeFacet(result.data);
+      } else if (result.type === FacetResultType.ADD) {
+        this.addOrUpdateFacet(result.data);
+      }
+    });
+
+    /*   const facetDetailsModal = this.dialog.open(FacetDetailsModalComponent, {
+         width: this.facetWidth,
+         hasBackdrop: this.facetHasBackdrop,
+         position,
+         backdropClass: 'transparentBackdrop',
+         panelClass: 'mat-facet-search-dialog',
+         data: facet,
+         disableClose: true,
+         closeOnNavigation: false
+       });
+       facetDetailsModal.componentInstance.removeFacet = (f: Facet) => {
+         if (this.removeFacet(f)) {
+           facetDetailsModal.close();
+         }
+       };
+       facetDetailsModal.componentInstance.isUpdate = isUpdate;
+       facetDetailsModal.componentInstance.finished = (updatedFacet: Facet) => {
+         this.addOrUpdateFacet(updatedFacet);
+         facetDetailsModal.close();
+       };
+       facetDetailsModal.beforeClosed().subscribe(() => {
+         this.selectedFacet = undefined;
+       });*/
+
   }
 
   addOrUpdateFacet(facet: Facet): void {
-    const index = _.findIndex(this.selectedFacets, {name: facet.name});
+    const index = this.selectedFacets.findIndex(f => f.name === facet.name);
     if (index > -1) {
       this.selectedFacets[index] = facet;
     } else {
       this.selectedFacets.push(facet);
     }
     this.emitSelectedEvent();
-    this.updateCookies();
+    this.updateSessionStorage();
   }
 
   removeFacet(facet: Facet): boolean {
     if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.labelText + '" filter?'))) {
-      _.remove(this.selectedFacets, {name: facet.name});
+      this.selectedFacets = this.selectedFacets.filter(f => f.name !== facet.name);
       this.emitSelectedEvent();
-      this.updateCookies();
+      this.updateSessionStorage();
       return true;
     }
     return false;
   }
 
   updateAvailableFacets(): void {
-    const sourceClone = _.cloneDeep(this.source);
-    _.remove(sourceClone, (a) => {
-      return _.some(this.selectedFacets, {name: a.name});
-    });
-    this.availableFacets = sourceClone;
+    this.availableFacets = this.sourceFacets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
+
     this.filteredFacets = this.availableFacets;
+    this.clearSessionStorage();
   }
 
   reset(): void {
-    this.selectedFacets = this.source.filter(facet => facet.readonly === true);
+    this.selectedFacets = this.sourceFacets.filter(facet => facet.readonly === true);
     this.emitSelectedEvent();
-    this.clearCookies();
+    this.clearSessionStorage();
   }
 
   emitSelectedEvent(): void {
     this.updateAvailableFacets();
     this.searchUpdated.next(this.selectedFacets.map(facet => ({
-        name: facet.name,
-        labelText: facet.labelText,
-        type: facet.type,
-        values: facet.values.map(val => ({
-            value: val.value,
-            labelText: val.text,
-            type: val.type,
-            active: true
-          })
-        )
-      })
+          name: facet.name,
+          labelText: facet.labelText,
+          type: facet.type,
+          values: facet.values.map(val => ({
+              value: val.value,
+              labelText: val.text,
+              type: val.type,
+              active: true
+            })
+          )
+        })
       )
     );
   }
@@ -245,7 +268,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   /**
    * Update the identity of this Facet Search Component
-   * This function does NOT reload/re-fetch previously saved facets from cookies
+   * This function does NOT reload/re-fetch previously saved facets from sessionStorage
    *
    * @param identifier - new identifier for the component
    */
@@ -268,12 +291,12 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   /**
    * Clears previously saved facets for this specific component
    */
-  clearCookies() {
+  clearSessionStorage() {
     if (!this.identifier) {
       return;
     }
 
-    this.cookieService.delete(this.identifier);
+    sessionStorage.removeItem(this.identifier);
   }
 
   /**
@@ -304,7 +327,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   /**
    * Reconfigure this Facet Search Component
-   * This function will reload the previously saved facets from cookies if they exist
+   * This function will reload the previously saved facets from sessionStorage if they exist
    *
    * @param configuration - Partial FacetConfig
    * @param identity - Optional identity parameter if you want to override or provide a manual value
@@ -313,10 +336,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     if (configuration) {
       if (configuration.hasOwnProperty('allowDebugClick')) {
         this.allowDebugClick = configuration.allowDebugClick;
-      }
-
-      if (configuration.hasOwnProperty('cookieExpiresOn')) {
-        this.cookieExpiresOn = configuration.cookieExpiresOn;
       }
 
       if (configuration.hasOwnProperty('identifierStrategy')) {
@@ -332,8 +351,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.generateIdentity(identity);
 
     if (previousIdentity !== this.identifier) {
-      this.loggingCallback('Loading facets from cookies for', this.identifier);
-      this.selectedFacets = this.loadFromCookies();
+      this.loggingCallback('Loading facets from sessionStorage for', this.identifier);
+      this.selectedFacets = this.loadFromSessionStorage();
     }
 
     this.loggingCallback('Reconfigured', this.identifier);
@@ -368,45 +387,45 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Saves the selected facets to cookies for our current identifier
+   * Saves the selected facets to sessionStorage for our current identifier
    * @private
    */
-  private updateCookies() {
+  private updateSessionStorage() {
     if (!this.identifier) {
-      this.loggingCallback('Cannot update cookies, no ID set');
+      this.loggingCallback('Cannot update sessionStorage, no ID set');
       return;
     }
 
     if (this.selectedFacets.length === 0) {
-      this.clearCookies();
-      this.loggingCallback('Clearing cookies for component with ID', this.identifier);
+      this.clearSessionStorage();
+      this.loggingCallback('Clearing sessionStorage for component with ID', this.identifier);
       return;
     }
 
-    this.loggingCallback('Saving facets in cookies for component with ID', this.identifier);
-    this.cookieService.set(this.identifier, JSON.stringify(this.selectedFacets), this.cookieExpiresOn);
+    this.loggingCallback('Saving facets in sessionStorage for component with ID', this.identifier);
+    sessionStorage.setItem(this.identifier, JSON.stringify(this.selectedFacets));
   }
 
   /**
-   * Loads facets from cookies for our current identifier
+   * Loads facets from sessionStorage for our current identifier
    * @private
    */
-  private loadFromCookies(): Facet[] {
-    let cookieFacets = [];
+  private loadFromSessionStorage(): Facet[] {
+    let sessionFacets = [];
 
-    if (!!this.identifier && this.cookieService.check(this.identifier)) {
-      cookieFacets = JSON.parse(this.cookieService.get(this.identifier));
-      this.loggingCallback('Loaded facets for component with ID', this.identifier);
-    } else if (!this.identifier) {
+    if (!!this.identifier && !!sessionStorage.getItem(this.identifier)) {
+      sessionFacets = JSON.parse(sessionStorage.getItem(this.identifier));
+      this.loggingCallback('Loaded facets for component with ID', this.identifier, sessionFacets);
+    } else if (!!!this.identifier) {
       this.loggingCallback('No identifier set on this component');
-    } else if (!this.cookieService.check(this.identifier)) {
-      this.loggingCallback('No cookies set for component with ID', this.identifier);
+    } else if (!!!sessionStorage.getItem(this.identifier)) {
+      this.loggingCallback('No sessionStorage variable set for component with ID', this.identifier, sessionStorage.getItem(this.identifier));
     }
 
     setTimeout(() => {
       this.emitSelectedEvent();
     }, 500);
 
-    return cookieFacets;
+    return sessionFacets;
   }
 }
