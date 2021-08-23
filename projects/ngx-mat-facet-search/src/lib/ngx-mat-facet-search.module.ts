@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {NgxMatFacetSearchComponent} from './ngx-mat-facet-search.component';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
-import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -33,7 +32,6 @@ import {PortalModule} from '@angular/cdk/portal';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatDialogModule,
     MatIconModule,
     MatToolbarModule,
     MatProgressBarModule,

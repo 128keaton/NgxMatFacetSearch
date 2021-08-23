@@ -2,10 +2,15 @@ mat-spinner {
   margin: 1em auto;
 }
 
-.dialog-content {
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.content {
   min-height: 120px;
   padding-top: 22px;
-  padding-bottom: 12px;
   display: flex;
   flex-direction: column;
   align-items: normal;
@@ -13,6 +18,13 @@ mat-spinner {
   *:last-child {
     flex: 1;
   }
+}
+
+.actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
 }
 
 span.facet-no-results {
@@ -40,6 +52,8 @@ span.facet-no-results {
 }
 
 .modal-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center!important;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;

@@ -38,6 +38,10 @@
 
   }
 
+  .filterInputContainer {
+    border: 1px dashed mat.get-color-from-palette($foreground, divider) !important;
+  }
+
   .facet-modal-component {
     background: mat.get-color-from-palette($background, card)!important;
     color: mat.get-color-from-palette($foreground, text) !important;

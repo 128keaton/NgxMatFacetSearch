@@ -4,8 +4,7 @@
 
 .filterInputContainer {
   background-color: transparent!important;
-  border: 1px dashed rgba(0, 0, 0, 0.56);
-  opacity: 0.8!important;
+  opacity: 1!important;
   transition: none !important;
   box-shadow: none !important;
 }

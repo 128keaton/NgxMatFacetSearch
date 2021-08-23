@@ -212,9 +212,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     }
   };
 
-  emptyFunction() {
-
-  }
+  emptyFunction() {}
 
   clearInput() {
     this.typeaheadText = '';

@@ -4,6 +4,7 @@
     <mat-checkbox [(ngModel)]="chipLabelsEnabled">Chip labels</mat-checkbox>
     <mat-checkbox [(ngModel)]="clearButtonEnabled">"Clear" Button</mat-checkbox>
     <mat-checkbox [(ngModel)]="confirmOnRemove">Confirmation on remove</mat-checkbox>
+    <button mat-button (click)="toggleSet()">Use {{isUsingSetB ? 'Set A' : 'Set B'}}</button>
     <mat-form-field appearance="outline">
       <mat-label>ID Generation Strategy</mat-label>
       <mat-select [(value)]="currentStrategy" (selectionChange)="strategyUpdated.emit($event.value)">

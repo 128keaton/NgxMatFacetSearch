@@ -1,13 +1,13 @@
-<div fxLayout="column" fxLayoutAlign="start" class="mat-typography">
+<div class="mat-typography details">
 
-  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between none" color="primary" class="modal-header">
+  <mat-toolbar color="primary" class="modal-header">
     <h2 class="modal-title">{{data.labelText}}</h2>
     <button class="modal-close" mat-icon-button (click)="onCancel()">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-toolbar>
 
-  <mat-dialog-content class="dialog-content">
+  <div class="content">
 
     <p *ngIf="data.description" class="description">{{data.description}}</p>
 
@@ -144,14 +144,14 @@
       </div>
     </ng-container>
 
-  </mat-dialog-content>
+  </div>
 
-  <mat-dialog-actions dir="rtl">
+  <div class="actions">
 
     <button mat-flat-button [color]="isUpdate ? 'accent' : 'primary'" (click)="onOk()"
             [disabled]="isUpdateButtonDisabled()">{{isUpdate ? 'Update' : 'Add'}}</button>
 
     <button mat-button *ngIf="isUpdate" color="warn" (click)="onRemove()">Remove</button>
 
-  </mat-dialog-actions>
+  </div>
 </div>

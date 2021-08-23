@@ -10,7 +10,6 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {Facet, FacetConfig, FacetDataType, FacetFilterType, FacetIdentifierStrategy, FacetResultType} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
@@ -35,7 +34,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   private injectorRef: VCRefInjector;
 
   constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
-              public dialog: MatDialog,
               public modal: FacetModalService,
               public media: MediaObserver,
               private vcRef: ViewContainerRef) {
@@ -55,6 +53,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
     this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
     this.filteredFacets = this.availableFacets;
+    this.emitSelectedEvent();
   }
 
   @Input() placeholder = 'Filter Table...';
@@ -178,31 +177,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
         this.addOrUpdateFacet(result.data);
       }
     });
-
-    /*   const facetDetailsModal = this.dialog.open(FacetDetailsModalComponent, {
-         width: this.facetWidth,
-         hasBackdrop: this.facetHasBackdrop,
-         position,
-         backdropClass: 'transparentBackdrop',
-         panelClass: 'mat-facet-search-dialog',
-         data: facet,
-         disableClose: true,
-         closeOnNavigation: false
-       });
-       facetDetailsModal.componentInstance.removeFacet = (f: Facet) => {
-         if (this.removeFacet(f)) {
-           facetDetailsModal.close();
-         }
-       };
-       facetDetailsModal.componentInstance.isUpdate = isUpdate;
-       facetDetailsModal.componentInstance.finished = (updatedFacet: Facet) => {
-         this.addOrUpdateFacet(updatedFacet);
-         facetDetailsModal.close();
-       };
-       facetDetailsModal.beforeClosed().subscribe(() => {
-         this.selectedFacet = undefined;
-       });*/
-
   }
 
   addOrUpdateFacet(facet: Facet): void {
@@ -242,17 +216,17 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   emitSelectedEvent(): void {
     this.updateAvailableFacets();
     this.searchUpdated.next(this.selectedFacets.map(facet => ({
-          name: facet.name,
-          labelText: facet.labelText,
-          type: facet.type,
-          values: facet.values.map(val => ({
-              value: val.value,
-              labelText: val.text,
-              type: val.type,
-              active: true
-            })
-          )
-        })
+        name: facet.name,
+        labelText: facet.labelText,
+        type: facet.type,
+        values: facet.values.map(val => ({
+            value: val.value,
+            labelText: val.text,
+            type: val.type,
+            active: true
+          })
+        )
+      })
       )
     );
   }
@@ -419,7 +393,11 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     } else if (!!!this.identifier) {
       this.loggingCallback('No identifier set on this component');
     } else if (!!!sessionStorage.getItem(this.identifier)) {
-      this.loggingCallback('No sessionStorage variable set for component with ID', this.identifier, sessionStorage.getItem(this.identifier));
+      this.loggingCallback(
+        'No sessionStorage variable set for component with ID',
+        this.identifier,
+        sessionStorage.getItem(this.identifier)
+      );
     }
 
     setTimeout(() => {

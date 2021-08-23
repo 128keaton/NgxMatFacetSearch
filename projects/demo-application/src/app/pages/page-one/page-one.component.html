@@ -12,7 +12,7 @@
 
 <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="15px" class="content">
 
-  <app-settings #settings [currentIdentifier]="search.identifier" [strategy]="search.getIdentifierStrategy()" (strategyUpdated)="strategyUpdated($event)" (manualIdentifierUpdated)="manualIdentifierUpdated($event)"></app-settings>
+  <app-settings #settings (facetsUpdated)="facetsUpdated($event)"  [currentIdentifier]="search.identifier" [strategy]="search.getIdentifierStrategy()" (strategyUpdated)="strategyUpdated($event)" (manualIdentifierUpdated)="manualIdentifierUpdated($event)"></app-settings>
   <mat-divider [vertical]="true"></mat-divider>
   <app-output #output></app-output>
 
