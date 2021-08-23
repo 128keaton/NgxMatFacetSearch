@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/co
 import {Facet, FacetDataType, FacetIdentifierStrategy} from 'ngx-mat-facet-search';
 import {BehaviorSubject, of} from 'rxjs';
 import {delay, map} from 'rxjs/operators';
-import {testEmptyFilterTypeahead} from '../../common.helpers';
+import {lotsOfValuesTypeAhead, testEmptyFilterTypeahead} from '../../common.helpers';
 
 
 @Component({
@@ -126,6 +126,17 @@ export class SettingsComponent implements AfterViewInit {
       typeahead: {
         function: testEmptyFilterTypeahead,
         placeholder: 'Empty'
+      }
+    },
+    {
+      name: 'many',
+      labelText: 'Many Test',
+      description: 'Please select from options.',
+      type: FacetDataType.Typeahead,
+      icon: 'dns',
+      typeahead: {
+        function: lotsOfValuesTypeAhead,
+        placeholder: '1'
       }
     },
   ];

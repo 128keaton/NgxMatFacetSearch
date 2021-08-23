@@ -22,7 +22,7 @@
     <ng-container [ngSwitch]="true">
 
       <div *ngSwitchCase="data.type === FacetDataType.Category || data.type === FacetDataType.CategorySingle"
-           fxLayout="column" fxLayoutGap="20px" class="category-wrapper">
+           class="category-wrapper">
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
           <mat-selection-list *ngIf="options?.length > 0; else noResults">
@@ -44,9 +44,9 @@
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Typeahead || data.type === FacetDataType.TypeaheadSingle"
-           fxLayout="column" fxLayoutGap="20px" class="typeahead-wrapper">
+           class="typeahead-wrapper">
 
-        <mat-form-field fxFlex="70" class="typeahead-form-field" appearance="outline" floatLabel="never">
+        <mat-form-field class="typeahead-form-field" appearance="outline" floatLabel="never">
           <input matInput #typeAheadInput
                  autocomplete="off"
                  [(ngModel)]="typeaheadText"
@@ -79,9 +79,9 @@
         </ng-container>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.Date" fxLayout="column" fxLayoutGap="20px" class="date-wrapper">
+      <div *ngSwitchCase="data.type === FacetDataType.Date" class="date-wrapper">
 
-        <mat-form-field fxFill appearance="outline" floatLabel="always">
+        <mat-form-field appearance="outline" floatLabel="always" class="date-field">
           <mat-label>{{data.labelText}}</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="picker" [(ngModel)]="data.values[0].value"
                  placeholder="Choose a date" (focus)="isUpdate ? emptyFunction() : picker.open()"/>
@@ -90,9 +90,9 @@
         <mat-datepicker #picker></mat-datepicker>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.DateRange" fxLayout="column" class="date-range-wrapper">
+      <div *ngSwitchCase="data.type === FacetDataType.DateRange" class="date-range-wrapper">
 
-        <mat-form-field fxFill appearance="outline" floatLabel="always">
+        <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>{{data.labelText}} - Start</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="startDatePicker"
                  [(ngModel)]="data.values[0].value" placeholder="Choose a starting date"
@@ -101,7 +101,7 @@
         </mat-form-field>
         <mat-datepicker #startDatePicker></mat-datepicker>
 
-        <mat-form-field fxFill appearance="outline" floatLabel="always">
+        <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>{{data.labelText}} - End</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="endDatePicker"
                  [(ngModel)]="data.values[1].value" placeholder="Choose an end date"/>
@@ -110,16 +110,11 @@
         <mat-datepicker #endDatePicker></mat-datepicker>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.Text" fxLayout="row">
+      <div *ngSwitchCase="data.type === FacetDataType.Text" class="text-wrapper">
 
-        <mat-form-field fxFlex="30">
-
-
+        <mat-form-field class="criteria-field">
           <mat-select [(value)]="data.fixedFilterType || data.values[0].type"
                       [disabled]="!!data.fixedFilterType" placeholder="Criteria Type">
-            <!--
-            <mat-option *ngFor="let type of FacetFilterType | keys" [value]="type.key">{{type.value}}</mat-option>
-            -->
             <mat-option [value]="FacetFilterType.contains">Contains</mat-option>
             <mat-option [value]="FacetFilterType.endsWith">Ends With</mat-option>
             <mat-option [value]="FacetFilterType.equal">Equals</mat-option>
@@ -127,7 +122,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field fxFlex="70">
+        <mat-form-field class="search-field">
           <input matInput (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkTrapFocus
                  [(ngModel)]="data.values[0].value"
                  placeholder="{{data.placeholder || data.labelText }}" autofocus/>
@@ -138,8 +133,7 @@
         </mat-form-field>
 
       </div>
-      <div *ngSwitchCase="data.type === FacetDataType.Boolean" fxLayout="row" fxLayoutGap="30px"
-           class="boolean-wrapper">
+      <div *ngSwitchCase="data.type === FacetDataType.Boolean" class="boolean-wrapper">
         <mat-checkbox [(ngModel)]="data.values[0].value">{{data.placeholder || data.labelText}}</mat-checkbox>
       </div>
     </ng-container>

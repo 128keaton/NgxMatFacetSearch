@@ -5,7 +5,7 @@ mat-spinner {
 .details {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .content {
@@ -15,8 +15,10 @@ mat-spinner {
   flex-direction: column;
   align-items: normal;
 
-  *:last-child {
+  mat-selection-list{
     flex: 1;
+    max-height: 30vh;
+    overflow-y: auto;
   }
 }
 
@@ -43,8 +45,6 @@ span.facet-no-results {
   margin: 0!important;
   padding-left: 15px;
   padding-right: 15px;
-  width: unset!important;
-  min-width: unset!important;
 }
 
 .mat-dialog-actions {
@@ -73,6 +73,13 @@ p.description {
   flex: 1;
 }
 
+.date-range-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
 .date-range-wrapper, .category-wrapper {
   margin-top: 1em;
 }
@@ -80,4 +87,43 @@ p.description {
 .boolean-wrapper {
   padding-left: 15px;
   padding-right: 15px;
+  flex: 4;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.text-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+
+  .criteria-field {
+    width: 100px;
+    flex: 0;
+  }
+
+  .search-field {
+    flex: 2;
+  }
+}
+
+.date-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .date-field {
+    flex: 1;
+  }
+}
+
+.typeahead-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  .typeahead-form-field {
+    flex: 1;
+  }
 }

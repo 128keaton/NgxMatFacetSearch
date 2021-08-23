@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-facet-search",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Keaton Burleson",
   "repository": "https://github.com/128keaton/NgxMatFacetSearch",
   "peerDependencies": {
@@ -8,7 +8,6 @@
     "@angular/core": "^12.0.4",
     "@angular/forms": "^12.0.4",
     "@angular/material": "^12.0.4",
-    "@angular/flex-layout": "^12.0.0-beta.34",
     "uuid": "^8.3.2"
   },
   "dependencies": {

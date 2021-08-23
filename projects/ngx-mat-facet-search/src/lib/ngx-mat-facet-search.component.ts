@@ -21,13 +21,17 @@ import {FACET_CONFIG} from './ngx-mat-facet.config';
 import {VCRefInjector} from './misc/parent.helper';
 import {v4 as uuidv4} from 'uuid';
 import {FacetModalService} from './modals/facet-modal.service';
+import {chipAnimation} from './ngx-mat-facet-search.animations';
 
 // @dynamic
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-search',
   templateUrl: 'ngx-mat-facet-search.component.html',
-  styleUrls: ['./ngx-mat-facet-search.component.css'],
+  styleUrls: ['./ngx-mat-facet-search.component.scss'],
+  animations: [
+    chipAnimation
+  ]
 })
 export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 

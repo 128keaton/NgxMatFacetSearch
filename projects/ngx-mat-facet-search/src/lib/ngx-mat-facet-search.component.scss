@@ -50,9 +50,23 @@
 
 .main-facet-wrapper {
   min-height: 36px;
+  display: flex;
+  align-items: center;
+
+  .icon-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+  }
 }
 
 ::ng-deep .mat-autocomplete-panel.mat-autocomplete-visible {
   left: -40px !important;
   top: 15px !important;
+}
+
+.content-wrapper {
+  flex: 1;
 }

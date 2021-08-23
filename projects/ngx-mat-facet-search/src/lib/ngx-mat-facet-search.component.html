@@ -1,23 +1,23 @@
-<div fxLayout="row" class="main-facet-wrapper" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+<div class="main-facet-wrapper">
 
-  <div fxFlex="initial" *ngIf="displayFilterIcon" fxLayout="row" fxLayoutAlign="center center">
+  <div class="icon-wrapper" *ngIf="displayFilterIcon">
     <mat-icon class="filter-list-icon" *ngIf="tooltip != null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()" [matTooltip]="tooltip">filter_list</mat-icon>
     <mat-icon class="filter-list-icon" *ngIf="tooltip == null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()">filter_list</mat-icon>
   </div>
 
-  <div fxFlex="grow">
+  <div class="content-wrapper">
 
     <mat-chip-list #chipList [multiple]="false">
 
-      <mat-chip *ngFor="let facet of selectedFacets" [color]="facet.readonly ? 'accent' : undefined"
+      <mat-chip @chipAnimation *ngFor="let facet of selectedFacets" [color]="facet.readonly ? 'accent' : undefined"
                 class="facet-chip"
                 (selectionChange)="chipSelected($event, facet)" (click)="selectedFacet = facet"
-                [selected]="facet === selectedFacet" fxFlex="initial"
+                [selected]="facet === selectedFacet"
                 matTooltip="{{facet.labelText + (facet.description ? ': ' + facet.description : '')}}"
                 matTooltipShowDelay="1000">
         <mat-icon *ngIf="facet.icon" class="inlineChipIcon">{{facet.icon}}</mat-icon>
 
-        <span *ngIf="chipLabelsEnabled" fxHide.xs>{{ facet.labelText + ': &nbsp;'}}</span>
+        <span *ngIf="chipLabelsEnabled">{{ facet.labelText + ': &nbsp;'}}</span>
 
         <ng-container [ngSwitch]="facet.type">
 
@@ -44,7 +44,7 @@
             “{{facet.values[0].value | date:dateFormat}}” ~ “{{facet.values[1].value | date:dateFormat}}”
           </div>
 
-          <div *ngSwitchCase="FacetDataType.Boolean" fxLayout="row" fxLayoutGap="15px">
+          <div *ngSwitchCase="FacetDataType.Boolean">
             <mat-checkbox [disabled]="true" class="inlineChipCheckbox" [(ngModel)]="facet.values[0].value">
               {{facet.labelText}}
             </mat-checkbox>
@@ -94,8 +94,7 @@
   </div>
 
 
-  <button *ngIf="clearButtonEnabled && selectedFacets.length > 0" fxHide.xs mat-button (click)="reset()" color="accent"
-          fxFlex="none">
+  <button *ngIf="clearButtonEnabled && selectedFacets.length > 0" mat-button (click)="reset()" color="accent">
     {{clearButtonText}}
   </button>
 

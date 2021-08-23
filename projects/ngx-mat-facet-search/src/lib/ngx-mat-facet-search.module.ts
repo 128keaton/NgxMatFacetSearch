@@ -14,7 +14,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {CSVPipe, FilterPipe, KeysPipe} from './pipes';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -31,7 +30,6 @@ import {PortalModule} from '@angular/cdk/portal';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     MatIconModule,
     MatToolbarModule,
     MatProgressBarModule,
