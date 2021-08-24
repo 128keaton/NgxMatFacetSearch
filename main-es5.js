@@ -226,7 +226,7 @@
       /* harmony import */
 
 
-      var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
+      var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
       /*! @angular/material/autocomplete */
       1554);
       /* harmony import */
@@ -250,13 +250,13 @@
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
       /*! rxjs/operators */
       7519);
       /* harmony import */
 
 
-      var rxjs_operators__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
       /*! rxjs/operators */
       8002);
       /* harmony import */
@@ -280,37 +280,37 @@
       /* harmony import */
 
 
-      var rxjs__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+      var rxjs__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
       /*! rxjs */
       2759);
       /* harmony import */
 
 
-      var _angular_animations__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+      var _angular_animations__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
       /*! @angular/animations */
       7238);
       /* harmony import */
 
 
-      var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+      var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
       /*! @angular/flex-layout */
       7736);
       /* harmony import */
 
 
-      var uuid__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+      var uuid__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
       /*! uuid */
       1319);
       /* harmony import */
 
 
-      var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
+      var _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
       /*! @angular/cdk/overlay */
       8203);
       /* harmony import */
 
 
-      var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
+      var _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
       /*! @angular/cdk/portal */
       7636);
       /* harmony import */
@@ -340,7 +340,7 @@
       /* harmony import */
 
 
-      var _angular_material_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _angular_material_list__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @angular/material/list */
       7746);
       /* harmony import */
@@ -394,13 +394,13 @@
       /* harmony import */
 
 
-      var _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
+      var _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
       /*! @angular/material/chips */
       8341);
       /* harmony import */
 
 
-      var _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+      var _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
       /*! @angular/material/tooltip */
       1436);
       /* harmony import */
@@ -418,7 +418,7 @@
       /* harmony import */
 
 
-      var _angular_material_divider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _angular_material_divider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @angular/material/divider */
       1769);
 
@@ -462,7 +462,7 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_mat_list_option_2_small_3_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_mat_list_option_1_small_3_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "small");
 
@@ -484,7 +484,7 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_mat_list_option_2_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_mat_list_option_1_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list-option", 26);
 
@@ -492,7 +492,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_mat_list_option_2_small_3_Template, 3, 1, "small", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_mat_list_option_1_small_3_Template, 3, 1, "small", 27);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -517,13 +517,13 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_Template(rf, ctx) {
         if (rf & 1) {
           var _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-selection-list", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectionChange", function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_Template_mat_selection_list_selectionChange_0_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectionChange", function FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_Template_mat_selection_list_selectionChange_0_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r21);
 
             var options_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().ngIf;
@@ -533,11 +533,7 @@
             return ctx_r20.selectionChange($event, ctx_r20.data, options_r13);
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "mat-divider");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_mat_list_option_2_Template, 4, 6, "mat-list-option", 25);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "mat-divider");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_mat_list_option_1_Template, 4, 6, "mat-list-option", 25);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -545,7 +541,7 @@
         if (rf & 2) {
           var options_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().ngIf;
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", options_r13);
         }
@@ -555,7 +551,11 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_1_Template, 4, 1, "mat-selection-list", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "mat-divider");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, FacetDetailsModalComponent_div_14_ng_container_1_mat_selection_list_2_Template, 2, 1, "mat-selection-list", 23);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "mat-divider");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
         }
@@ -567,7 +567,7 @@
 
           var _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (options_r13 == null ? null : options_r13.length) > 0)("ngIfElse", _r3);
         }
@@ -577,7 +577,7 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 21);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_14_ng_container_1_Template, 2, 2, "ng-container", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_14_ng_container_1_Template, 4, 2, "ng-container", 22);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
 
@@ -619,7 +619,7 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_mat_list_option_2_small_3_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_mat_list_option_1_small_3_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "small");
 
@@ -641,7 +641,7 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_mat_list_option_2_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_mat_list_option_1_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list-option", 35);
 
@@ -649,7 +649,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_mat_list_option_2_small_3_Template, 3, 1, "small", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_mat_list_option_1_small_3_Template, 3, 1, "small", 27);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -674,13 +674,13 @@
         }
       }
 
-      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_Template(rf, ctx) {
+      function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_Template(rf, ctx) {
         if (rf & 1) {
           var _r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-selection-list", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectionChange", function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_Template_mat_selection_list_selectionChange_0_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("selectionChange", function FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_Template_mat_selection_list_selectionChange_0_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r37);
 
             var options_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().ngIf;
@@ -690,11 +690,7 @@
             return ctx_r36.selectionChange($event, ctx_r36.data, options_r29);
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "mat-divider");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_mat_list_option_2_Template, 4, 6, "mat-list-option", 34);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "mat-divider");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_mat_list_option_1_Template, 4, 6, "mat-list-option", 34);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -702,7 +698,7 @@
         if (rf & 2) {
           var options_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().ngIf;
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", options_r29);
         }
@@ -712,7 +708,11 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_1_Template, 4, 1, "mat-selection-list", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "mat-divider");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, FacetDetailsModalComponent_div_15_ng_container_7_mat_selection_list_2_Template, 2, 1, "mat-selection-list", 23);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "mat-divider");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
         }
@@ -724,7 +724,7 @@
 
           var _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (options_r29 == null ? null : options_r29.length) > 0)("ngIfElse", _r3);
         }
@@ -766,7 +766,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, FacetDetailsModalComponent_div_15_ng_container_7_Template, 2, 2, "ng-container", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, FacetDetailsModalComponent_div_15_ng_container_7_Template, 4, 2, "ng-container", 22);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](8, "async");
 
@@ -1140,7 +1140,11 @@
             return ctx_r62.onRemove();
           });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Remove");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-icon");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "delete");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -2172,7 +2176,7 @@
         },
         decls: 24,
         vars: 13,
-        consts: [[1, "mat-typography", "details"], ["color", "primary", 1, "modal-header"], [1, "modal-title"], ["mat-icon-button", "", 1, "modal-close", 3, "click"], [1, "content"], ["class", "description", 4, "ngIf"], ["loading", ""], ["noResults", ""], [3, "ngSwitch"], ["class", "category-wrapper", 4, "ngSwitchCase"], ["class", "typeahead-wrapper", 4, "ngSwitchCase"], ["class", "date-wrapper", 4, "ngSwitchCase"], ["class", "date-range-wrapper", 4, "ngSwitchCase"], ["class", "text-wrapper", 4, "ngSwitchCase"], ["class", "boolean-wrapper", 4, "ngSwitchCase"], [1, "actions"], ["mat-flat-button", "", 3, "color", "disabled", "click"], ["mat-button", "", "color", "warn", 3, "click", 4, "ngIf"], [1, "description"], ["diameter", "20"], [1, "facet-no-results"], [1, "category-wrapper"], [4, "ngIf", "ngIfElse"], [3, "selectionChange", 4, "ngIf", "ngIfElse"], [3, "selectionChange"], ["focusOnShow", "", 3, "value", "selected", "firstElement", 4, "ngFor", "ngForOf"], ["focusOnShow", "", 3, "value", "selected", "firstElement"], [4, "ngIf"], [1, "typeahead-wrapper"], ["appearance", "outline", "floatLabel", "never", 1, "typeahead-form-field"], ["matInput", "", "autocomplete", "off", "focusOnShow", "100", 3, "ngModel", "placeholder", "ngModelChange"], ["typeAheadInput", ""], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click", 4, "ngIf"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click"], ["focusOnShow", "", 3, "value", "firstElement", "selected", 4, "ngFor", "ngForOf"], ["focusOnShow", "", 3, "value", "firstElement", "selected"], [1, "date-wrapper"], ["appearance", "outline", "floatLabel", "always", 1, "date-field"], ["matInput", "", "autocomplete", "off", "focusOnShow", "100", "placeholder", "Choose a date", 3, "matDatepicker", "ngModel", "ngModelChange", "focus"], ["matSuffix", "", 3, "for"], ["picker", ""], [1, "date-range-wrapper"], ["appearance", "outline", "floatLabel", "always"], ["matInput", "", "focusOnShow", "100", "autocomplete", "off", "placeholder", "Choose a starting date", 3, "matDatepicker", "ngModel", "ngModelChange", "focus"], ["startDatePicker", ""], ["matInput", "", "autocomplete", "off", "placeholder", "Choose an end date", 3, "matDatepicker", "ngModel", "ngModelChange"], ["endDatePicker", ""], [1, "text-wrapper"], [1, "criteria-field"], ["placeholder", "Criteria Type", 3, "value", "disabled", "valueChange"], [3, "value"], [1, "search-field"], ["matInput", "", "focusOnShow", "", "autocomplete", "off", "cdkTrapFocus", "", "autofocus", "", 3, "ngModel", "placeholder", "keydown.enter", "ngModelChange"], ["mat-button", "", "matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click", 4, "ngIf"], ["mat-button", "", "matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click"], [1, "boolean-wrapper"], [3, "ngModel", "ngModelChange"], ["mat-button", "", "color", "warn", 3, "click"]],
+        consts: [[1, "mat-typography", "details"], ["color", "primary", 1, "modal-header"], [1, "modal-title"], ["mat-icon-button", "", 1, "modal-close", 3, "click"], [1, "content"], ["class", "description", 4, "ngIf"], ["loading", ""], ["noResults", ""], [3, "ngSwitch"], ["class", "category-wrapper", 4, "ngSwitchCase"], ["class", "typeahead-wrapper", 4, "ngSwitchCase"], ["class", "date-wrapper", 4, "ngSwitchCase"], ["class", "date-range-wrapper", 4, "ngSwitchCase"], ["class", "text-wrapper", 4, "ngSwitchCase"], ["class", "boolean-wrapper", 4, "ngSwitchCase"], [1, "actions"], ["mat-flat-button", "", 1, "add-update-button", 3, "color", "disabled", "click"], ["mat-icon-button", "", "class", "remove-button", "color", "warn", "matTooltip", "Delete Filter", "matTooltipPosition", "after", 3, "click", 4, "ngIf"], [1, "description"], ["diameter", "20"], [1, "facet-no-results"], [1, "category-wrapper"], [4, "ngIf", "ngIfElse"], [3, "selectionChange", 4, "ngIf", "ngIfElse"], [3, "selectionChange"], ["focusOnShow", "", 3, "value", "selected", "firstElement", 4, "ngFor", "ngForOf"], ["focusOnShow", "", 3, "value", "selected", "firstElement"], [4, "ngIf"], [1, "typeahead-wrapper"], ["appearance", "outline", "floatLabel", "never", 1, "typeahead-form-field"], ["matInput", "", "autocomplete", "off", "focusOnShow", "100", 3, "ngModel", "placeholder", "ngModelChange"], ["typeAheadInput", ""], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click", 4, "ngIf"], ["matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click"], ["focusOnShow", "", 3, "value", "firstElement", "selected", 4, "ngFor", "ngForOf"], ["focusOnShow", "", 3, "value", "firstElement", "selected"], [1, "date-wrapper"], ["appearance", "outline", "floatLabel", "always", 1, "date-field"], ["matInput", "", "autocomplete", "off", "focusOnShow", "100", "placeholder", "Choose a date", 3, "matDatepicker", "ngModel", "ngModelChange", "focus"], ["matSuffix", "", 3, "for"], ["picker", ""], [1, "date-range-wrapper"], ["appearance", "outline", "floatLabel", "always"], ["matInput", "", "focusOnShow", "100", "autocomplete", "off", "placeholder", "Choose a starting date", 3, "matDatepicker", "ngModel", "ngModelChange", "focus"], ["startDatePicker", ""], ["matInput", "", "autocomplete", "off", "placeholder", "Choose an end date", 3, "matDatepicker", "ngModel", "ngModelChange"], ["endDatePicker", ""], [1, "text-wrapper"], [1, "criteria-field"], ["placeholder", "Criteria Type", 3, "value", "disabled", "valueChange"], [3, "value"], [1, "search-field"], ["matInput", "", "focusOnShow", "", "autocomplete", "off", "cdkTrapFocus", "", "autofocus", "", 3, "ngModel", "placeholder", "keydown.enter", "ngModelChange"], ["mat-button", "", "matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click", 4, "ngIf"], ["mat-button", "", "matSuffix", "", "mat-icon-button", "", "aria-label", "Clear", 3, "click"], [1, "boolean-wrapper"], [3, "ngModel", "ngModelChange"], ["mat-icon-button", "", "color", "warn", "matTooltip", "Delete Filter", "matTooltipPosition", "after", 1, "remove-button", 3, "click"]],
         template: function FacetDetailsModalComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -2239,7 +2243,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](23, FacetDetailsModalComponent_button_23_Template, 2, 0, "button", 17);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](23, FacetDetailsModalComponent_button_23_Template, 3, 0, "button", 17);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -2297,17 +2301,17 @@
           }
         },
         directives: function directives() {
-          return [_angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbar, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIcon, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitch, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitchCase, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatSpinner, _angular_material_list__WEBPACK_IMPORTED_MODULE_12__.MatSelectionList, _angular_material_divider__WEBPACK_IMPORTED_MODULE_13__.MatDivider, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgForOf, _angular_material_list__WEBPACK_IMPORTED_MODULE_12__.MatListOption, FocusOnShowDirective, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatLabel, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInput, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgModel, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatSuffix, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerInput, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerToggle, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepicker, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelect, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOption, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.CdkTrapFocus, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckbox];
+          return [_angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbar, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIcon, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgIf, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitch, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitchCase, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatSpinner, _angular_material_divider__WEBPACK_IMPORTED_MODULE_12__.MatDivider, _angular_material_list__WEBPACK_IMPORTED_MODULE_13__.MatSelectionList, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgForOf, _angular_material_list__WEBPACK_IMPORTED_MODULE_13__.MatListOption, FocusOnShowDirective, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatLabel, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInput, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgModel, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatSuffix, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerInput, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerToggle, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepicker, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelect, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOption, _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.CdkTrapFocus, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckbox, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__.MatTooltip];
         },
         pipes: function pipes() {
           return [_angular_common__WEBPACK_IMPORTED_MODULE_10__.AsyncPipe];
         },
-        styles: ["mat-spinner[_ngcontent-%COMP%]{margin:1em auto}.details[_ngcontent-%COMP%]{align-items:stretch}.content[_ngcontent-%COMP%], .details[_ngcontent-%COMP%]{display:flex;flex-direction:column}.content[_ngcontent-%COMP%]{min-height:120px;padding-top:22px;align-items:normal}.content[_ngcontent-%COMP%]   mat-selection-list[_ngcontent-%COMP%]{flex:1;max-height:30vh;overflow-y:auto}.actions[_ngcontent-%COMP%]{padding:16px;display:flex;justify-content:flex-start;flex-direction:row-reverse}span.facet-no-results[_ngcontent-%COMP%]{text-align:center;color:gray;margin-top:1em;margin-bottom:1em}.mat-selection-list[_ngcontent-%COMP%]{margin-top:0;padding-top:0}.mat-form-field[_ngcontent-%COMP%]{margin:0!important;padding-left:15px;padding-right:15px}.mat-dialog-actions[_ngcontent-%COMP%]{padding:0 15px 15px}.modal-header[_ngcontent-%COMP%]{display:flex;justify-content:space-between;align-items:center!important;border-top-left-radius:8px;border-top-right-radius:8px}.modal-header[_ngcontent-%COMP%]   .modal-title[_ngcontent-%COMP%]{height:40px!important;margin:0!important;line-height:45px}p.description[_ngcontent-%COMP%]{padding-left:15px;padding-right:15px;margin-bottom:0;color:gray;flex:1}.date-range-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between}.category-wrapper[_ngcontent-%COMP%], .date-range-wrapper[_ngcontent-%COMP%]{margin-top:1em}.boolean-wrapper[_ngcontent-%COMP%]{padding-left:15px;padding-right:15px;flex:4;display:flex;justify-content:flex-start;align-items:center}.text-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:2}.text-wrapper[_ngcontent-%COMP%]   .criteria-field[_ngcontent-%COMP%]{width:100px;flex:0}.text-wrapper[_ngcontent-%COMP%]   .search-field[_ngcontent-%COMP%]{flex:2}.date-wrapper[_ngcontent-%COMP%]{display:flex;justify-content:center;align-items:center}.date-wrapper[_ngcontent-%COMP%]   .date-field[_ngcontent-%COMP%]{flex:1}.typeahead-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:column;align-items:stretch;margin-top:1em}.typeahead-wrapper[_ngcontent-%COMP%]   .typeahead-form-field[_ngcontent-%COMP%]{flex:1}"],
+        styles: ["mat-spinner[_ngcontent-%COMP%]{margin:1em auto}.details[_ngcontent-%COMP%]{align-items:stretch}.content[_ngcontent-%COMP%], .details[_ngcontent-%COMP%]{display:flex;flex-direction:column}.content[_ngcontent-%COMP%]{min-height:120px;padding-top:22px;align-items:normal}.content[_ngcontent-%COMP%]   mat-selection-list[_ngcontent-%COMP%]{flex:1;max-height:30vh;overflow-y:auto}.actions[_ngcontent-%COMP%]{padding:16px;display:flex;justify-content:space-between;flex-direction:row-reverse}span.facet-no-results[_ngcontent-%COMP%]{text-align:center;color:gray;margin-top:1em;margin-bottom:1em}.mat-selection-list[_ngcontent-%COMP%]{margin-top:0;padding-top:0}.mat-form-field[_ngcontent-%COMP%]{margin:0!important;padding-left:15px;padding-right:15px}.mat-dialog-actions[_ngcontent-%COMP%]{padding:0 15px 15px}.modal-header[_ngcontent-%COMP%]{display:flex;justify-content:space-between;align-items:center!important;border-top-left-radius:8px;border-top-right-radius:8px}.modal-header[_ngcontent-%COMP%]   .modal-title[_ngcontent-%COMP%]{height:40px!important;margin:0!important;line-height:45px}p.description[_ngcontent-%COMP%]{padding-left:15px;padding-right:15px;margin-bottom:0;color:gray;flex:1}.date-range-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between}.category-wrapper[_ngcontent-%COMP%], .date-range-wrapper[_ngcontent-%COMP%]{margin-top:1em}.boolean-wrapper[_ngcontent-%COMP%]{padding-left:15px;padding-right:15px;flex:4;display:flex;justify-content:flex-start;align-items:center}.text-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:row;flex:2}.text-wrapper[_ngcontent-%COMP%]   .criteria-field[_ngcontent-%COMP%]{width:100px;flex:0}.text-wrapper[_ngcontent-%COMP%]   .search-field[_ngcontent-%COMP%]{flex:2}.date-wrapper[_ngcontent-%COMP%]{display:flex;justify-content:center;align-items:center}.date-wrapper[_ngcontent-%COMP%]   .date-field[_ngcontent-%COMP%]{flex:1}.typeahead-wrapper[_ngcontent-%COMP%]{display:flex;flex-direction:column;align-items:stretch;margin-top:1em}.typeahead-wrapper[_ngcontent-%COMP%]   .typeahead-form-field[_ngcontent-%COMP%]{flex:1}"],
         data: {
-          animation: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.trigger)('fadeIn', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)(':enter', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+          animation: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.trigger)('fadeIn', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)(':enter', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
             opacity: '0',
             height: 0
-          }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('.2s ease-out', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+          }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('.2s ease-out', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
             opacity: '1',
             height: '*'
           }))])])]
@@ -2338,15 +2342,15 @@
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Component,
           args: [{
             selector: 'ngx-mat-facet-details-modal',
-            template: "<div class=\"mat-typography details\">\n\n  <mat-toolbar color=\"primary\" class=\"modal-header\">\n    <h2 class=\"modal-title\">{{data.labelText}}</h2>\n    <button class=\"modal-close\" mat-icon-button (click)=\"onCancel()\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <div class=\"content\">\n\n    <p *ngIf=\"data.description\" class=\"description\">{{data.description}}</p>\n\n    <ng-template #loading>\n      <mat-spinner diameter=\"20\"></mat-spinner>\n    </ng-template>\n\n    <ng-template #noResults>\n      <span class=\"facet-no-results\" @fadeIn>No Results</span>\n    </ng-template>\n\n    <ng-container [ngSwitch]=\"true\">\n\n      <div *ngSwitchCase=\"data.type === FacetDataType.Category || data.type === FacetDataType.CategorySingle\"\n           class=\"category-wrapper\">\n\n        <ng-container *ngIf=\"(data.options | async) as options; else loading\">\n          <mat-selection-list *ngIf=\"options?.length > 0; else noResults\" (selectionChange)=\"selectionChange($event, data, options)\">\n            <mat-divider></mat-divider>\n            <mat-list-option *ngFor=\"let item of options; first as first\" [value]=\"item.value\" [selected]=\"isItemSelected(item)\"\n                             @fadeIn\n                             focusOnShow\n                             [firstElement]=\"first\">\n\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t{{ item.text ? truncateText(item.text) : \"- empty -\" }}\n              <small *ngIf=\"item.count\">\n\t\t\t\t\t\t\t\t<i>({{item.count}})</i>\n\t\t\t\t\t\t\t</small>\n\t\t\t\t\t\t</span>\n\n            </mat-list-option>\n            <mat-divider></mat-divider>\n          </mat-selection-list>\n        </ng-container>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Typeahead || data.type === FacetDataType.TypeaheadSingle\"\n           class=\"typeahead-wrapper\">\n\n        <mat-form-field class=\"typeahead-form-field\" appearance=\"outline\" floatLabel=\"never\">\n          <mat-label>Search...</mat-label>\n          <input matInput #typeAheadInput\n                 autocomplete=\"off\"\n                 focusOnShow=\"100\"\n                 [(ngModel)]=\"typeaheadText\"\n                 placeholder=\"{{data.typeahead.placeholder || ''}}\"\n                 (ngModelChange)=\"typeaheadValueChanged($event)\"/>\n\n          <button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"!clearButtonDisabled\" (click)=\"clearInput()\">\n            <mat-icon>clear</mat-icon>\n          </button>\n        </mat-form-field>\n\n        <ng-container *ngIf=\"(data.options | async) as options; else loading\">\n          <mat-selection-list *ngIf=\"options?.length > 0; else noResults\" (selectionChange)=\"selectionChange($event, data, options)\">\n            <mat-divider></mat-divider>\n            <mat-list-option *ngFor=\"let item of options; first as first\" [value]=\"item.value\"\n                             @fadeIn\n                             focusOnShow\n                             [firstElement]=\"first\"\n                             [selected]=\"isItemSelected(item)\">\n\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t{{ item.text ? truncateText(item.text) : \"- empty -\" }}\n              <small *ngIf=\"item.count\">\n\t\t\t\t\t\t\t\t<i>({{item.count}})</i>\n\t\t\t\t\t\t\t</small>\n\t\t\t\t\t\t</span>\n\n            </mat-list-option>\n            <mat-divider></mat-divider>\n          </mat-selection-list>\n        </ng-container>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Date\" class=\"date-wrapper\">\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"date-field\">\n          <mat-label>{{data.labelText}}</mat-label>\n          <input matInput autocomplete=\"off\" focusOnShow=\"100\" [matDatepicker]=\"picker\" [(ngModel)]=\"data.values[0].value\"\n                 placeholder=\"Choose a date\" (focus)=\"isUpdate ? emptyFunction() : picker.open()\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #picker></mat-datepicker>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.DateRange\" class=\"date-range-wrapper\">\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\">\n          <mat-label>{{data.labelText}} - Start</mat-label>\n          <input matInput focusOnShow=\"100\" autocomplete=\"off\" [matDatepicker]=\"startDatePicker\"\n                 [(ngModel)]=\"data.values[0].value\" placeholder=\"Choose a starting date\"\n                 (focus)=\"isUpdate ? emptyFunction() : startDatePicker.open()\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #startDatePicker></mat-datepicker>\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\">\n          <mat-label>{{data.labelText}} - End</mat-label>\n          <input matInput autocomplete=\"off\" [matDatepicker]=\"endDatePicker\"\n                 [(ngModel)]=\"data.values[1].value\" placeholder=\"Choose an end date\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"endDatePicker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #endDatePicker></mat-datepicker>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Text\" class=\"text-wrapper\">\n\n        <mat-form-field class=\"criteria-field\">\n          <mat-select [(value)]=\"data.fixedFilterType || data.values[0].type\"\n                      [disabled]=\"!!data.fixedFilterType\" placeholder=\"Criteria Type\">\n            <mat-option [value]=\"FacetFilterType.contains\">Contains</mat-option>\n            <mat-option [value]=\"FacetFilterType.endsWith\">Ends With</mat-option>\n            <mat-option [value]=\"FacetFilterType.equal\">Equals</mat-option>\n            <mat-option [value]=\"FacetFilterType.startsWith\">Starts With</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n        <mat-form-field class=\"search-field\">\n          <input matInput focusOnShow (keydown.enter)=\"validateAndSubmit()\" autocomplete=\"off\" cdkTrapFocus\n                 [(ngModel)]=\"data.values[0].value\"\n                 placeholder=\"{{data.placeholder || data.labelText }}\" autofocus/>\n          <button mat-button *ngIf=\"data.values\" matSuffix mat-icon-button aria-label=\"Clear\"\n                  (click)=\"data.values = undefined\">\n            <mat-icon>close</mat-icon>\n          </button>\n        </mat-form-field>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Boolean\" class=\"boolean-wrapper\">\n        <mat-checkbox [(ngModel)]=\"data.values[0].value\">{{data.placeholder || data.labelText}}</mat-checkbox>\n      </div>\n    </ng-container>\n\n  </div>\n\n  <div class=\"actions\">\n\n    <button mat-flat-button [color]=\"isUpdate ? 'accent' : 'primary'\" (click)=\"onOk()\"\n            [disabled]=\"isUpdateButtonDisabled()\">{{isUpdate ? 'Update' : 'Add'}}</button>\n\n    <button mat-button *ngIf=\"isUpdate\" color=\"warn\" (click)=\"onRemove()\">Remove</button>\n\n  </div>\n</div>\n",
-            animations: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.trigger)('fadeIn', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)(':enter', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+            template: "<div class=\"mat-typography details\">\n\n  <mat-toolbar color=\"primary\" class=\"modal-header\">\n    <h2 class=\"modal-title\">{{data.labelText}}</h2>\n    <button class=\"modal-close\" mat-icon-button (click)=\"onCancel()\">\n      <mat-icon>clear</mat-icon>\n    </button>\n  </mat-toolbar>\n\n  <div class=\"content\">\n\n    <p *ngIf=\"data.description\" class=\"description\">{{data.description}}</p>\n\n    <ng-template #loading>\n      <mat-spinner diameter=\"20\"></mat-spinner>\n    </ng-template>\n\n    <ng-template #noResults>\n      <span class=\"facet-no-results\" @fadeIn>No Results</span>\n    </ng-template>\n\n    <ng-container [ngSwitch]=\"true\">\n\n      <div *ngSwitchCase=\"data.type === FacetDataType.Category || data.type === FacetDataType.CategorySingle\"\n           class=\"category-wrapper\">\n\n        <ng-container *ngIf=\"(data.options | async) as options; else loading\">\n          <mat-divider></mat-divider>\n          <mat-selection-list *ngIf=\"options?.length > 0; else noResults\" (selectionChange)=\"selectionChange($event, data, options)\">\n            <mat-list-option *ngFor=\"let item of options; first as first\" [value]=\"item.value\" [selected]=\"isItemSelected(item)\"\n                             @fadeIn\n                             focusOnShow\n                             [firstElement]=\"first\">\n\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t{{ item.text ? truncateText(item.text) : \"- empty -\" }}\n              <small *ngIf=\"item.count\">\n\t\t\t\t\t\t\t\t<i>({{item.count}})</i>\n\t\t\t\t\t\t\t</small>\n\t\t\t\t\t\t</span>\n\n            </mat-list-option>\n          </mat-selection-list>\n          <mat-divider></mat-divider>\n        </ng-container>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Typeahead || data.type === FacetDataType.TypeaheadSingle\"\n           class=\"typeahead-wrapper\">\n\n        <mat-form-field class=\"typeahead-form-field\" appearance=\"outline\" floatLabel=\"never\">\n          <mat-label>Search...</mat-label>\n          <input matInput #typeAheadInput\n                 autocomplete=\"off\"\n                 focusOnShow=\"100\"\n                 [(ngModel)]=\"typeaheadText\"\n                 placeholder=\"{{data.typeahead.placeholder || ''}}\"\n                 (ngModelChange)=\"typeaheadValueChanged($event)\"/>\n\n          <button matSuffix mat-icon-button aria-label=\"Clear\" *ngIf=\"!clearButtonDisabled\" (click)=\"clearInput()\">\n            <mat-icon>clear</mat-icon>\n          </button>\n        </mat-form-field>\n\n        <ng-container *ngIf=\"(data.options | async) as options; else loading\">\n          <mat-divider></mat-divider>\n          <mat-selection-list *ngIf=\"options?.length > 0; else noResults\" (selectionChange)=\"selectionChange($event, data, options)\">\n            <mat-list-option *ngFor=\"let item of options; first as first\" [value]=\"item.value\"\n                             @fadeIn\n                             focusOnShow\n                             [firstElement]=\"first\"\n                             [selected]=\"isItemSelected(item)\">\n\t\t\t\t\t\t<span>\n\t\t\t\t\t\t\t{{ item.text ? truncateText(item.text) : \"- empty -\" }}\n              <small *ngIf=\"item.count\">\n\t\t\t\t\t\t\t\t<i>({{item.count}})</i>\n\t\t\t\t\t\t\t</small>\n\t\t\t\t\t\t</span>\n\n            </mat-list-option>\n          </mat-selection-list>\n          <mat-divider></mat-divider>\n        </ng-container>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Date\" class=\"date-wrapper\">\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\" class=\"date-field\">\n          <mat-label>{{data.labelText}}</mat-label>\n          <input matInput autocomplete=\"off\" focusOnShow=\"100\" [matDatepicker]=\"picker\" [(ngModel)]=\"data.values[0].value\"\n                 placeholder=\"Choose a date\" (focus)=\"isUpdate ? emptyFunction() : picker.open()\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #picker></mat-datepicker>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.DateRange\" class=\"date-range-wrapper\">\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\">\n          <mat-label>{{data.labelText}} - Start</mat-label>\n          <input matInput focusOnShow=\"100\" autocomplete=\"off\" [matDatepicker]=\"startDatePicker\"\n                 [(ngModel)]=\"data.values[0].value\" placeholder=\"Choose a starting date\"\n                 (focus)=\"isUpdate ? emptyFunction() : startDatePicker.open()\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"startDatePicker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #startDatePicker></mat-datepicker>\n\n        <mat-form-field appearance=\"outline\" floatLabel=\"always\">\n          <mat-label>{{data.labelText}} - End</mat-label>\n          <input matInput autocomplete=\"off\" [matDatepicker]=\"endDatePicker\"\n                 [(ngModel)]=\"data.values[1].value\" placeholder=\"Choose an end date\"/>\n          <mat-datepicker-toggle matSuffix [for]=\"endDatePicker\"></mat-datepicker-toggle>\n        </mat-form-field>\n        <mat-datepicker #endDatePicker></mat-datepicker>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Text\" class=\"text-wrapper\">\n\n        <mat-form-field class=\"criteria-field\">\n          <mat-select [(value)]=\"data.fixedFilterType || data.values[0].type\"\n                      [disabled]=\"!!data.fixedFilterType\" placeholder=\"Criteria Type\">\n            <mat-option [value]=\"FacetFilterType.contains\">Contains</mat-option>\n            <mat-option [value]=\"FacetFilterType.endsWith\">Ends With</mat-option>\n            <mat-option [value]=\"FacetFilterType.equal\">Equals</mat-option>\n            <mat-option [value]=\"FacetFilterType.startsWith\">Starts With</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n        <mat-form-field class=\"search-field\">\n          <input matInput focusOnShow (keydown.enter)=\"validateAndSubmit()\" autocomplete=\"off\" cdkTrapFocus\n                 [(ngModel)]=\"data.values[0].value\"\n                 placeholder=\"{{data.placeholder || data.labelText }}\" autofocus/>\n          <button mat-button *ngIf=\"data.values\" matSuffix mat-icon-button aria-label=\"Clear\"\n                  (click)=\"data.values = undefined\">\n            <mat-icon>close</mat-icon>\n          </button>\n        </mat-form-field>\n\n      </div>\n      <div *ngSwitchCase=\"data.type === FacetDataType.Boolean\" class=\"boolean-wrapper\">\n        <mat-checkbox [(ngModel)]=\"data.values[0].value\">{{data.placeholder || data.labelText}}</mat-checkbox>\n      </div>\n    </ng-container>\n\n  </div>\n\n  <div class=\"actions\">\n\n    <button mat-flat-button class=\"add-update-button\" [color]=\"isUpdate ? 'accent' : 'primary'\" (click)=\"onOk()\"\n            [disabled]=\"isUpdateButtonDisabled()\">{{isUpdate ? 'Update' : 'Add'}}</button>\n\n    <button mat-icon-button class=\"remove-button\" *ngIf=\"isUpdate\" color=\"warn\" (click)=\"onRemove()\" matTooltip=\"Delete Filter\" matTooltipPosition=\"after\">\n      <mat-icon>delete</mat-icon>\n    </button>\n\n  </div>\n</div>\n",
+            animations: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.trigger)('fadeIn', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)(':enter', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
               opacity: '0',
               height: 0
-            }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('.2s ease-out', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+            }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('.2s ease-out', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
               opacity: '1',
               height: '*'
             }))])])],
-            styles: ["mat-spinner{margin:1em auto}.details{align-items:stretch}.content,.details{display:flex;flex-direction:column}.content{min-height:120px;padding-top:22px;align-items:normal}.content mat-selection-list{flex:1;max-height:30vh;overflow-y:auto}.actions{padding:16px;display:flex;justify-content:flex-start;flex-direction:row-reverse}span.facet-no-results{text-align:center;color:gray;margin-top:1em;margin-bottom:1em}.mat-selection-list{margin-top:0;padding-top:0}.mat-form-field{margin:0!important;padding-left:15px;padding-right:15px}.mat-dialog-actions{padding:0 15px 15px}.modal-header{display:flex;justify-content:space-between;align-items:center!important;border-top-left-radius:8px;border-top-right-radius:8px}.modal-header .modal-title{height:40px!important;margin:0!important;line-height:45px}p.description{padding-left:15px;padding-right:15px;margin-bottom:0;color:gray;flex:1}.date-range-wrapper{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between}.category-wrapper,.date-range-wrapper{margin-top:1em}.boolean-wrapper{padding-left:15px;padding-right:15px;flex:4;display:flex;justify-content:flex-start;align-items:center}.text-wrapper{display:flex;flex-direction:row;flex:2}.text-wrapper .criteria-field{width:100px;flex:0}.text-wrapper .search-field{flex:2}.date-wrapper{display:flex;justify-content:center;align-items:center}.date-wrapper .date-field{flex:1}.typeahead-wrapper{display:flex;flex-direction:column;align-items:stretch;margin-top:1em}.typeahead-wrapper .typeahead-form-field{flex:1}"]
+            styles: ["mat-spinner{margin:1em auto}.details{align-items:stretch}.content,.details{display:flex;flex-direction:column}.content{min-height:120px;padding-top:22px;align-items:normal}.content mat-selection-list{flex:1;max-height:30vh;overflow-y:auto}.actions{padding:16px;display:flex;justify-content:space-between;flex-direction:row-reverse}span.facet-no-results{text-align:center;color:gray;margin-top:1em;margin-bottom:1em}.mat-selection-list{margin-top:0;padding-top:0}.mat-form-field{margin:0!important;padding-left:15px;padding-right:15px}.mat-dialog-actions{padding:0 15px 15px}.modal-header{display:flex;justify-content:space-between;align-items:center!important;border-top-left-radius:8px;border-top-right-radius:8px}.modal-header .modal-title{height:40px!important;margin:0!important;line-height:45px}p.description{padding-left:15px;padding-right:15px;margin-bottom:0;color:gray;flex:1}.date-range-wrapper{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between}.category-wrapper,.date-range-wrapper{margin-top:1em}.boolean-wrapper{padding-left:15px;padding-right:15px;flex:4;display:flex;justify-content:flex-start;align-items:center}.text-wrapper{display:flex;flex-direction:row;flex:2}.text-wrapper .criteria-field{width:100px;flex:0}.text-wrapper .search-field{flex:2}.date-wrapper{display:flex;justify-content:center;align-items:center}.date-wrapper .date-field{flex:1}.typeahead-wrapper{display:flex;flex-direction:column;align-items:stretch;margin-top:1em}.typeahead-wrapper .typeahead-form-field{flex:1}"]
           }]
         }], function () {
           return [{
@@ -2412,15 +2416,15 @@
         isUpdate: false
       };
       var facetModalAnimations = {
-        modalContainer: (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.trigger)('modalContainer', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.state)('void, exit', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+        modalContainer: (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.trigger)('modalContainer', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.state)('void, exit', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
           opacity: 0,
           transform: 'scale(0.7)'
-        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.state)('enter', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.state)('enter', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
           transform: 'none'
-        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)('* => enter', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('150ms cubic-bezier(0, 0, 0.2, 1)', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)('* => enter', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('150ms cubic-bezier(0, 0, 0.2, 1)', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
           transform: 'none',
           opacity: 1
-        }))), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)('* => void, * => exit', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+        }))), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)('* => void, * => exit', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
           opacity: 0
         })))])
       };
@@ -2501,7 +2505,7 @@
         }]);
 
         return FacetModalComponent;
-      }(_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.BasePortalOutlet);
+      }(_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.BasePortalOutlet);
 
       FacetModalComponent.ɵfac = /*@__PURE__*/function () {
         var ɵFacetModalComponent_BaseFactory;
@@ -2515,7 +2519,7 @@
         selectors: [["ngx-facet-modal"]],
         viewQuery: function FacetModalComponent_Query(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.CdkPortalOutlet, 7);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.CdkPortalOutlet, 7);
           }
 
           if (rf & 2) {
@@ -2551,7 +2555,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "div", 1);
           }
         },
-        directives: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.CdkPortalOutlet],
+        directives: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.CdkPortalOutlet],
         styles: ["[_nghost-%COMP%]{position:relative;background:#fff;border-radius:8px;min-width:300px}.arrow[_ngcontent-%COMP%]{position:absolute;z-index:-1;width:20px;height:20px;top:-10px;left:24px;border-radius:4px;transform-origin:top left;transform:rotate(45deg)}"],
         data: {
           animation: [facetModalAnimations.modalContainer]
@@ -2560,7 +2564,7 @@
       FacetModalComponent.propDecorators = {
         portalOutlet: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewChild,
-          args: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.CdkPortalOutlet, {
+          args: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.CdkPortalOutlet, {
             "static": true
           }]
         }],
@@ -2611,7 +2615,7 @@
           }],
           portalOutlet: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewChild,
-            args: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.CdkPortalOutlet, {
+            args: [_angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.CdkPortalOutlet, {
               "static": true
             }]
           }]
@@ -2638,8 +2642,8 @@
               overlayY: 'top',
               originX: 'start',
               originY: 'center',
-              offsetY: offsetY,
-              offsetX: offsetX
+              offsetX: offsetX,
+              offsetY: offsetY
             }]);
             var overlayRef = this.overlay.create({
               hasBackdrop: true,
@@ -2661,8 +2665,8 @@
               parent: this.injector
             });
 
-            var modal = overlayRef.attach(new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.ComponentPortal(FacetModalComponent, null, injector)).instance;
-            modal.attachComponentPortal(new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.ComponentPortal(component, null, injector));
+            var modal = overlayRef.attach(new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.ComponentPortal(FacetModalComponent, null, injector)).instance;
+            modal.attachComponentPortal(new _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.ComponentPortal(component, null, injector));
             return modalRef;
           }
         }]);
@@ -2671,12 +2675,12 @@
       }();
 
       FacetModalService.ɵfac = function FacetModalService_Factory(t) {
-        return new (t || FacetModalService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.Overlay), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector));
+        return new (t || FacetModalService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.Overlay), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector));
       };
 
       FacetModalService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
         factory: function FacetModalService_Factory() {
-          return new FacetModalService(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.Overlay), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.INJECTOR));
+          return new FacetModalService(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.Overlay), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.INJECTOR));
         },
         token: FacetModalService,
         providedIn: "root"
@@ -2684,7 +2688,7 @@
 
       FacetModalService.ctorParameters = function () {
         return [{
-          type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.Overlay
+          type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.Overlay
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector
         }];
@@ -2698,24 +2702,24 @@
           }]
         }], function () {
           return [{
-            type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.Overlay
+            type: _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.Overlay
           }, {
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injector
           }];
         }, null);
       })();
 
-      var chipAnimation = [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.trigger)('chipAnimation', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.state)('in', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+      var chipAnimation = [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.trigger)('chipAnimation', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.state)('in', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
         transform: 'translateX(0)',
         opacity: 0,
         position: 'absolute'
-      })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)('void => *', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+      })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)('void => *', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
         transform: 'translateX(-100%)',
         opacity: 1,
         position: '*'
-      }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('200ms ease-out')]), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.transition)('* => void', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+      }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('200ms ease-out')]), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.transition)('* => void', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
         position: 'absolute'
-      }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.animate)('200ms ease-in', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_22__.style)({
+      }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('200ms ease-in', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
         transform: 'translateX(-100%)',
         opacity: 0
       }))])])]; // @dynamic
@@ -2802,7 +2806,7 @@
           value: function ngAfterViewInit() {
             var _this9 = this;
 
-            (0, rxjs__WEBPACK_IMPORTED_MODULE_25__.fromEvent)(this.filterInput.nativeElement, 'keyup').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.filter)(Boolean), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.debounceTime)(150), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_26__.distinctUntilChanged)(), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_27__.map)(function () {
+            (0, rxjs__WEBPACK_IMPORTED_MODULE_26__.fromEvent)(this.filterInput.nativeElement, 'keyup').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.filter)(Boolean), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.debounceTime)(150), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_27__.distinctUntilChanged)(), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_28__.map)(function () {
               return _this9.filterInput.nativeElement.value;
             })).subscribe(function (filterText) {
               if (!!filterText && filterText.length > 0) {
@@ -2819,17 +2823,10 @@
           value: function chipSelected(event, facet) {
             if (event.selected && !facet.readonly) {
               var elementRef = event.source._elementRef.nativeElement;
-              var bound = elementRef.parentElement.getBoundingClientRect();
-              var left = elementRef.offsetLeft - (bound.x + 4);
-
-              if (left < 0) {
-                left = elementRef.offsetLeft - 68;
-              }
-
               this.facetSelected(facet, {
-                top: bound.height - 5,
-                left: left
-              }, true, elementRef.parentElement);
+                top: elementRef.offsetTop - 16 + (elementRef.clientHeight - 6),
+                left: -3
+              }, true, elementRef);
             }
           }
         }, {
@@ -2839,7 +2836,7 @@
 
             var elementRef = event.option._getHostElement().parentElement.getBoundingClientRect();
 
-            var top = elementRef.top;
+            var top = elementRef.top - 3;
             var left = elementRef.left;
             this.facetSelected(selectedFacet, {
               top: top,
@@ -2860,7 +2857,7 @@
             var facetDetailsModal = this.modal.open(FacetDetailsModalComponent, target, {
               data: facet,
               offsetY: position.top,
-              offsetX: Math.abs(position.left),
+              offsetX: position.left,
               isUpdate: isUpdate
             });
             facetDetailsModal.beforeClosed().subscribe(function () {
@@ -3089,7 +3086,7 @@
                 break;
 
               case _FacetIdentifierStrategy.Random:
-                identity = (0, uuid__WEBPACK_IMPORTED_MODULE_28__["default"])();
+                identity = (0, uuid__WEBPACK_IMPORTED_MODULE_29__["default"])();
                 break;
 
               default:
@@ -3158,7 +3155,7 @@
       }();
 
       _NgxMatFacetSearchComponent.ɵfac = function NgxMatFacetSearchComponent_Factory(t) {
-        return new (t || _NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_29__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef));
+        return new (t || _NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef));
       };
 
       _NgxMatFacetSearchComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3168,7 +3165,7 @@
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c1, 5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger, 5, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger, 5, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger);
           }
 
           if (rf & 2) {
@@ -3284,7 +3281,7 @@
           }
         },
         directives: function directives() {
-          return [_angular_common__WEBPACK_IMPORTED_MODULE_10__.NgIf, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipList, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgForOf, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChip, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIcon, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipInput, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocomplete, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__.MatTooltip, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitch, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitchCase, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckbox, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgModel, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipRemove, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOption, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton];
+          return [_angular_common__WEBPACK_IMPORTED_MODULE_10__.NgIf, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipList, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgForOf, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChip, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIcon, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipInput, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocomplete, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__.MatTooltip, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitch, _angular_common__WEBPACK_IMPORTED_MODULE_10__.NgSwitchCase, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckbox, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.NgModel, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipRemove, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOption, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton];
         },
         pipes: function pipes() {
           return [CSVPipe, FilterPipe, _angular_common__WEBPACK_IMPORTED_MODULE_10__.DatePipe];
@@ -3305,7 +3302,7 @@
         }, {
           type: FacetModalService
         }, {
-          type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_29__.MediaObserver
+          type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef
         }];
@@ -3357,8 +3354,8 @@
         }],
         inputAutoComplete: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewChild,
-          args: [_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger, {
-            read: _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger
+          args: [_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger, {
+            read: _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger
           }]
         }]
       };
@@ -3383,7 +3380,7 @@
           }, {
             type: FacetModalService
           }, {
-            type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_29__.MediaObserver
+            type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver
           }, {
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef
           }];
@@ -3433,8 +3430,8 @@
           }],
           inputAutoComplete: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewChild,
-            args: [_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger, {
-              read: _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteTrigger
+            args: [_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger, {
+              read: _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger
             }]
           }]
         });
@@ -3657,14 +3654,14 @@
         type: _NgxMatFacetSearchModule
       });
       _NgxMatFacetSearchModule.ɵinj = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({
-        imports: [[_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_12__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.PortalModule]]
+        imports: [[_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_13__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.PortalModule]]
       });
 
       (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](_NgxMatFacetSearchModule, [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.NgModule,
           args: [{
-            imports: [_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_12__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.PortalModule],
+            imports: [_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_13__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.PortalModule],
             declarations: [CSVPipe, FilterPipe, KeysPipe, _NgxMatFacetSearchComponent, FacetDetailsModalComponent, FacetModalComponent, FocusOnShowDirective],
             exports: [_NgxMatFacetSearchComponent],
             entryComponents: [FacetDetailsModalComponent]
@@ -3678,7 +3675,7 @@
             return [CSVPipe, FilterPipe, KeysPipe, _NgxMatFacetSearchComponent, FacetDetailsModalComponent, FacetModalComponent, FocusOnShowDirective];
           },
           imports: function imports() {
-            return [_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_12__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_31__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_32__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_30__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_24__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_23__.PortalModule];
+            return [_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_20__.A11yModule, _angular_common__WEBPACK_IMPORTED_MODULE_10__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.FormsModule, _angular_forms__WEBPACK_IMPORTED_MODULE_16__.ReactiveFormsModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_9__.MatIconModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__.MatToolbarModule, _angular_material_progress_bar__WEBPACK_IMPORTED_MODULE_33__.MatProgressBarModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_13__.MatListModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_14__.MatFormFieldModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_17__.MatDatepickerModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatOptionModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_18__.MatSelectModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButtonModule, _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_21__.MatCheckboxModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_15__.MatInputModule, _angular_material_chips__WEBPACK_IMPORTED_MODULE_32__.MatChipsModule, _angular_material_tooltip__WEBPACK_IMPORTED_MODULE_22__.MatTooltipModule, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_19__.MatNativeDateModule, _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_11__.MatProgressSpinnerModule, _angular_cdk_overlay__WEBPACK_IMPORTED_MODULE_25__.OverlayModule, _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_24__.PortalModule];
           },
           exports: function exports() {
             return [_NgxMatFacetSearchComponent];
@@ -5424,7 +5421,7 @@
     function _(module) {
       "use strict";
 
-      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.6","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.7","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
       /***/
     }
   },
