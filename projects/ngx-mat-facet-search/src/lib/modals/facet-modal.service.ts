@@ -36,8 +36,8 @@ export class FacetModalService {
           overlayY: 'top',
           originX: 'start',
           originY: 'center',
+          offsetX,
           offsetY,
-          offsetX
         },
       ]);
 

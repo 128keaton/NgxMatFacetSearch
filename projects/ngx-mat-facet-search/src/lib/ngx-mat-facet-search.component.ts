@@ -132,25 +132,18 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   chipSelected(event: MatChipSelectionChange, facet: Facet): void {
     if (event.selected && !facet.readonly) {
       const elementRef = event.source._elementRef.nativeElement;
-      const bound = elementRef.parentElement.getBoundingClientRect();
-
-      let left = elementRef.offsetLeft - (bound.x + 4);
-
-      if (left < 0) {
-        left = elementRef.offsetLeft - 68;
-      }
 
       this.facetSelected(facet, {
-        top: bound.height - 5,
-        left,
-      }, true, elementRef.parentElement);
+        top: (elementRef.offsetTop - 16) + (elementRef.clientHeight - 6),
+        left: -3,
+      }, true, elementRef);
     }
   }
 
   autoCompleteSelected(event: MatAutocompleteSelectedEvent): void {
     const selectedFacet: Facet = event.option.value;
     const elementRef = event.option._getHostElement().parentElement.getBoundingClientRect();
-    const top = elementRef.top;
+    const top = elementRef.top - 3;
     const left = elementRef.left;
 
     this.facetSelected(selectedFacet, {
@@ -171,7 +164,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     const facetDetailsModal = this.modal.open(FacetDetailsModalComponent, target, {
       data: facet,
       offsetY: position.top,
-      offsetX: Math.abs(position.left),
+      offsetX: position.left,
       isUpdate
     });
 

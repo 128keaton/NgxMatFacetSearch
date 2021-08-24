@@ -25,8 +25,8 @@
            class="category-wrapper">
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
+          <mat-divider></mat-divider>
           <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
-            <mat-divider></mat-divider>
             <mat-list-option *ngFor="let item of options; first as first" [value]="item.value" [selected]="isItemSelected(item)"
                              @fadeIn
                              focusOnShow
@@ -39,8 +39,8 @@
 						</span>
 
             </mat-list-option>
-            <mat-divider></mat-divider>
           </mat-selection-list>
+          <mat-divider></mat-divider>
         </ng-container>
 
       </div>
@@ -62,8 +62,8 @@
         </mat-form-field>
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
+          <mat-divider></mat-divider>
           <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
-            <mat-divider></mat-divider>
             <mat-list-option *ngFor="let item of options; first as first" [value]="item.value"
                              @fadeIn
                              focusOnShow
@@ -77,8 +77,8 @@
 						</span>
 
             </mat-list-option>
-            <mat-divider></mat-divider>
           </mat-selection-list>
+          <mat-divider></mat-divider>
         </ng-container>
 
       </div>
@@ -145,10 +145,12 @@
 
   <div class="actions">
 
-    <button mat-flat-button [color]="isUpdate ? 'accent' : 'primary'" (click)="onOk()"
+    <button mat-flat-button class="add-update-button" [color]="isUpdate ? 'accent' : 'primary'" (click)="onOk()"
             [disabled]="isUpdateButtonDisabled()">{{isUpdate ? 'Update' : 'Add'}}</button>
 
-    <button mat-button *ngIf="isUpdate" color="warn" (click)="onRemove()">Remove</button>
+    <button mat-icon-button class="remove-button" *ngIf="isUpdate" color="warn" (click)="onRemove()" matTooltip="Delete Filter" matTooltipPosition="after">
+      <mat-icon>delete</mat-icon>
+    </button>
 
   </div>
 </div>
