@@ -1,4 +1,4 @@
-# 0.4.5:
+# 0.4.5 + 0.4.6:
 * Fixed: 
   * Offset of modal dialog was off in some weird cases
 
