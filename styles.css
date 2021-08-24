@@ -2267,8 +2267,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   background: #f44336;
   color: white;
 }
-.filterInputContainer {
-  border: 1px dashed rgba(0, 0, 0, 0.12) !important;
+.filter-input-container {
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 .facet-modal-component {
   background: white !important;
@@ -3932,8 +3932,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   background: #ff5722;
   color: white;
 }
-.dark-theme .filterInputContainer {
-  border: 1px dashed rgba(255, 255, 255, 0.12) !important;
+.dark-theme .filter-input-container {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 .dark-theme .facet-modal-component {
   background: #424242 !important;
