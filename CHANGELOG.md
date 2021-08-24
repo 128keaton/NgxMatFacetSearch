@@ -1,3 +1,7 @@
+# 0.4.5:
+* Fixed: 
+  * Offset of modal dialog was off in some weird cases
+
 # 0.4.4
 * Fixed:
   * Typeahead not working correctly (throwing error and loading twice)

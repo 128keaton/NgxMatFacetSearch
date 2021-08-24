@@ -134,9 +134,15 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       const elementRef = event.source._elementRef.nativeElement;
       const bound = elementRef.parentElement.getBoundingClientRect();
 
+      let left = elementRef.offsetLeft - (bound.x + 4);
+
+      if (left < 0) {
+        left = 0;
+      }
+
       this.facetSelected(facet, {
         top: bound.height - 5,
-        left: elementRef.offsetLeft - (bound.x + 4),
+        left,
       }, true, elementRef.parentElement);
     }
   }
