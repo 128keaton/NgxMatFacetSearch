@@ -1,11 +1,15 @@
-# 0.4.7:
+# 0.4.8
+* Fixed:
+  * Reverts change made in 0.4.7 to calculate Y offset of modal
+  
+# 0.4.7
 * Fixed:
   * Offset of modal dialog was off in some weird cases
   
 * Improved:
   * Offset of modal dialog on smaller screens
 
-# 0.4.5 + 0.4.6:
+# 0.4.5 + 0.4.6
 * Fixed: 
   * Offset of modal dialog was off in some weird cases
 
