@@ -1355,7 +1355,7 @@ class NgxMatFacetSearchComponent {
         if (event.selected && !facet.readonly) {
             const elementRef = event.source._elementRef.nativeElement;
             this.facetSelected(facet, {
-                top: (elementRef.offsetTop - 16) + (elementRef.clientHeight - 6),
+                top: (elementRef.clientHeight - 5),
                 left: -3,
             }, true, elementRef);
         }
@@ -2774,7 +2774,7 @@ module.exports = webpackEmptyAsyncContext;
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.7","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.8","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
 
 /***/ })
 
