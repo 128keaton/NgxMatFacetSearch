@@ -21,10 +21,10 @@ export const testEmptyFilterTypeahead = (text: string) => {
   );
 };
 
-const randomValueArray: FacetOption[] = Array.from({length: 40}, () => Math.floor(Math.random() * 40)).map(num => ({
+const randomValueArray: FacetOption[] = [...new Set(Array.from({length: 40}, () => Math.floor(Math.random() * 40)).map(num => ({
   value: `${num}`,
   text: `${num}`
-}));
+})))];
 
 export const lotsOfValuesTypeAhead = (text: string) => {
   return of(randomValueArray).pipe(

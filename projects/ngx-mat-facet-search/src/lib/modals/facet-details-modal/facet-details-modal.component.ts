@@ -24,6 +24,8 @@ const MAX_TEXT_LENGTH = 60;
 })
 export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
 
+  @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
+
   public isUpdate: boolean;
   public typeaheadText: string;
   public clearButtonDisabled = true;
@@ -31,33 +33,19 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   public FacetDataType = FacetDataType;
   public FacetFilterType = FacetFilterType;
 
-  @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
-
   private typeAheadInputChanged = new BehaviorSubject<string>('');
 
-  constructor(@Inject(FACET_MODAL_DATA) public data: Facet,
-              public modalRef: FacetModalRef) {
-
+  constructor(@Inject(FACET_MODAL_DATA) public data: Facet, public modalRef: FacetModalRef) {
     this.isUpdate = modalRef.config.isUpdate;
+  }
 
+  ngOnInit() {
     switch (this.data.type) {
-      case FacetDataType.Category:
-        break;
-
-      case FacetDataType.CategorySingle:
-        break;
-
       case FacetDataType.Typeahead:
       case FacetDataType.TypeaheadSingle:
         // Go ahead and run query by default
         if (this.data.typeahead && this.data.typeahead.function) {
-          this.data.typeahead.function('').subscribe(options => {
-            if (!!options && Array.isArray(options)) {
-              this.data.options = of(options || []);
-            } else {
-              this.data.options = of([]);
-            }
-          });
+          this.data.options = this.data.typeahead.function('');
         }
         break;
 
@@ -80,9 +68,6 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       default:
         this.data.values = this.data.values || [{}];
     }
-  }
-
-  ngOnInit() {
   }
 
   /**

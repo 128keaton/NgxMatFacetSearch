@@ -1,3 +1,8 @@
+# 0.4.4
+* Fixed:
+  * Typeahead not working correctly (throwing error and loading twice)
+  
+
 # 0.4.3
 * Fixed: 
   * Input fields not becoming focused when modal pops up.

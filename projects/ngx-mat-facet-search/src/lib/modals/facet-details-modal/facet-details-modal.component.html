@@ -30,8 +30,7 @@
             <mat-list-option *ngFor="let item of options; first as first" [value]="item.value" [selected]="isItemSelected(item)"
                              @fadeIn
                              focusOnShow
-                             [firstElement]="first"
-                             (click)="addOptionToSelected(data, item) ">
+                             [firstElement]="first">
 						<span>
 							{{ item.text ? truncateText(item.text) : "- empty -" }}
               <small *ngIf="item.count">
@@ -69,8 +68,7 @@
                              @fadeIn
                              focusOnShow
                              [firstElement]="first"
-                             [selected]="isItemSelected(item)"
-                             (click)="addOptionToSelected(data, item) ">
+                             [selected]="isItemSelected(item)">
 						<span>
 							{{ item.text ? truncateText(item.text) : "- empty -" }}
               <small *ngIf="item.count">
