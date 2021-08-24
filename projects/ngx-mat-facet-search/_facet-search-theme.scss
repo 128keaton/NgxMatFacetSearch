@@ -38,8 +38,8 @@
 
   }
 
-  .filterInputContainer {
-    border: 1px dashed mat.get-color-from-palette($foreground, divider) !important;
+  .filter-input-container {
+    border: 1px solid mat.get-color-from-palette($foreground, divider) !important;
   }
 
   .facet-modal-component {

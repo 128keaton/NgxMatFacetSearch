@@ -2,21 +2,21 @@
   outline: 0;
 }
 
-.filterInputContainer {
+.filter-input-container {
   background-color: transparent!important;
   opacity: 1!important;
-  transition: none !important;
   box-shadow: none !important;
-}
 
-.filterInput {
-  border: none!important;
-  background: none!important;
-  width: 85px;
-  font-size: 14px!important;
-  font-weight: normal;
-  flex: 0;
-  text-align: right;
+  .filter-input {
+    border: none!important;
+    background: none!important;
+    width: 85px;
+    font-size: 14px!important;
+    font-weight: normal;
+    flex: 0;
+    caret-color: transparent;
+    text-align: right;
+  }
 }
 
 ::placeholder {
@@ -24,11 +24,7 @@
   opacity: 1;
 }
 
-.transparentBackdrop {
-  background-color: transparent!important;
-}
-
-.inlineChipIcon {
+.inline-chip-icon {
   width: 18px;
   height: 18px;
   font-size: 18px;
@@ -44,7 +40,7 @@
   transform: scale(.7);
 }
 
-.add-icon:hover, .filterInputContainer:hover {
+.add-icon:hover, .filter-input-container:hover {
   cursor: pointer;
 }
 
@@ -65,6 +61,10 @@
 ::ng-deep .mat-autocomplete-panel.mat-autocomplete-visible {
   left: -40px !important;
   top: 15px !important;
+}
+
+::ng-deep .mat-chip-list-wrapper {
+  transition: width 300ms ease-in-out;
 }
 
 .content-wrapper {

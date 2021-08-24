@@ -10,7 +10,7 @@ export interface Facet {
   dataType?: 'boolean' | 'number' | 'string' | 'date';
   options?: Observable<FacetOption[]>;
   typeahead?: {
-    function?: (txt: string) => Observable<FacetOption[]>,
+    function?: (searchText: string) => Observable<FacetOption[]>,
     debounce?: number,
     placeholder?: string
   };

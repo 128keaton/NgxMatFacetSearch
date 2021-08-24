@@ -25,10 +25,12 @@
            class="category-wrapper">
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
-          <mat-selection-list *ngIf="options?.length > 0; else noResults">
+          <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
             <mat-divider></mat-divider>
-            <mat-list-option *ngFor="let item of options" [value]="item.value" [selected]="isItemSelected(item)"
+            <mat-list-option *ngFor="let item of options; first as first" [value]="item.value" [selected]="isItemSelected(item)"
                              @fadeIn
+                             focusOnShow
+                             [firstElement]="first"
                              (click)="addOptionToSelected(data, item) ">
 						<span>
 							{{ item.text ? truncateText(item.text) : "- empty -" }}
@@ -50,21 +52,23 @@
           <mat-label>Search...</mat-label>
           <input matInput #typeAheadInput
                  autocomplete="off"
+                 focusOnShow="100"
                  [(ngModel)]="typeaheadText"
                  placeholder="{{data.typeahead.placeholder || ''}}"
-                 (ngModelChange)="typeaheadValueChanged($event)"
-                 autofocus cdkTrapFocus/>
+                 (ngModelChange)="typeaheadValueChanged($event)"/>
 
           <button matSuffix mat-icon-button aria-label="Clear" *ngIf="!clearButtonDisabled" (click)="clearInput()">
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
 
-        <ng-container *ngIf="!!data.options && !!(data.options | async); else loading">
-          <mat-selection-list *ngIf="(data.options | async).length > 0; else noResults">
+        <ng-container *ngIf="(data.options | async) as options; else loading">
+          <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
             <mat-divider></mat-divider>
-            <mat-list-option *ngFor="let item of (data.options | async)" [value]="item.value"
+            <mat-list-option *ngFor="let item of options; first as first" [value]="item.value"
                              @fadeIn
+                             focusOnShow
+                             [firstElement]="first"
                              [selected]="isItemSelected(item)"
                              (click)="addOptionToSelected(data, item) ">
 						<span>
@@ -84,7 +88,7 @@
 
         <mat-form-field appearance="outline" floatLabel="always" class="date-field">
           <mat-label>{{data.labelText}}</mat-label>
-          <input matInput autocomplete="off" [matDatepicker]="picker" [(ngModel)]="data.values[0].value"
+          <input matInput autocomplete="off" focusOnShow="100" [matDatepicker]="picker" [(ngModel)]="data.values[0].value"
                  placeholder="Choose a date" (focus)="isUpdate ? emptyFunction() : picker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         </mat-form-field>
@@ -95,7 +99,7 @@
 
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>{{data.labelText}} - Start</mat-label>
-          <input matInput autocomplete="off" [matDatepicker]="startDatePicker"
+          <input matInput focusOnShow="100" autocomplete="off" [matDatepicker]="startDatePicker"
                  [(ngModel)]="data.values[0].value" placeholder="Choose a starting date"
                  (focus)="isUpdate ? emptyFunction() : startDatePicker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
@@ -124,7 +128,7 @@
         </mat-form-field>
 
         <mat-form-field class="search-field">
-          <input matInput (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkTrapFocus
+          <input matInput focusOnShow (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkTrapFocus
                  [(ngModel)]="data.values[0].value"
                  placeholder="{{data.placeholder || data.labelText }}" autofocus/>
           <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"

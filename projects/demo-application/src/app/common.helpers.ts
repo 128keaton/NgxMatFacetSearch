@@ -18,7 +18,6 @@ export const testEmptyFilterTypeahead = (text: string) => {
       return filtered;
     }),
     delay(300),
-    tap(values => console.log('Test empty:', values))
   );
 };
 
@@ -30,7 +29,13 @@ const randomValueArray: FacetOption[] = Array.from({length: 40}, () => Math.floo
 export const lotsOfValuesTypeAhead = (text: string) => {
   return of(randomValueArray).pipe(
     map(values => {
-      const filtered = values.filter(value => value.text.includes(text));
+      const filtered = values.filter(value => {
+        if (text.length > 0) {
+          return value.text.includes(text);
+        }
+
+        return true;
+      });
 
       if (filtered.length === 0) {
         return null;

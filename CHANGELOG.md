@@ -1,3 +1,13 @@
+# 0.4.3
+* Fixed: 
+  * Input fields not becoming focused when modal pops up.
+  * Typeahead filtering was not working properly.
+  * Arrow keys would not select list options in category.
+  
+* Improved:
+  * Animations refined further.
+  * Styling of some elements further refined.
+  
 # 0.4.2
 * Fixed: Searching in typeahead showed no label
 

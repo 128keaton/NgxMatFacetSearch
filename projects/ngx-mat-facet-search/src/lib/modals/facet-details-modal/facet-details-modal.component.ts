@@ -1,16 +1,15 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {debounceTime, filter, tap} from 'rxjs/operators';
-import {Facet, FacetDataType, FacetFilterType, FacetOption} from '../../models';
+import {debounceTime, tap} from 'rxjs/operators';
+import {Facet, FacetDataType, FacetFilterType, FacetOption, FacetResultType} from '../../models';
 import {BehaviorSubject, of} from 'rxjs';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {FacetModalRef} from '../facet-modal.ref';
-import {FacetResultType} from '../../models';
 import {FACET_MODAL_DATA} from '../facet-modal.data';
+import {MatSelectionListChange} from '@angular/material/list';
 
 const MAX_TEXT_LENGTH = 60;
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-details-modal',
   templateUrl: './facet-details-modal.component.html',
   styleUrls: ['./facet-details-modal.component.scss'],
@@ -92,19 +91,10 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.typeAheadInputs.length > 0) {
       this.typeAheadInputChanged.pipe(
-        filter(val => !!val),
-        tap(() => {
-          this.data.options = undefined;
-        }),
+        tap(() => this.data.options = undefined),
         debounceTime(this.data.typeahead.debounce || 300),
-      ).subscribe(txt => {
-        let search = txt;
-
-        if (!!!search) {
-          search = '';
-        }
-
-        this.data.typeahead.function(search).subscribe(options => {
+      ).subscribe(search => {
+        this.data.typeahead.function((search||'')).subscribe(options => {
             if (!!options) {
               this.data.options = of(options);
             } else {
@@ -117,12 +107,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   }
 
   typeaheadValueChanged(event) {
-    if (!!event) {
-      this.typeAheadInputChanged.next(event);
-    } else {
-      this.typeAheadInputChanged.next(' ');
-    }
-
+    this.typeAheadInputChanged.next(event);
     this.clearButtonDisabled = (!!!event || event.length === 0);
   }
 
@@ -173,8 +158,8 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   };
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
-
-    if ((facet.values || []).some(f => f.value === option.value)) {
+    if ((facet.values || []).some(f => f.value === option.value) &&
+      (facet.type === FacetDataType.Category || facet.type === FacetDataType.Typeahead)) {
       facet.values = facet.values.filter(f => f.value !== option.value);
     } else {
       option.selected = true;
@@ -215,7 +200,14 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   emptyFunction() {}
 
   clearInput() {
-    this.typeaheadText = '';
-    this.typeaheadValueChanged('');
+    this.typeaheadText = null;
+    this.typeaheadValueChanged(null);
+  }
+
+  selectionChange(selection: MatSelectionListChange, facet: Facet, options?: FacetOption[]) {
+    selection.options.filter(option => option.selected)
+      .map(selectedOption => (options || []).find(option => option.value === selectedOption.value))
+      .filter(facetOption => !(facet.values || []).find(v => v === facetOption.value))
+      .forEach(selectedOption => this.addOptionToSelected(facet, selectedOption));
   }
 }

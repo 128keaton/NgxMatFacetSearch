@@ -15,7 +15,7 @@
                 [selected]="facet === selectedFacet"
                 matTooltip="{{facet.labelText + (facet.description ? ': ' + facet.description : '')}}"
                 matTooltipShowDelay="1000">
-        <mat-icon *ngIf="facet.icon" class="inlineChipIcon">{{facet.icon}}</mat-icon>
+        <mat-icon *ngIf="facet.icon" class="inline-chip-icon">{{facet.icon}}</mat-icon>
 
         <span *ngIf="chipLabelsEnabled">{{ facet.labelText + ': &nbsp;'}}</span>
 
@@ -45,7 +45,7 @@
           </div>
 
           <div *ngSwitchCase="FacetDataType.Boolean">
-            <mat-checkbox [disabled]="true" class="inlineChipCheckbox" [(ngModel)]="facet.values[0].value">
+            <mat-checkbox [disabled]="true" class="inline-chip-checkbox" [(ngModel)]="facet.values[0].value">
               {{facet.labelText}}
             </mat-checkbox>
           </div>
@@ -72,11 +72,11 @@
 
       </mat-chip>
 
-      <mat-chip class="filterInputContainer" disableRipple disabled>
+      <mat-chip class="filter-input-container" disableRipple disabled @chipAnimation>
 
         <mat-icon class="add-icon" (click)="focus($event)">add</mat-icon>
 
-        <input #filterInput [matChipInputFor]="chipList" class="filterInput" [placeholder]="placeholder"
+        <input #filterInput [matChipInputFor]="chipList" class="filter-input" [placeholder]="placeholder"
                [matChipInputAddOnBlur]="false" [matAutocomplete]="auto">
 
         <mat-autocomplete #auto="matAutocomplete" class="mat-facet-autocomplete" (optionSelected)="autoCompleteSelected($event)"
