@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class CSVPipe implements PipeTransform {
 
-  transform(value: Array<object>, objectKeyName: string, separator: string): any {
+  transform(value: Array<object>, objectKeyName?: string, separator?: string): any {
     return value.map(e => objectKeyName ? e[objectKeyName] : e).join(separator || ',');
   }
 
