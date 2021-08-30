@@ -1429,7 +1429,7 @@ class NgxMatFacetSearchComponent {
             name: facet.name,
             labelText: facet.labelText,
             type: facet.type,
-            values: facet.values.map(val => ({
+            values: (facet.values || []).map(val => ({
                 value: val.value,
                 labelText: val.text,
                 type: val.type,

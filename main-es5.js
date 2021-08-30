@@ -2934,7 +2934,7 @@
                 name: facet.name,
                 labelText: facet.labelText,
                 type: facet.type,
-                values: facet.values.map(function (val) {
+                values: (facet.values || []).map(function (val) {
                   return {
                     value: val.value,
                     labelText: val.text,
