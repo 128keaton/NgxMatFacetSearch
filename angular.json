@@ -33,12 +33,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-mat-facet-search/src/test.ts",
-            "tsConfig": "projects/ngx-mat-facet-search/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-mat-facet-search/karma.conf.js"
-          }
+          "builder": "@angular-builders/jest:run"
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
