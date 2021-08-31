@@ -155,7 +155,7 @@
         "ɵd": function ɵd() {
           return (
             /* binding */
-            CSVPipe
+            FacetStorageService
           );
         },
 
@@ -163,7 +163,7 @@
         "ɵe": function ɵe() {
           return (
             /* binding */
-            FilterPipe
+            CSVPipe
           );
         },
 
@@ -171,7 +171,7 @@
         "ɵf": function ɵf() {
           return (
             /* binding */
-            KeysPipe
+            FilterPipe
           );
         },
 
@@ -179,15 +179,15 @@
         "ɵg": function ɵg() {
           return (
             /* binding */
-            FacetDetailsModalComponent
+            KeysPipe
           );
         },
 
         /* harmony export */
-        "ɵi": function ɵi() {
+        "ɵh": function ɵh() {
           return (
             /* binding */
-            FacetModalRef
+            FacetDetailsModalComponent
           );
         },
 
@@ -195,7 +195,7 @@
         "ɵj": function ɵj() {
           return (
             /* binding */
-            FacetModalComponent
+            FacetModalRef
           );
         },
 
@@ -203,12 +203,20 @@
         "ɵk": function ɵk() {
           return (
             /* binding */
-            facetModalAnimations
+            FacetModalComponent
           );
         },
 
         /* harmony export */
         "ɵl": function ɵl() {
+          return (
+            /* binding */
+            facetModalAnimations
+          );
+        },
+
+        /* harmony export */
+        "ɵm": function ɵm() {
           return (
             /* binding */
             FocusOnShowDirective
@@ -2722,16 +2730,143 @@
       }), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.animate)('200ms ease-in', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_23__.style)({
         transform: 'translateX(-100%)',
         opacity: 0
-      }))])])]; // @dynamic
+      }))])])];
+
+      var FacetStorageService = /*#__PURE__*/function () {
+        function FacetStorageService() {
+          _classCallCheck(this, FacetStorageService);
+
+          this.useLocalStorage = false;
+
+          this.loggingCallback = function () {};
+        }
+        /**
+         * Update the loggingCallback function
+         */
+
+
+        _createClass(FacetStorageService, [{
+          key: "updateLoggingCallback",
+          value: function updateLoggingCallback(loggingCallback) {
+            this.loggingCallback = loggingCallback;
+          }
+          /**
+           * Saves the selected facets to localStorage for our current identifier
+           */
+
+        }, {
+          key: "updateSavedFacets",
+          value: function updateSavedFacets(identifier, selectedFacets) {
+            if (!identifier) {
+              this.loggingCallback("Cannot update ".concat(this.mode, ", no ID set"));
+              return;
+            }
+
+            this.loggingCallback("Saving facets in ".concat(this.mode, " for component with ID"), identifier);
+
+            if (this.useLocalStorage) {
+              localStorage.setItem(identifier, JSON.stringify(selectedFacets));
+            } else {
+              sessionStorage.setItem(identifier, JSON.stringify(selectedFacets));
+            }
+          }
+          /**
+           * Clears previously saved facets for this specific component
+           */
+
+        }, {
+          key: "clearStorage",
+          value: function clearStorage(identifier) {
+            if (!identifier) {
+              return;
+            }
+
+            this.loggingCallback("Clearing ".concat(this.mode, " for ID"), identifier);
+
+            if (this.useLocalStorage) {
+              localStorage.removeItem(identifier);
+            } else {
+              sessionStorage.removeItem(identifier);
+            }
+          }
+          /**
+           * Loads facets from storage for our current identifier
+           */
+
+        }, {
+          key: "loadFacetsFromStorage",
+          value: function loadFacetsFromStorage(identifier) {
+            var sessionFacets = [];
+
+            if (!!identifier && !!localStorage.getItem(identifier)) {
+              if (this.useLocalStorage) {
+                sessionFacets = JSON.parse(localStorage.getItem(identifier));
+              } else {
+                sessionFacets = JSON.parse(sessionStorage.getItem(identifier));
+              }
+
+              sessionFacets = sessionFacets || [];
+              this.loggingCallback('Loaded facets for component with ID', identifier, sessionFacets);
+            } else if (!!!identifier) {
+              this.loggingCallback('No identifier set on this component');
+            } else if (this.checkStorage(identifier)) {
+              this.loggingCallback("No ".concat(this.mode, " variable set for component with ID"), identifier, localStorage.getItem(identifier));
+            }
+
+            return sessionFacets;
+          }
+        }, {
+          key: "mode",
+          get: function get() {
+            return this.useLocalStorage ? 'localStorage' : 'sessionStorage';
+          }
+        }, {
+          key: "checkStorage",
+          value: function checkStorage(key) {
+            if (this.useLocalStorage) {
+              return !!!localStorage.getItem(key);
+            } else {
+              return !!!sessionStorage.getItem(key);
+            }
+          }
+        }]);
+
+        return FacetStorageService;
+      }();
+
+      FacetStorageService.ɵfac = function FacetStorageService_Factory(t) {
+        return new (t || FacetStorageService)();
+      };
+
+      FacetStorageService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({
+        factory: function FacetStorageService_Factory() {
+          return new FacetStorageService();
+        },
+        token: FacetStorageService,
+        providedIn: "root"
+      });
+
+      (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FacetStorageService, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+          args: [{
+            providedIn: 'root'
+          }]
+        }], function () {
+          return [];
+        }, null);
+      })(); // @dynamic
+
 
       var _NgxMatFacetSearchComponent = /*#__PURE__*/function () {
-        function _NgxMatFacetSearchComponent(configuration, modal, media, vcRef) {
+        function _NgxMatFacetSearchComponent(configuration, modal, media, storageService, vcRef) {
           var _this6 = this;
 
           _classCallCheck(this, _NgxMatFacetSearchComponent);
 
           this.modal = modal;
           this.media = media;
+          this.storageService = storageService;
           this.vcRef = vcRef;
           this.placeholder = 'Filter Table...';
           this.clearButtonText = 'Clear Filters';
@@ -2767,54 +2902,45 @@
           set: function set(facets) {
             var _this7 = this;
 
-            this.sourceFacets = facets;
-            this.selectedFacets = this.selectedFacets.filter(function (s) {
-              return facets.some(function (f) {
-                return f.name === s.name;
+            if (!!facets && facets.length > 0) {
+              this.sourceFacets = facets;
+              this.selectedFacets = this.selectedFacets.filter(function (s) {
+                return facets.some(function (f) {
+                  return f.name === s.name;
+                });
               });
-            });
-            this.availableFacets = facets.map(function (f) {
-              return Object.assign({}, f);
-            }).filter(function (f) {
-              return !_this7.selectedFacets.some(function (s) {
-                return s.name === f.name;
+              this.availableFacets = facets.map(function (f) {
+                return Object.assign({}, f);
+              }).filter(function (f) {
+                return !_this7.selectedFacets.some(function (s) {
+                  return s.name === f.name;
+                });
               });
-            });
-            this.filteredFacets = this.availableFacets;
-            this.emitSelectedEvent();
+              this.filteredFacets = this.availableFacets;
+              this.updateSelectedFacets();
+            }
           }
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this8 = this;
-
             if (!this.identifier) {
               this.generateIdentity();
             }
-
-            this.updateAvailableFacets();
-            this.selectedFacets = this.loadFromSessionStorage();
-            this.updateSessionStorage();
-            this.sourceFacets.filter(function (facet) {
-              return facet && facet.values && Array.isArray(facet.values);
-            }).forEach(function (facet) {
-              return _this8.selectedFacets.push(facet);
-            });
           }
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this9 = this;
+            var _this8 = this;
 
             (0, rxjs__WEBPACK_IMPORTED_MODULE_26__.fromEvent)(this.filterInput.nativeElement, 'keyup').pipe((0, rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.filter)(Boolean), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.debounceTime)(150), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_27__.distinctUntilChanged)(), (0, rxjs_operators__WEBPACK_IMPORTED_MODULE_28__.map)(function () {
-              return _this9.filterInput.nativeElement.value;
+              return _this8.filterInput.nativeElement.value;
             })).subscribe(function (filterText) {
               if (!!filterText && filterText.length > 0) {
-                _this9.filteredFacets = _this9.availableFacets.filter(function (f) {
+                _this8.filteredFacets = _this8.availableFacets.filter(function (f) {
                   return f.name.toLowerCase().includes(filterText.toLowerCase());
                 });
               } else {
-                _this9.filteredFacets = _this9.availableFacets;
+                _this8.filteredFacets = _this8.availableFacets;
               }
             });
           }
@@ -2851,7 +2977,7 @@
         }, {
           key: "promptFacet",
           value: function promptFacet(facet, position, isUpdate, target) {
-            var _this10 = this;
+            var _this9 = this;
 
             this.filteredFacets = this.availableFacets;
             var facetDetailsModal = this.modal.open(FacetDetailsModalComponent, target, {
@@ -2861,13 +2987,13 @@
               isUpdate: isUpdate
             });
             facetDetailsModal.beforeClosed().subscribe(function () {
-              _this10.selectedFacet = undefined;
+              _this9.selectedFacet = undefined;
             });
             facetDetailsModal.afterClosed().subscribe(function (result) {
               if (result.type === _FacetResultType.REMOVE) {
-                _this10.removeFacet(result.data);
+                _this9.removeFacet(result.data);
               } else if (result.type === _FacetResultType.ADD) {
-                _this10.addOrUpdateFacet(result.data);
+                _this9.addOrUpdateFacet(result.data);
               }
             });
           }
@@ -2885,7 +3011,7 @@
             }
 
             this.emitSelectedEvent();
-            this.updateSessionStorage();
+            this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
           }
         }, {
           key: "removeFacet",
@@ -2895,11 +3021,38 @@
                 return f.name !== facet.name;
               });
               this.emitSelectedEvent();
-              this.updateSessionStorage();
+              this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
               return true;
             }
 
             return false;
+          }
+        }, {
+          key: "updateSelectedFacets",
+          value: function updateSelectedFacets() {
+            var _this10 = this;
+
+            this.sourceFacets.filter(function (facet) {
+              return facet && facet.values && Array.isArray(facet.values);
+            }).forEach(function (facet) {
+              return _this10.selectedFacets.push(facet);
+            });
+            this.selectedFacets = this.storageService.loadFacetsFromStorage(this.identifier).filter(function (facet) {
+              return _this10.availableFacets.findIndex(function (f) {
+                return f.name === facet.name;
+              }) > -1;
+            }).map(function (facet) {
+              var availableFacet = _this10.availableFacets.find(function (f) {
+                return f.name === facet.name;
+              });
+
+              availableFacet.values = facet.values;
+              return availableFacet;
+            });
+
+            if (this.selectedFacets.length > 0) {
+              this.emitSelectedEvent();
+            }
           }
         }, {
           key: "updateAvailableFacets",
@@ -2914,7 +3067,6 @@
               });
             });
             this.filteredFacets = this.availableFacets;
-            this.clearSessionStorage();
           }
         }, {
           key: "reset",
@@ -2923,7 +3075,7 @@
               return facet.readonly === true;
             });
             this.emitSelectedEvent();
-            this.clearSessionStorage();
+            this.storageService.clearStorage(this.identifier);
           }
         }, {
           key: "emitSelectedEvent",
@@ -2958,7 +3110,7 @@
           }
           /**
            * Update the identity of this Facet Search Component
-           * This function does NOT reload/re-fetch previously saved facets from sessionStorage
+           * This function does NOT reload/re-fetch previously saved facets from localStorage
            *
            * @param identifier - new identifier for the component
            */
@@ -2982,19 +3134,6 @@
           key: "getIdentifierStrategy",
           value: function getIdentifierStrategy() {
             return this.identifierStrategy;
-          }
-          /**
-           * Clears previously saved facets for this specific component
-           */
-
-        }, {
-          key: "clearSessionStorage",
-          value: function clearSessionStorage() {
-            if (!this.identifier) {
-              return;
-            }
-
-            sessionStorage.removeItem(this.identifier);
           }
           /**
            * Prints this component's identity to console
@@ -3031,7 +3170,7 @@
           }
           /**
            * Reconfigure this Facet Search Component
-           * This function will reload the previously saved facets from sessionStorage if they exist
+           * This function will reload the previously saved facets from localStorage if they exist
            *
            * @param configuration - Partial FacetConfig
            * @param identity - Optional identity parameter if you want to override or provide a manual value
@@ -3054,15 +3193,9 @@
               }
             }
 
-            var previousIdentity = "".concat(this.identifier);
             this.generateIdentity(identity);
-
-            if (previousIdentity !== this.identifier) {
-              this.loggingCallback('Loading facets from sessionStorage for', this.identifier);
-              this.selectedFacets = this.loadFromSessionStorage();
-            }
-
             this.loggingCallback('Reconfigured', this.identifier);
+            this.storageService.updateLoggingCallback(this.loggingCallback);
           }
           /**
            * Generates an identity for a Facet Search Component
@@ -3096,54 +3229,6 @@
 
             this.identify(identity);
           }
-          /**
-           * Saves the selected facets to sessionStorage for our current identifier
-           * @private
-           */
-
-        }, {
-          key: "updateSessionStorage",
-          value: function updateSessionStorage() {
-            if (!this.identifier) {
-              this.loggingCallback('Cannot update sessionStorage, no ID set');
-              return;
-            }
-
-            if (this.selectedFacets.length === 0) {
-              this.clearSessionStorage();
-              this.loggingCallback('Clearing sessionStorage for component with ID', this.identifier);
-              return;
-            }
-
-            this.loggingCallback('Saving facets in sessionStorage for component with ID', this.identifier);
-            sessionStorage.setItem(this.identifier, JSON.stringify(this.selectedFacets));
-          }
-          /**
-           * Loads facets from sessionStorage for our current identifier
-           * @private
-           */
-
-        }, {
-          key: "loadFromSessionStorage",
-          value: function loadFromSessionStorage() {
-            var _this13 = this;
-
-            var sessionFacets = [];
-
-            if (!!this.identifier && !!sessionStorage.getItem(this.identifier)) {
-              sessionFacets = JSON.parse(sessionStorage.getItem(this.identifier));
-              this.loggingCallback('Loaded facets for component with ID', this.identifier, sessionFacets);
-            } else if (!!!this.identifier) {
-              this.loggingCallback('No identifier set on this component');
-            } else if (!!!sessionStorage.getItem(this.identifier)) {
-              this.loggingCallback('No sessionStorage variable set for component with ID', this.identifier, sessionStorage.getItem(this.identifier));
-            }
-
-            setTimeout(function () {
-              _this13.emitSelectedEvent();
-            }, 500);
-            return sessionFacets;
-          }
         }], [{
           key: "getFixedURL",
           value: function getFixedURL() {
@@ -3155,7 +3240,7 @@
       }();
 
       _NgxMatFacetSearchComponent.ɵfac = function NgxMatFacetSearchComponent_Factory(t) {
-        return new (t || _NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef));
+        return new (t || _NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetStorageService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef));
       };
 
       _NgxMatFacetSearchComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3304,6 +3389,8 @@
         }, {
           type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver
         }, {
+          type: FacetStorageService
+        }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef
         }];
       };
@@ -3381,6 +3468,8 @@
             type: FacetModalService
           }, {
             type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver
+          }, {
+            type: FacetStorageService
           }, {
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef
           }];
@@ -3567,11 +3656,11 @@
         _createClass(FocusOnShowDirective, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this14 = this;
+            var _this13 = this;
 
             if (this.first) {
               setTimeout(function () {
-                _this14.focusInput();
+                _this13.focusInput();
               }, this.timeout || 0);
             }
           }
@@ -3859,19 +3948,19 @@
         _createClass(_AppComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this15 = this;
+            var _this14 = this;
 
             this.router.events.subscribe(function (event) {
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__.NavigationEnd) {
                 var currentURL = event.url;
 
                 if (currentURL.includes('two')) {
-                  _this15.showPageTwo = false;
-                  _this15.showPageOne = true;
+                  _this14.showPageTwo = false;
+                  _this14.showPageOne = true;
                   console.log('Page Two');
                 } else {
-                  _this15.showPageOne = false;
-                  _this15.showPageTwo = true;
+                  _this14.showPageOne = false;
+                  _this14.showPageTwo = true;
                   console.log('Page One');
                 }
               }
@@ -5421,7 +5510,7 @@
     function _(module) {
       "use strict";
 
-      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.8","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.9","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
       /***/
     }
   },

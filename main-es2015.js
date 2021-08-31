@@ -22,14 +22,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ɵa": function() { return /* binding */ chipAnimation; },
 /* harmony export */   "ɵb": function() { return /* binding */ FacetConfig; },
 /* harmony export */   "ɵc": function() { return /* binding */ FacetModalService; },
-/* harmony export */   "ɵd": function() { return /* binding */ CSVPipe; },
-/* harmony export */   "ɵe": function() { return /* binding */ FilterPipe; },
-/* harmony export */   "ɵf": function() { return /* binding */ KeysPipe; },
-/* harmony export */   "ɵg": function() { return /* binding */ FacetDetailsModalComponent; },
-/* harmony export */   "ɵi": function() { return /* binding */ FacetModalRef; },
-/* harmony export */   "ɵj": function() { return /* binding */ FacetModalComponent; },
-/* harmony export */   "ɵk": function() { return /* binding */ facetModalAnimations; },
-/* harmony export */   "ɵl": function() { return /* binding */ FocusOnShowDirective; }
+/* harmony export */   "ɵd": function() { return /* binding */ FacetStorageService; },
+/* harmony export */   "ɵe": function() { return /* binding */ CSVPipe; },
+/* harmony export */   "ɵf": function() { return /* binding */ FilterPipe; },
+/* harmony export */   "ɵg": function() { return /* binding */ KeysPipe; },
+/* harmony export */   "ɵh": function() { return /* binding */ FacetDetailsModalComponent; },
+/* harmony export */   "ɵj": function() { return /* binding */ FacetModalRef; },
+/* harmony export */   "ɵk": function() { return /* binding */ FacetModalComponent; },
+/* harmony export */   "ɵl": function() { return /* binding */ facetModalAnimations; },
+/* harmony export */   "ɵm": function() { return /* binding */ FocusOnShowDirective; }
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 7716);
 /* harmony import */ var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/material/autocomplete */ 1554);
@@ -1283,11 +1284,99 @@ const chipAnimation = [
     ])
 ];
 
+class FacetStorageService {
+    constructor() {
+        this.useLocalStorage = false;
+        this.loggingCallback = () => {
+        };
+    }
+    /**
+     * Update the loggingCallback function
+     */
+    updateLoggingCallback(loggingCallback) {
+        this.loggingCallback = loggingCallback;
+    }
+    /**
+     * Saves the selected facets to localStorage for our current identifier
+     */
+    updateSavedFacets(identifier, selectedFacets) {
+        if (!identifier) {
+            this.loggingCallback(`Cannot update ${this.mode}, no ID set`);
+            return;
+        }
+        this.loggingCallback(`Saving facets in ${this.mode} for component with ID`, identifier);
+        if (this.useLocalStorage) {
+            localStorage.setItem(identifier, JSON.stringify(selectedFacets));
+        }
+        else {
+            sessionStorage.setItem(identifier, JSON.stringify(selectedFacets));
+        }
+    }
+    /**
+     * Clears previously saved facets for this specific component
+     */
+    clearStorage(identifier) {
+        if (!identifier) {
+            return;
+        }
+        this.loggingCallback(`Clearing ${this.mode} for ID`, identifier);
+        if (this.useLocalStorage) {
+            localStorage.removeItem(identifier);
+        }
+        else {
+            sessionStorage.removeItem(identifier);
+        }
+    }
+    /**
+     * Loads facets from storage for our current identifier
+     */
+    loadFacetsFromStorage(identifier) {
+        let sessionFacets = [];
+        if (!!identifier && !!localStorage.getItem(identifier)) {
+            if (this.useLocalStorage) {
+                sessionFacets = JSON.parse(localStorage.getItem(identifier));
+            }
+            else {
+                sessionFacets = JSON.parse(sessionStorage.getItem(identifier));
+            }
+            sessionFacets = (sessionFacets || []);
+            this.loggingCallback('Loaded facets for component with ID', identifier, sessionFacets);
+        }
+        else if (!!!identifier) {
+            this.loggingCallback('No identifier set on this component');
+        }
+        else if (this.checkStorage(identifier)) {
+            this.loggingCallback(`No ${this.mode} variable set for component with ID`, identifier, localStorage.getItem(identifier));
+        }
+        return sessionFacets;
+    }
+    get mode() {
+        return (this.useLocalStorage ? 'localStorage' : 'sessionStorage');
+    }
+    checkStorage(key) {
+        if (this.useLocalStorage) {
+            return !!!localStorage.getItem(key);
+        }
+        else {
+            return !!!sessionStorage.getItem(key);
+        }
+    }
+}
+FacetStorageService.ɵfac = function FacetStorageService_Factory(t) { return new (t || FacetStorageService)(); };
+FacetStorageService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ factory: function FacetStorageService_Factory() { return new FacetStorageService(); }, token: FacetStorageService, providedIn: "root" });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](FacetStorageService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return []; }, null); })();
+
 // @dynamic
 class NgxMatFacetSearchComponent {
-    constructor(configuration, modal, media, vcRef) {
+    constructor(configuration, modal, media, storageService, vcRef) {
         this.modal = modal;
         this.media = media;
+        this.storageService = storageService;
         this.vcRef = vcRef;
         this.placeholder = 'Filter Table...';
         this.clearButtonText = 'Clear Filters';
@@ -1317,11 +1406,13 @@ class NgxMatFacetSearchComponent {
         });
     }
     set source(facets) {
-        this.sourceFacets = facets;
-        this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
-        this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
-        this.filteredFacets = this.availableFacets;
-        this.emitSelectedEvent();
+        if (!!facets && facets.length > 0) {
+            this.sourceFacets = facets;
+            this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
+            this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
+            this.filteredFacets = this.availableFacets;
+            this.updateSelectedFacets();
+        }
     }
     static getFixedURL() {
         return window.location.pathname.toString()
@@ -1334,11 +1425,6 @@ class NgxMatFacetSearchComponent {
         if (!this.identifier) {
             this.generateIdentity();
         }
-        this.updateAvailableFacets();
-        this.selectedFacets = this.loadFromSessionStorage();
-        this.updateSessionStorage();
-        this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
-            .forEach(facet => this.selectedFacets.push(facet));
     }
     ngAfterViewInit() {
         (0,rxjs__WEBPACK_IMPORTED_MODULE_26__.fromEvent)(this.filterInput.nativeElement, 'keyup')
@@ -1402,26 +1488,39 @@ class NgxMatFacetSearchComponent {
             this.selectedFacets.push(facet);
         }
         this.emitSelectedEvent();
-        this.updateSessionStorage();
+        this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
     }
     removeFacet(facet) {
         if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.labelText + '" filter?'))) {
             this.selectedFacets = this.selectedFacets.filter(f => f.name !== facet.name);
             this.emitSelectedEvent();
-            this.updateSessionStorage();
+            this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
             return true;
         }
         return false;
     }
+    updateSelectedFacets() {
+        this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
+            .forEach(facet => this.selectedFacets.push(facet));
+        this.selectedFacets = this.storageService.loadFacetsFromStorage(this.identifier).filter(facet => {
+            return this.availableFacets.findIndex(f => f.name === facet.name) > -1;
+        }).map(facet => {
+            const availableFacet = this.availableFacets.find(f => f.name === facet.name);
+            availableFacet.values = facet.values;
+            return availableFacet;
+        });
+        if (this.selectedFacets.length > 0) {
+            this.emitSelectedEvent();
+        }
+    }
     updateAvailableFacets() {
         this.availableFacets = this.sourceFacets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
         this.filteredFacets = this.availableFacets;
-        this.clearSessionStorage();
     }
     reset() {
         this.selectedFacets = this.sourceFacets.filter(facet => facet.readonly === true);
         this.emitSelectedEvent();
-        this.clearSessionStorage();
+        this.storageService.clearStorage(this.identifier);
     }
     emitSelectedEvent() {
         this.updateAvailableFacets();
@@ -1446,7 +1545,7 @@ class NgxMatFacetSearchComponent {
     }
     /**
      * Update the identity of this Facet Search Component
-     * This function does NOT reload/re-fetch previously saved facets from sessionStorage
+     * This function does NOT reload/re-fetch previously saved facets from localStorage
      *
      * @param identifier - new identifier for the component
      */
@@ -1464,15 +1563,6 @@ class NgxMatFacetSearchComponent {
      */
     getIdentifierStrategy() {
         return this.identifierStrategy;
-    }
-    /**
-     * Clears previously saved facets for this specific component
-     */
-    clearSessionStorage() {
-        if (!this.identifier) {
-            return;
-        }
-        sessionStorage.removeItem(this.identifier);
     }
     /**
      * Prints this component's identity to console
@@ -1498,7 +1588,7 @@ class NgxMatFacetSearchComponent {
     }
     /**
      * Reconfigure this Facet Search Component
-     * This function will reload the previously saved facets from sessionStorage if they exist
+     * This function will reload the previously saved facets from localStorage if they exist
      *
      * @param configuration - Partial FacetConfig
      * @param identity - Optional identity parameter if you want to override or provide a manual value
@@ -1515,13 +1605,9 @@ class NgxMatFacetSearchComponent {
                 this.loggingCallback = configuration.loggingCallback;
             }
         }
-        const previousIdentity = `${this.identifier}`;
         this.generateIdentity(identity);
-        if (previousIdentity !== this.identifier) {
-            this.loggingCallback('Loading facets from sessionStorage for', this.identifier);
-            this.selectedFacets = this.loadFromSessionStorage();
-        }
         this.loggingCallback('Reconfigured', this.identifier);
+        this.storageService.updateLoggingCallback(this.loggingCallback);
     }
     /**
      * Generates an identity for a Facet Search Component
@@ -1547,46 +1633,8 @@ class NgxMatFacetSearchComponent {
         }
         this.identify(identity);
     }
-    /**
-     * Saves the selected facets to sessionStorage for our current identifier
-     * @private
-     */
-    updateSessionStorage() {
-        if (!this.identifier) {
-            this.loggingCallback('Cannot update sessionStorage, no ID set');
-            return;
-        }
-        if (this.selectedFacets.length === 0) {
-            this.clearSessionStorage();
-            this.loggingCallback('Clearing sessionStorage for component with ID', this.identifier);
-            return;
-        }
-        this.loggingCallback('Saving facets in sessionStorage for component with ID', this.identifier);
-        sessionStorage.setItem(this.identifier, JSON.stringify(this.selectedFacets));
-    }
-    /**
-     * Loads facets from sessionStorage for our current identifier
-     * @private
-     */
-    loadFromSessionStorage() {
-        let sessionFacets = [];
-        if (!!this.identifier && !!sessionStorage.getItem(this.identifier)) {
-            sessionFacets = JSON.parse(sessionStorage.getItem(this.identifier));
-            this.loggingCallback('Loaded facets for component with ID', this.identifier, sessionFacets);
-        }
-        else if (!!!this.identifier) {
-            this.loggingCallback('No identifier set on this component');
-        }
-        else if (!!!sessionStorage.getItem(this.identifier)) {
-            this.loggingCallback('No sessionStorage variable set for component with ID', this.identifier, sessionStorage.getItem(this.identifier));
-        }
-        setTimeout(() => {
-            this.emitSelectedEvent();
-        }, 500);
-        return sessionFacets;
-    }
 }
-NgxMatFacetSearchComponent.ɵfac = function NgxMatFacetSearchComponent_Factory(t) { return new (t || NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef)); };
+NgxMatFacetSearchComponent.ɵfac = function NgxMatFacetSearchComponent_Factory(t) { return new (t || NgxMatFacetSearchComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FACET_CONFIG), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetModalService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](FacetStorageService), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef)); };
 NgxMatFacetSearchComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NgxMatFacetSearchComponent, selectors: [["ngx-mat-facet-search"]], viewQuery: function NgxMatFacetSearchComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c1, 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger, 5, _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_31__.MatAutocompleteTrigger);
@@ -1641,6 +1689,7 @@ NgxMatFacetSearchComponent.ctorParameters = () => [
     { type: FacetConfig, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject, args: [FACET_CONFIG,] }] },
     { type: FacetModalService },
     { type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver },
+    { type: FacetStorageService },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef }
 ];
 NgxMatFacetSearchComponent.propDecorators = {
@@ -1674,7 +1723,7 @@ NgxMatFacetSearchComponent.propDecorators = {
     }], function () { return [{ type: FacetConfig, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Inject,
                 args: [FACET_CONFIG]
-            }] }, { type: FacetModalService }, { type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef }]; }, { placeholder: [{
+            }] }, { type: FacetModalService }, { type: _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__.MediaObserver }, { type: FacetStorageService }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.ViewContainerRef }]; }, { placeholder: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
         }], clearButtonText: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__.Input
@@ -2774,7 +2823,7 @@ module.exports = webpackEmptyAsyncContext;
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.8","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.4.9","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
 
 /***/ })
 
