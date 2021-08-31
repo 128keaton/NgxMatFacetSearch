@@ -22,6 +22,7 @@ import {VCRefInjector} from './misc/parent.helper';
 import {v4 as uuidv4} from 'uuid';
 import {FacetModalService} from './modals/facet-modal.service';
 import {chipAnimation} from './ngx-mat-facet-search.animations';
+import {FacetStorageService} from './services/facet-storage.service';
 
 // @dynamic
 @Component({
@@ -40,6 +41,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
               public modal: FacetModalService,
               public media: MediaObserver,
+              private storageService: FacetStorageService,
               private vcRef: ViewContainerRef) {
 
     this.injectorRef = new VCRefInjector(this.vcRef.injector);
@@ -52,12 +54,15 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   }
 
   @Input() set source(facets: Facet[]) {
-    this.sourceFacets = facets;
+    if (!!facets && facets.length > 0) {
+      this.sourceFacets = facets;
 
-    this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
-    this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
-    this.filteredFacets = this.availableFacets;
-    this.emitSelectedEvent();
+      this.selectedFacets = this.selectedFacets.filter(s => facets.some(f => f.name === s.name));
+      this.availableFacets = facets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
+      this.filteredFacets = this.availableFacets;
+
+      this.updateSelectedFacets();
+    }
   }
 
   @Input() placeholder = 'Filter Table...';
@@ -105,12 +110,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     if (!this.identifier) {
       this.generateIdentity();
     }
-
-    this.updateAvailableFacets();
-    this.selectedFacets = this.loadFromSessionStorage();
-    this.updateSessionStorage();
-    this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
-      .forEach(facet => this.selectedFacets.push(facet));
   }
 
   ngAfterViewInit() {
@@ -190,30 +189,49 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       this.selectedFacets.push(facet);
     }
     this.emitSelectedEvent();
-    this.updateSessionStorage();
+    this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
   }
 
   removeFacet(facet: Facet): boolean {
     if (!this.confirmOnRemove || (this.confirmOnRemove && confirm('Do you really want to remove "' + facet.labelText + '" filter?'))) {
       this.selectedFacets = this.selectedFacets.filter(f => f.name !== facet.name);
       this.emitSelectedEvent();
-      this.updateSessionStorage();
+      this.storageService.updateSavedFacets(this.identifier, this.selectedFacets);
       return true;
     }
     return false;
   }
 
+
+  updateSelectedFacets(): void {
+    this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
+      .forEach(facet => this.selectedFacets.push(facet));
+
+    this.selectedFacets = this.storageService.loadFacetsFromStorage(this.identifier).filter(facet => {
+      return this.availableFacets.findIndex(f => f.name === facet.name) > -1;
+    }).map(facet => {
+
+      const availableFacet = this.availableFacets.find(f => f.name === facet.name);
+
+      availableFacet.values = facet.values;
+
+      return availableFacet;
+    });
+
+    if (this.selectedFacets.length > 0) {
+      this.emitSelectedEvent();
+    }
+  }
+
   updateAvailableFacets(): void {
     this.availableFacets = this.sourceFacets.map(f => Object.assign({}, f)).filter(f => !this.selectedFacets.some(s => s.name === f.name));
-
     this.filteredFacets = this.availableFacets;
-    this.clearSessionStorage();
   }
 
   reset(): void {
     this.selectedFacets = this.sourceFacets.filter(facet => facet.readonly === true);
     this.emitSelectedEvent();
-    this.clearSessionStorage();
+    this.storageService.clearStorage(this.identifier);
   }
 
   emitSelectedEvent(): void {
@@ -245,7 +263,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   /**
    * Update the identity of this Facet Search Component
-   * This function does NOT reload/re-fetch previously saved facets from sessionStorage
+   * This function does NOT reload/re-fetch previously saved facets from localStorage
    *
    * @param identifier - new identifier for the component
    */
@@ -263,17 +281,6 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    */
   getIdentifierStrategy(): FacetIdentifierStrategy {
     return this.identifierStrategy;
-  }
-
-  /**
-   * Clears previously saved facets for this specific component
-   */
-  clearSessionStorage() {
-    if (!this.identifier) {
-      return;
-    }
-
-    sessionStorage.removeItem(this.identifier);
   }
 
   /**
@@ -304,7 +311,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
   /**
    * Reconfigure this Facet Search Component
-   * This function will reload the previously saved facets from sessionStorage if they exist
+   * This function will reload the previously saved facets from localStorage if they exist
    *
    * @param configuration - Partial FacetConfig
    * @param identity - Optional identity parameter if you want to override or provide a manual value
@@ -324,15 +331,9 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       }
     }
 
-    const previousIdentity = `${this.identifier}`;
     this.generateIdentity(identity);
-
-    if (previousIdentity !== this.identifier) {
-      this.loggingCallback('Loading facets from sessionStorage for', this.identifier);
-      this.selectedFacets = this.loadFromSessionStorage();
-    }
-
     this.loggingCallback('Reconfigured', this.identifier);
+    this.storageService.updateLoggingCallback(this.loggingCallback);
   }
 
   /**
@@ -361,52 +362,5 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
 
     this.identify(identity);
-  }
-
-  /**
-   * Saves the selected facets to sessionStorage for our current identifier
-   * @private
-   */
-  private updateSessionStorage() {
-    if (!this.identifier) {
-      this.loggingCallback('Cannot update sessionStorage, no ID set');
-      return;
-    }
-
-    if (this.selectedFacets.length === 0) {
-      this.clearSessionStorage();
-      this.loggingCallback('Clearing sessionStorage for component with ID', this.identifier);
-      return;
-    }
-
-    this.loggingCallback('Saving facets in sessionStorage for component with ID', this.identifier);
-    sessionStorage.setItem(this.identifier, JSON.stringify(this.selectedFacets));
-  }
-
-  /**
-   * Loads facets from sessionStorage for our current identifier
-   * @private
-   */
-  private loadFromSessionStorage(): Facet[] {
-    let sessionFacets = [];
-
-    if (!!this.identifier && !!sessionStorage.getItem(this.identifier)) {
-      sessionFacets = JSON.parse(sessionStorage.getItem(this.identifier));
-      this.loggingCallback('Loaded facets for component with ID', this.identifier, sessionFacets);
-    } else if (!!!this.identifier) {
-      this.loggingCallback('No identifier set on this component');
-    } else if (!!!sessionStorage.getItem(this.identifier)) {
-      this.loggingCallback(
-        'No sessionStorage variable set for component with ID',
-        this.identifier,
-        sessionStorage.getItem(this.identifier)
-      );
-    }
-
-    setTimeout(() => {
-      this.emitSelectedEvent();
-    }, 500);
-
-    return sessionFacets;
   }
 }

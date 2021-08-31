@@ -23,7 +23,7 @@ import {A11yModule} from '@angular/cdk/a11y';
 import {FacetModalComponent} from './modals/facet-modal/facet-modal.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {PortalModule} from '@angular/cdk/portal';
-import { FocusOnShowDirective } from './directives/focus-on-show.directive';
+import {FocusOnShowDirective} from './directives/focus-on-show.directive';
 
 @NgModule({
   imports: [
