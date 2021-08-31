@@ -4,8 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
-      "lodash": "lodash",
-      "ngx-cookie-service": "ngxCookieService"
+      "uuid": "uuid"
     }
   },
   "assets": [

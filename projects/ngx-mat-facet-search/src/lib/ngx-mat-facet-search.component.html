@@ -1,8 +1,8 @@
 <div class="main-facet-wrapper">
 
   <div class="icon-wrapper" *ngIf="displayFilterIcon">
-    <mat-icon class="filter-list-icon" *ngIf="tooltip != null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()" [matTooltip]="tooltip">filter_list</mat-icon>
-    <mat-icon class="filter-list-icon" *ngIf="tooltip == null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip !== null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()" [matTooltip]="tooltip">filter_list</mat-icon>
+    <mat-icon class="filter-list-icon" *ngIf="tooltip === null" (mousedown)="clickStarted()" (mouseup)="clickEnded()" (mouseleave)="clickEnded()">filter_list</mat-icon>
   </div>
 
   <div class="content-wrapper">
@@ -37,32 +37,32 @@
           </ng-container>
 
           <div *ngSwitchCase="FacetDataType.Date">
-            “{{facet.values[0].value | date:dateFormat}}”
+            “{{getValue(facet) | date:dateFormat}}”
           </div>
 
           <div *ngSwitchCase="FacetDataType.DateRange">
-            “{{facet.values[0].value | date:dateFormat}}” ~ “{{facet.values[1].value | date:dateFormat}}”
+            “{{getValue(facet) | date:dateFormat}}” ~ “{{getValue(facet, 1) | date:dateFormat}}”
           </div>
 
           <div *ngSwitchCase="FacetDataType.Boolean">
-            <mat-checkbox [disabled]="true" class="inline-chip-checkbox" [(ngModel)]="facet.values[0].value">
+            <mat-checkbox [disabled]="true" class="inline-chip-checkbox" [ngModel]="getValue(facet)" (ngModelChange)="setValue(facet, $event.checked)">
               {{facet.labelText}}
             </mat-checkbox>
           </div>
 
           <span *ngSwitchCase="FacetDataType.Text">
-						<ng-container [ngSwitch]="facet.values[0].type">
+						<ng-container [ngSwitch]="getType(facet)">
 							<span *ngSwitchCase="FacetFilterType.contains">
-								“..{{facet.values[0].value}}..”
+								“..{{getValue(facet)}}..”
 							</span>
 							<span *ngSwitchCase="FacetFilterType.equal">
-								“{{facet.values[0].value}}”
+								“{{getValue(facet)}}”
 							</span>
 							<span *ngSwitchCase="FacetFilterType.startsWith">
-								“{{facet.values[0].value}}...”
+								“{{getValue(facet)}}...”
 							</span>
 							<span *ngSwitchCase="FacetFilterType.endsWith">
-								“...{{facet.values[0].value}}”
+								“...{{getValue(facet)}}”
 							</span>
 						</ng-container>
 					</span>
@@ -80,7 +80,7 @@
                [matChipInputAddOnBlur]="false" [matAutocomplete]="auto">
 
         <mat-autocomplete #auto="matAutocomplete" class="mat-facet-autocomplete" (optionSelected)="autoCompleteSelected($event)"
-                          [displayWith]="displayFn" panelWidth="250px">
+                          [displayWith]="autoCompleteDisplay" panelWidth="250px">
           <mat-option *ngFor="let facet of filteredFacets" [value]="facet">
             <mat-icon *ngIf="facet.icon">{{facet.icon}}</mat-icon>
             <span>{{ facet.labelText }}</span>

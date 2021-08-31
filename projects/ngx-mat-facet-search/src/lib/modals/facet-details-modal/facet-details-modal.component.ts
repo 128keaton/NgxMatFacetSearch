@@ -27,7 +27,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   @ViewChildren('typeAheadInput') typeAheadInputs: QueryList<ElementRef>;
 
   public isUpdate: boolean;
-  public typeaheadText: string;
+  public typeaheadText: string | null;
   public clearButtonDisabled = true;
 
   public FacetDataType = FacetDataType;
@@ -77,23 +77,26 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     if (this.typeAheadInputs.length > 0) {
       this.typeAheadInputChanged.pipe(
         tap(() => this.data.options = undefined),
-        debounceTime(this.data.typeahead.debounce || 300),
+        debounceTime(this.data.typeahead?.debounce || 300),
       ).subscribe(search => {
-        this.data.typeahead.function((search||'')).subscribe(options => {
-            if (!!options) {
-              this.data.options = of(options);
-            } else {
-              this.data.options = of([]);
+
+        if (!!this.data.typeahead && !!this.data.typeahead.function) {
+          this.data.typeahead.function((search || '')).subscribe(options => {
+              if (!!options) {
+                this.data.options = of(options);
+              } else {
+                this.data.options = of([]);
+              }
             }
-          }
-        );
+          );
+        }
       });
     }
   }
 
-  typeaheadValueChanged(event) {
+  typeaheadValueChanged(event: any) {
     this.typeAheadInputChanged.next(event);
-    this.clearButtonDisabled = (!!!event || event.length === 0);
+    this.clearButtonDisabled = (!event || event.length === 0);
   }
 
   truncateText(txt: string): string {
@@ -138,14 +141,12 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     }
   }
 
-  isItemSelected = (option: FacetOption): boolean => {
-    return (this.data.values || []).some(o => o.value === option.value);
-  };
+  isItemSelected = (option: FacetOption): boolean => (this.data.values || []).some(o => o.value === option.value);
 
   addOptionToSelected = (facet: Facet, option: FacetOption): void => {
     if ((facet.values || []).some(f => f.value === option.value) &&
       (facet.type === FacetDataType.Category || facet.type === FacetDataType.Typeahead)) {
-      facet.values = facet.values.filter(f => f.value !== option.value);
+      facet.values = (facet.values || []).filter(f => f.value !== option.value);
     } else {
       option.selected = true;
       switch (facet.type) {
@@ -166,6 +167,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     }
   };
 
+  // @ts-ignore
   isUpdateButtonDisabled = () => {
     switch (this.data.type) {
       case FacetDataType.Category:
@@ -176,9 +178,9 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
       case FacetDataType.TypeaheadSingle:
         return !(this.data.values || []).some(v => v.value);
       case FacetDataType.DateRange:
-        return !(this.data.values[0].value) || !(this.data.values[1].value);
+        return !(this.getValue(this.data)) || !(this.getValue(this.data, 1));
       case FacetDataType.Boolean:
-        return !(this.data.values[0].value);
+        return !(this.getValue(this.data));
     }
   };
 
@@ -189,9 +191,40 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
     this.typeaheadValueChanged(null);
   }
 
+  getValue(facet: Facet, offset?: number): any {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0].value) {
+      return facet.values[offset || 0].value as unknown as any;
+    }
+
+    return null;
+  }
+
+
+  getType(facet: Facet, offset?: number): any {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0].type) {
+      return facet.values[offset || 0].type as unknown as any;
+    }
+
+    return null;
+  }
+
+  setValue(facet: Facet, newValue: any, offset?: number) {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0]) {
+      facet.values[offset || 0].value = newValue;
+    }
+  }
+
+  setType(facet: Facet, newType: any, offset?: number) {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0].type) {
+      facet.values[offset || 0].type = newType;
+    }
+  }
+
   selectionChange(selection: MatSelectionListChange, facet: Facet, options?: FacetOption[]) {
     selection.options.filter(option => option.selected)
       .map(selectedOption => (options || []).find(option => option.value === selectedOption.value))
+      .filter(f => !!f)
+      .map(f => f as FacetOption)
       .filter(facetOption => !(facet.values || []).find(v => v === facetOption.value))
       .forEach(selectedOption => this.addOptionToSelected(facet, selectedOption));
   }

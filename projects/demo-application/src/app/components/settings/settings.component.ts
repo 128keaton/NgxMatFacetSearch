@@ -12,12 +12,6 @@ import {lotsOfValuesTypeAhead, testEmptyFilterTypeahead} from '../../common.help
 })
 export class SettingsComponent implements AfterViewInit {
 
-  // Settings
-  public chipLabelsEnabled = true;
-  public clearButtonEnabled = true;
-  public confirmOnRemove = true;
-  public isUsingSetB = true;
-
   @Output()
   strategyUpdated = new EventEmitter<FacetIdentifierStrategy>(true);
 
@@ -33,9 +27,15 @@ export class SettingsComponent implements AfterViewInit {
   }
 
   @Input()
-  currentIdentifier = '';
+  currentIdentifier: string | null = '';
 
-  public allStrategies = [];
+  // Settings
+  public chipLabelsEnabled = true;
+  public clearButtonEnabled = true;
+  public confirmOnRemove = true;
+  public isUsingSetB = true;
+
+  public allStrategies: string[] = [];
   public currentStrategy: FacetIdentifierStrategy;
   public showManualInput = new BehaviorSubject(false);
   public manualIdentifier = '';
@@ -101,13 +101,11 @@ export class SettingsComponent implements AfterViewInit {
       type: FacetDataType.Typeahead,
       icon: 'location_city',
       typeahead: {
-        function: (txt) => {
-          return of([
+        function: (txt: string | null) => of([
             {value: txt + '-a', text: txt + ' A'},
             {value: txt + '-b', text: txt + ' B'},
             {value: txt + '-c', text: txt + ' C'}
-          ]).pipe(delay(1200));
-        },
+          ]).pipe(delay(1200)),
       }
     },
     {
@@ -152,18 +150,14 @@ export class SettingsComponent implements AfterViewInit {
     this.toggleSet();
   }
 
-  chunkArray = (arr,n) => {
+  chunkArray = (arr: Array<any>, n: number) => {
     const chunkLength = Math.max(arr.length/n ,1);
     const chunks = [];
     for (let i = 0; i < n; i++) {
-      if(chunkLength*(i+1)<=arr.length)chunks.push(arr.slice(chunkLength*i, chunkLength*(i+1)));
+      if(chunkLength*(i+1)<=arr.length){chunks.push(arr.slice(chunkLength*i, chunkLength*(i+1)));}
     }
     return chunks;
-  }
-
-  getRawStrategy(strategy: FacetIdentifierStrategy) {
-    return FacetIdentifierStrategy[strategy];
-  }
+  };
 
   displayStrategy(raw: string): string {
     switch (raw) {

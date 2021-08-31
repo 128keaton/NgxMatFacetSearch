@@ -8,21 +8,22 @@ export enum FacetIdentifierStrategy {
 export class FacetConfig {
   allowDebugClick = true;
   identifierStrategy: FacetIdentifierStrategy = FacetIdentifierStrategy.ParentID;
-  loggingCallback: (...args) => void = () => {}
 
   constructor(configuration?: Partial<FacetConfig>) {
     if (configuration) {
       if (configuration.hasOwnProperty('allowDebugClick')) {
-        this.allowDebugClick = configuration.allowDebugClick;
+        this.allowDebugClick = configuration.allowDebugClick || false;
       }
 
       if (configuration.hasOwnProperty('identifierStrategy')) {
-        this.identifierStrategy = configuration.identifierStrategy;
+        this.identifierStrategy = configuration.identifierStrategy || FacetIdentifierStrategy.ParentID;
       }
 
-      if (configuration.hasOwnProperty('loggingCallback')) {
+      if (configuration.hasOwnProperty('loggingCallback') && !!configuration.loggingCallback) {
         this.loggingCallback = configuration.loggingCallback;
       }
     }
   }
+
+  loggingCallback: (...args: any[]) => void = () => {};
 }

@@ -8,7 +8,7 @@
     <mat-form-field appearance="outline">
       <mat-label>ID Generation Strategy</mat-label>
       <mat-select [(value)]="currentStrategy" (selectionChange)="strategyUpdated.emit($event.value)">
-        <mat-option *ngFor="let strategy of allStrategies" [value]="getRawStrategy(strategy)">
+        <mat-option *ngFor="let strategy of allStrategies" [value]="strategy">
           {{displayStrategy(strategy)}}
         </mat-option>
       </mat-select>

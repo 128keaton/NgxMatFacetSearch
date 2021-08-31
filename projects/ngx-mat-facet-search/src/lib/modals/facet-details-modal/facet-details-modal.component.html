@@ -26,7 +26,7 @@
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
           <mat-divider></mat-divider>
-          <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
+          <mat-selection-list *ngIf="options.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
             <mat-list-option *ngFor="let item of options; first as first" [value]="item.value" [selected]="isItemSelected(item)"
                              @fadeIn
                              focusOnShow
@@ -53,7 +53,7 @@
                  autocomplete="off"
                  focusOnShow="100"
                  [(ngModel)]="typeaheadText"
-                 placeholder="{{data.typeahead.placeholder || ''}}"
+                 placeholder="{{(data.typeahead || {placeholder: ''}).placeholder}}"
                  (ngModelChange)="typeaheadValueChanged($event)"/>
 
           <button matSuffix mat-icon-button aria-label="Clear" *ngIf="!clearButtonDisabled" (click)="clearInput()">
@@ -63,7 +63,7 @@
 
         <ng-container *ngIf="(data.options | async) as options; else loading">
           <mat-divider></mat-divider>
-          <mat-selection-list *ngIf="options?.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
+          <mat-selection-list *ngIf="options.length > 0; else noResults" (selectionChange)="selectionChange($event, data, options)">
             <mat-list-option *ngFor="let item of options; first as first" [value]="item.value"
                              @fadeIn
                              focusOnShow
@@ -86,7 +86,7 @@
 
         <mat-form-field appearance="outline" floatLabel="always" class="date-field">
           <mat-label>{{data.labelText}}</mat-label>
-          <input matInput autocomplete="off" focusOnShow="100" [matDatepicker]="picker" [(ngModel)]="data.values[0].value"
+          <input matInput autocomplete="off" focusOnShow="100" [matDatepicker]="picker" [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event)"
                  placeholder="Choose a date" (focus)="isUpdate ? emptyFunction() : picker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         </mat-form-field>
@@ -98,7 +98,7 @@
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>{{data.labelText}} - Start</mat-label>
           <input matInput focusOnShow="100" autocomplete="off" [matDatepicker]="startDatePicker"
-                 [(ngModel)]="data.values[0].value" placeholder="Choose a starting date"
+                 [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event)" placeholder="Choose a starting date"
                  (focus)="isUpdate ? emptyFunction() : startDatePicker.open()"/>
           <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         </mat-form-field>
@@ -107,7 +107,7 @@
         <mat-form-field appearance="outline" floatLabel="always">
           <mat-label>{{data.labelText}} - End</mat-label>
           <input matInput autocomplete="off" [matDatepicker]="endDatePicker"
-                 [(ngModel)]="data.values[1].value" placeholder="Choose an end date"/>
+                 [ngModel]="getValue(data, 1)" (ngModelChange)="setValue(data, $event, 1)" placeholder="Choose an end date"/>
           <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         </mat-form-field>
         <mat-datepicker #endDatePicker></mat-datepicker>
@@ -116,7 +116,8 @@
       <div *ngSwitchCase="data.type === FacetDataType.Text" class="text-wrapper">
 
         <mat-form-field class="criteria-field">
-          <mat-select [(value)]="data.fixedFilterType || data.values[0].type"
+          <mat-select [value]="data.fixedFilterType || getType(data)"
+                      (valueChange)="data.fixedFilterType = $event; setType(data, $event)"
                       [disabled]="!!data.fixedFilterType" placeholder="Criteria Type">
             <mat-option [value]="FacetFilterType.contains">Contains</mat-option>
             <mat-option [value]="FacetFilterType.endsWith">Ends With</mat-option>
@@ -126,8 +127,8 @@
         </mat-form-field>
 
         <mat-form-field class="search-field">
-          <input matInput focusOnShow (keydown.enter)="validateAndSubmit()" autocomplete="off" cdkTrapFocus
-                 [(ngModel)]="data.values[0].value"
+          <input matInput focusOnShow (keydown.enter)="validateAndSubmit()" autocomplete="off"
+                 [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event)"
                  placeholder="{{data.placeholder || data.labelText }}" autofocus/>
           <button mat-button *ngIf="data.values" matSuffix mat-icon-button aria-label="Clear"
                   (click)="data.values = undefined">
@@ -137,7 +138,7 @@
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Boolean" class="boolean-wrapper">
-        <mat-checkbox [(ngModel)]="data.values[0].value">{{data.placeholder || data.labelText}}</mat-checkbox>
+        <mat-checkbox [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event.checked)">{{data.placeholder || data.labelText}}</mat-checkbox>
       </div>
     </ng-container>
 

@@ -14,7 +14,6 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/mat
 import {Facet, FacetConfig, FacetDataType, FacetFilterType, FacetIdentifierStrategy, FacetResultType} from './models';
 import {MatChipSelectionChange} from '@angular/material/chips';
 import {FacetDetailsModalComponent} from './modals/facet-details-modal/facet-details-modal.component';
-import {MediaObserver} from '@angular/flex-layout';
 import {fromEvent} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {FACET_CONFIG} from './ngx-mat-facet.config';
@@ -24,9 +23,7 @@ import {FacetModalService} from './modals/facet-modal.service';
 import {chipAnimation} from './ngx-mat-facet-search.animations';
 import {FacetStorageService} from './services/facet-storage.service';
 
-// @dynamic
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'ngx-mat-facet-search',
   templateUrl: 'ngx-mat-facet-search.component.html',
   styleUrls: ['./ngx-mat-facet-search.component.scss'],
@@ -36,22 +33,18 @@ import {FacetStorageService} from './services/facet-storage.service';
 })
 export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
-  private injectorRef: VCRefInjector;
+  @Input() placeholder = 'Filter Table...';
+  @Input() clearButtonText = 'Clear Filters';
+  @Input() clearButtonEnabled = true;
+  @Input() dateFormat = 'M/d/yyyy';
 
-  constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
-              public modal: FacetModalService,
-              public media: MediaObserver,
-              private storageService: FacetStorageService,
-              private vcRef: ViewContainerRef) {
-
-    this.injectorRef = new VCRefInjector(this.vcRef.injector);
-    this.searchUpdated = new EventEmitter<Facet[]>();
-    this.reconfigure(configuration);
-
-    this.searchUpdated.subscribe(facets => {
-      this.loggingCallback('Facet(s) updated', facets);
-    });
-  }
+  @Input() tooltip: string | null = null;
+  @Input() displayFilterIcon = true;
+  @Input() facetWidth = '400px';
+  @Input() facetHasBackdrop = true;
+  @Input() confirmOnRemove = true;
+  @Input() chipLabelsEnabled = true;
+  @Input() identifier: string | null;
 
   @Input() set source(facets: Facet[]) {
     if (!!facets && facets.length > 0) {
@@ -65,25 +58,12 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @Input() placeholder = 'Filter Table...';
-  @Input() clearButtonText = 'Clear Filters';
-  @Input() clearButtonEnabled = true;
-  @Input() dateFormat = 'M/d/yyyy';
-
-  @Input() tooltip: string | null = null;
-  @Input() displayFilterIcon = true;
-  @Input() facetWidth = '400px';
-  @Input() facetHasBackdrop = true;
-  @Input() confirmOnRemove = true;
-  @Input() chipLabelsEnabled = true;
-  @Input() identifier = null;
-
   @Output() searchUpdated: EventEmitter<Facet[]>;
 
   @ViewChild('filterInput') filterInput: ElementRef;
   @ViewChild(MatAutocompleteTrigger, {read: MatAutocompleteTrigger}) inputAutoComplete: MatAutocompleteTrigger;
 
-  public selectedFacet: Facet;
+  public selectedFacet: Facet | undefined;
   public selectedFacets: Facet[] = [];
   public availableFacets: Facet[] = [];
   public filteredFacets: Facet[] = [];
@@ -94,6 +74,21 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   private sourceFacets: Facet[] = [];
   private timeoutHandler: any;
   private identifierStrategy: FacetIdentifierStrategy;
+  private injectorRef: VCRefInjector;
+
+  constructor(@Inject(FACET_CONFIG) configuration: FacetConfig,
+              public modal: FacetModalService,
+              private storageService: FacetStorageService,
+              private vcRef: ViewContainerRef) {
+
+    this.injectorRef = new VCRefInjector(this.vcRef.injector);
+    this.searchUpdated = new EventEmitter<Facet[]>();
+    this.reconfigure(configuration);
+
+    this.searchUpdated.subscribe(facets => {
+      this.loggingCallback('Facet(s) updated', facets);
+    });
+  }
 
   private static getFixedURL(): string {
     return window.location.pathname.toString()
@@ -103,16 +98,15 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
       .replace(/--/g, '-');
   }
 
-  private loggingCallback: (...args) => void = () => {
-  };
-
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.identifier) {
       this.generateIdentity();
+    } else {
+      this.updateSelectedFacets();
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     fromEvent(this.filterInput.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),
@@ -121,11 +115,15 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
         map(() => this.filterInput.nativeElement.value)
       ).subscribe((filterText) => {
       if (!!filterText && filterText.length > 0) {
-        this.filteredFacets = this.availableFacets.filter(f => f.name.toLowerCase().includes(filterText.toLowerCase()));
+        this.filteredFacets = this.availableFacets.filter(f => !!f && !!f.name && f.name.toLowerCase().includes(filterText.toLowerCase()));
       } else {
         this.filteredFacets = this.availableFacets;
       }
     });
+
+    if (this.selectedFacets.length > 0) {
+      this.emitSelectedEvent();
+    }
   }
 
   chipSelected(event: MatChipSelectionChange, facet: Facet): void {
@@ -139,24 +137,29 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     }
   }
 
+  autoCompleteDisplay(_: any): string {
+    return null as unknown as string;
+}
+
   autoCompleteSelected(event: MatAutocompleteSelectedEvent): void {
     const selectedFacet: Facet = event.option.value;
-    const elementRef = event.option._getHostElement().parentElement.getBoundingClientRect();
-    const top = elementRef.top - 3;
-    const left = elementRef.left;
+    const parentElement = event.option._getHostElement().parentElement;
 
-    this.facetSelected(selectedFacet, {
-      top,
-      left: (!this.media.isActive('xs') ? left : undefined)
-    }, false, event.option._getHostElement());
+    if (!!parentElement) {
+      const elementRef = parentElement.getBoundingClientRect();
 
+      const top = elementRef.top - 3;
+      const left = elementRef.left;
+
+      this.facetSelected(selectedFacet, {top, left}, false, event.option._getHostElement());
+    }
   }
 
-  facetSelected(facet: Facet, position: { top: number, left: number | undefined }, isUpdate: boolean, target): void {
+  facetSelected(facet: Facet, position: { top: number; left: number | undefined }, isUpdate: boolean, target: any): void {
     this.promptFacet(Object.assign({}, facet), position, isUpdate, target);
   }
 
-  promptFacet(facet: Facet, position: { top: number, left: number | undefined }, isUpdate: boolean, target): void {
+  promptFacet(facet: Facet, position: { top: number; left: number | undefined }, isUpdate: boolean, target: any): void {
     this.filteredFacets = this.availableFacets;
 
 
@@ -204,19 +207,24 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
 
   updateSelectedFacets(): void {
+    this.loggingCallback('Updating selected facets:', this.selectedFacets);
+
     this.sourceFacets.filter(facet => facet && facet.values && Array.isArray(facet.values))
       .forEach(facet => this.selectedFacets.push(facet));
 
-    this.selectedFacets = this.storageService.loadFacetsFromStorage(this.identifier).filter(facet => {
-      return this.availableFacets.findIndex(f => f.name === facet.name) > -1;
-    }).map(facet => {
+    this.selectedFacets = this.storageService.loadFacetsFromStorage(this.identifier)
+      .filter(facet => this.availableFacets.findIndex(f => f.name === facet.name) > -1)
+      .map(facet => {
 
-      const availableFacet = this.availableFacets.find(f => f.name === facet.name);
+        const availableFacet = this.availableFacets.find(f => f.name === facet.name);
 
-      availableFacet.values = facet.values;
+        if (!!availableFacet) {
+          availableFacet.values = facet.values;
+        }
 
-      return availableFacet;
-    });
+        return availableFacet;
+      })
+      .filter(facet => !!facet) as Facet[];
 
     if (this.selectedFacets.length > 0) {
       this.emitSelectedEvent();
@@ -237,26 +245,22 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
   emitSelectedEvent(): void {
     this.updateAvailableFacets();
     this.searchUpdated.next(this.selectedFacets.map(facet => ({
-        name: facet.name,
-        labelText: facet.labelText,
-        type: facet.type,
-        values: (facet.values || []).map(val => ({
-            value: val.value,
-            labelText: val.text,
-            type: val.type,
-            active: true
-          })
-        )
-      })
+          name: facet.name,
+          labelText: facet.labelText,
+          type: facet.type,
+          values: (facet.values || []).map(val => ({
+              value: val.value,
+              labelText: val.text,
+              type: val.type,
+              active: true
+            })
+          )
+        })
       )
     );
   }
 
-  displayFn(...args: any): string | undefined {
-    return undefined;
-  }
-
-  focus(event) {
+  focus(event: MouseEvent) {
     event.stopPropagation();
     this.inputAutoComplete.openPanel();
   }
@@ -267,9 +271,9 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    *
    * @param identifier - new identifier for the component
    */
-  identify(identifier: string) {
+  identify(identifier: string | null | undefined) {
     this.loggingCallback(`Identifying facet with ID: ${identifier}`);
-    if (!!!identifier || identifier.length === 0 || identifier === '-') {
+    if (!identifier || identifier.length === 0 || identifier === '-') {
       this.identifier = 'default-facet';
     } else {
       this.identifier = `${identifier}-facet`;
@@ -288,6 +292,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    */
   printIdentity() {
     console.log(this.identifier);
+    this.updateAvailableFacets();
   }
 
   /// DEBUG - Long Click Filter Icon
@@ -316,17 +321,17 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
    * @param configuration - Partial FacetConfig
    * @param identity - Optional identity parameter if you want to override or provide a manual value
    */
-  reconfigure(configuration: Partial<FacetConfig> | FacetConfig, identity?: string) {
-    if (configuration) {
+  reconfigure(configuration?: Partial<FacetConfig> | FacetConfig | null, identity?: string) {
+    if (!!configuration) {
       if (configuration.hasOwnProperty('allowDebugClick')) {
-        this.allowDebugClick = configuration.allowDebugClick;
+        this.allowDebugClick = configuration.allowDebugClick || false;
       }
 
       if (configuration.hasOwnProperty('identifierStrategy')) {
-        this.identifierStrategy = configuration.identifierStrategy;
+        this.identifierStrategy = configuration.identifierStrategy || FacetIdentifierStrategy.ParentID;
       }
 
-      if (configuration.hasOwnProperty('loggingCallback')) {
+      if (configuration.hasOwnProperty('loggingCallback') && !!configuration.loggingCallback) {
         this.loggingCallback = configuration.loggingCallback;
       }
     }
@@ -336,8 +341,32 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
     this.storageService.updateLoggingCallback(this.loggingCallback);
   }
 
+  getValue(facet: Facet, offset?: number): any {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0].value) {
+      return facet.values[offset || 0].value as unknown as any;
+    }
+
+    return null;
+  }
+
+
+  getType(facet: Facet, offset?: number): any {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0].type) {
+      return facet.values[offset || 0].type as unknown as any;
+    }
+
+    return null;
+  }
+
+  setValue(facet: Facet, newValue: any, offset?: number) {
+    if (!!facet && !!facet.values && facet.values.length > 0 && !!facet.values[offset || 0]) {
+      facet.values[offset || 0].value = newValue;
+    }
+  }
+
   /**
    * Generates an identity for a Facet Search Component
+   *
    * @param manual - manually set the identifier
    * @private
    */
@@ -363,4 +392,7 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
     this.identify(identity);
   }
+
+  private loggingCallback: (...args: any[]) => void = () => {
+  };
 }

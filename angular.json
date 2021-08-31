@@ -26,9 +26,6 @@
             "production": {
               "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.prod.json"
             },
-            "ivy": {
-              "tsConfig": "projects/ngx-mat-facet-search/tsconfig.lib.ivy.json"
-            }
           },
           "defaultConfiguration": "production"
         },

@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
-    "build": "ng build ngx-mat-facet-search",
-    "build:ivy": "ng build ngx-mat-facet-search --configuration=ivy",
+    "build": "ng build",
+    "watch": "ng build --watch ngx-mat-facet-search",
     "test": "jest --coverage --config ./projects/ngx-mat-facet-search/jest.config.js",
     "test:watch": "jest -o --watch --config ./projects/ngx-mat-facet-search/jest.config.js",
     "lint": "ng lint",
@@ -43,6 +43,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^27.0.1",
     "@types/node": "^12.11.1",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
     "codelyzer": "^6.0.0",

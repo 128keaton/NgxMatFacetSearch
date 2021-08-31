@@ -5,9 +5,8 @@ import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 })
 export class FocusOnShowDirective implements OnInit {
 
-  @Input('focusOnShow') timeout = 0;
-
-  @Input('firstElement') first = true;
+  @Input('focusOnShow') timeout = '0';
+  @Input() firstElement = true;
 
   constructor(private el: ElementRef) {
     if (!el.nativeElement.focus) {
@@ -16,10 +15,10 @@ export class FocusOnShowDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.first) {
+    if (this.firstElement) {
       setTimeout(() => {
         this.focusInput();
-      }, (this.timeout || 0));
+      }, (Number(this.timeout) || 0));
     }
   }
 

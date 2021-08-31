@@ -10,14 +10,12 @@ import packageData from '../../../ngx-mat-facet-search/package.json';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
-      provide: FACET_CONFIG, useFactory: () => {
-        return new FacetConfig({
+      provide: FACET_CONFIG, useFactory: () => new FacetConfig({
           loggingCallback: (...args) => {
             console.log(...args);
           },
           identifierStrategy: FacetIdentifierStrategy.ParentID
-        });
-      }
+        })
     }
   ]
 })

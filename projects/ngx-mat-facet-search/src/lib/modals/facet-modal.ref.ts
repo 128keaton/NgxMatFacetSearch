@@ -33,7 +33,9 @@ export class FacetModalRef {
   }
 
   close(dialogResult?: FacetResult): void {
-    this._result = dialogResult;
+    if (!!dialogResult) {
+      this._result = dialogResult;
+    }
 
     this.beforeClosedSubject.next(this._result);
     this.beforeClosedSubject.complete();

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Facet} from '../models';
 
 @Injectable({
@@ -12,14 +12,14 @@ export class FacetStorageService {
   /**
    * Update the loggingCallback function
    */
-  updateLoggingCallback(loggingCallback: (...args) => void) {
+  updateLoggingCallback(loggingCallback: (...args: any[]) => void) {
     this.loggingCallback = loggingCallback;
   }
 
   /**
    * Saves the selected facets to localStorage for our current identifier
    */
-  updateSavedFacets(identifier: string, selectedFacets: Facet[]) {
+  updateSavedFacets(identifier: string | null, selectedFacets: Facet[]) {
     if (!identifier) {
       this.loggingCallback(`Cannot update ${this.mode}, no ID set`);
       return;
@@ -39,7 +39,7 @@ export class FacetStorageService {
   /**
    * Clears previously saved facets for this specific component
    */
-  clearStorage(identifier: string) {
+  clearStorage(identifier: string | null) {
     if (!identifier) {
       return;
     }
@@ -56,20 +56,20 @@ export class FacetStorageService {
   /**
    * Loads facets from storage for our current identifier
    */
-  loadFacetsFromStorage(identifier: string): Facet[] {
+  loadFacetsFromStorage(identifier: string | null): Facet[] {
     let sessionFacets = [];
 
-    if (!!identifier && !!localStorage.getItem(identifier)) {
+    if (!!identifier && !this.checkStorage(identifier)) {
       if (this.useLocalStorage) {
-        sessionFacets = JSON.parse(localStorage.getItem(identifier));
+        sessionFacets = JSON.parse(localStorage.getItem(identifier) || '');
       } else {
-        sessionFacets = JSON.parse(sessionStorage.getItem(identifier));
+        sessionFacets = JSON.parse(sessionStorage.getItem(identifier) || '');
       }
 
       sessionFacets = (sessionFacets || []);
 
       this.loggingCallback('Loaded facets for component with ID', identifier, sessionFacets);
-    } else if (!!!identifier) {
+    } else if (!identifier) {
       this.loggingCallback('No identifier set on this component');
     } else if (this.checkStorage(identifier)) {
       this.loggingCallback(
@@ -82,7 +82,7 @@ export class FacetStorageService {
     return sessionFacets;
   }
 
-  private loggingCallback: (...args) => void = () => {
+  private loggingCallback: (...args: any[]) => void = () => {
   };
 
   private get mode(): 'localStorage' | 'sessionStorage' {
@@ -91,9 +91,9 @@ export class FacetStorageService {
 
   private checkStorage(key: string): boolean {
     if (this.useLocalStorage) {
-      return !!!localStorage.getItem(key);
+      return !localStorage.getItem(key);
     } else {
-      return !!!sessionStorage.getItem(key);
+      return !sessionStorage.getItem(key);
     }
   }
 }
