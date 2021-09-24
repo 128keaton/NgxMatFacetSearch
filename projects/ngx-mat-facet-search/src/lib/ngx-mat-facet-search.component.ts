@@ -228,6 +228,8 @@ export class NgxMatFacetSearchComponent implements OnInit, AfterViewInit {
 
     if (this.selectedFacets.length > 0) {
       this.emitSelectedEvent();
+    } else {
+      this.reset();
     }
   }
 

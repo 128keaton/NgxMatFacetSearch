@@ -1,3 +1,7 @@
+# 0.6.0
+* Fixed:
+  * Facets not clearing output when changing available facets
+  
 # 0.5.9
 * Improved:
   * Layout on text facet search
