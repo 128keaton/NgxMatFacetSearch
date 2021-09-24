@@ -1,3 +1,7 @@
+# 0.5.7
+* Fixed:
+  * Boolean value not able to be saved/updated
+
 # 0.4.8
 * Fixed:
   * Reverts change made in 0.4.7 to calculate Y offset of modal

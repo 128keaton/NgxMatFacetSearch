@@ -138,7 +138,7 @@
 
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Boolean" class="boolean-wrapper">
-        <mat-checkbox [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event.checked)">{{data.placeholder || data.labelText}}</mat-checkbox>
+        <mat-checkbox [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event)">{{data.placeholder || data.labelText}}</mat-checkbox>
       </div>
     </ng-container>
 
