@@ -117,8 +117,7 @@
 
         <mat-form-field class="criteria-field">
           <mat-select [value]="data.fixedFilterType || getType(data)"
-                      (valueChange)="data.fixedFilterType = $event; setType(data, $event)"
-                      [disabled]="!!data.fixedFilterType" placeholder="Criteria Type">
+                      (valueChange)="data.fixedFilterType = $event; setType(data, $event)" placeholder="Criteria Type">
             <mat-option [value]="FacetFilterType.contains">Contains</mat-option>
             <mat-option [value]="FacetFilterType.endsWith">Ends With</mat-option>
             <mat-option [value]="FacetFilterType.equal">Equals</mat-option>

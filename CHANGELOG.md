@@ -1,3 +1,7 @@
+# 0.5.8
+* Fixed:
+  * Criteria type in text facet not able to be saved/updated after initially setting it
+  
 # 0.5.7
 * Fixed:
   * Boolean value not able to be saved/updated
