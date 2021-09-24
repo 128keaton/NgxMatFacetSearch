@@ -115,7 +115,8 @@
       </div>
       <div *ngSwitchCase="data.type === FacetDataType.Text" class="text-wrapper">
 
-        <mat-form-field class="criteria-field">
+        <mat-form-field class="criteria-field" appearance="outline">
+          <mat-label>Criteria Type</mat-label>
           <mat-select [value]="data.fixedFilterType || getType(data)"
                       (valueChange)="data.fixedFilterType = $event; setType(data, $event)" placeholder="Criteria Type">
             <mat-option [value]="FacetFilterType.contains">Contains</mat-option>
@@ -125,7 +126,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="search-field">
+        <mat-form-field class="search-field" appearance="outline">
+          <mat-label>Search Text</mat-label>
           <input matInput focusOnShow (keydown.enter)="validateAndSubmit()" autocomplete="off"
                  [ngModel]="getValue(data)" (ngModelChange)="setValue(data, $event)"
                  placeholder="{{data.placeholder || data.labelText }}" autofocus/>

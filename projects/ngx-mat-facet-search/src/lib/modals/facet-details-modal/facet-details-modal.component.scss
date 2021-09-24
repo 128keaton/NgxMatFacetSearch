@@ -95,18 +95,9 @@ p.description {
 
 .text-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex: 2;
-
-  .criteria-field {
-    width: 100px;
-    min-width: 100px;
-    flex: 0;
-  }
-
-  .search-field {
-    flex: 2;
-  }
+  margin-top: 1rem;
 }
 
 .date-wrapper {

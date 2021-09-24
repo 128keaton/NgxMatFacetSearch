@@ -1,3 +1,7 @@
+# 0.5.9
+* Improved:
+  * Layout on text facet search
+  
 # 0.5.8
 * Fixed:
   * Criteria type in text facet not able to be saved/updated after initially setting it
