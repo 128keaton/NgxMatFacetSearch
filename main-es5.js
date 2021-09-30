@@ -2188,9 +2188,7 @@
           value: function selectionChange(selection, facet, options) {
             var _this5 = this;
 
-            selection.options.filter(function (option) {
-              return option.selected;
-            }).map(function (selectedOption) {
+            selection.options.map(function (selectedOption) {
               return (options || []).find(function (option) {
                 return option.value === selectedOption.value;
               });
@@ -5350,7 +5348,7 @@
     function _(module) {
       "use strict";
 
-      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.6.0","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+      module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.6.1","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
       /***/
     }
   },

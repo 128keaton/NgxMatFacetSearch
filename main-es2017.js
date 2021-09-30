@@ -1463,7 +1463,7 @@ class FacetDetailsModalComponent {
   }
 
   selectionChange(selection, facet, options) {
-    selection.options.filter(option => option.selected).map(selectedOption => (options || []).find(option => option.value === selectedOption.value)).filter(f => !!f).map(f => f).filter(facetOption => !(facet.values || []).find(v => v === facetOption.value)).forEach(selectedOption => this.addOptionToSelected(facet, selectedOption));
+    selection.options.map(selectedOption => (options || []).find(option => option.value === selectedOption.value)).filter(f => !!f).map(f => f).filter(facetOption => !(facet.values || []).find(v => v === facetOption.value)).forEach(selectedOption => this.addOptionToSelected(facet, selectedOption));
   }
 
 }
@@ -3565,7 +3565,7 @@ module.exports = webpackEmptyAsyncContext;
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.6.0","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
+module.exports = JSON.parse('{"name":"ngx-mat-facet-search","version":"0.6.1","author":"Keaton Burleson","repository":"https://github.com/128keaton/NgxMatFacetSearch","peerDependencies":{"@angular/common":"^12.0.4","@angular/core":"^12.0.4","@angular/forms":"^12.0.4","@angular/material":"^12.0.4","uuid":"^8.3.2"},"dependencies":{"tslib":"^2.1.0"}}');
 
 /***/ })
 
