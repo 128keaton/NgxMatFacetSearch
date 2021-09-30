@@ -221,7 +221,7 @@ export class FacetDetailsModalComponent implements OnInit, AfterViewInit {
   }
 
   selectionChange(selection: MatSelectionListChange, facet: Facet, options?: FacetOption[]) {
-    selection.options.filter(option => option.selected)
+    selection.options
       .map(selectedOption => (options || []).find(option => option.value === selectedOption.value))
       .filter(f => !!f)
       .map(f => f as FacetOption)

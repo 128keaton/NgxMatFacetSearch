@@ -1,3 +1,7 @@
+# 0.6.1
+* Fixed:
+  * Multi-select/typeahead facets only allowing options to be selected once and not de-selected
+  
 # 0.6.0
 * Fixed:
   * Facets not clearing output when changing available facets
